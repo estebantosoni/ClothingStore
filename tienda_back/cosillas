@@ -1,0 +1,15 @@
+
+
+	POR AHORA NO FUNCIONAN LAS PETICIONES CON CURL
+	 - PROBE EN POWERSHELL, PERO TIRA ERROR
+	 - PROBE EN CMD, PERO NO EXISTE EL COMANDO AHI
+	 
+	PASOS
+	
+	1. ME REGISTRO
+	curl -X POST http://localhost:8080/api/auth/signup -H 'Content-Type: application/json' -d '{ "username":"esteban", "email":"tosoniesteban@gmail.com", "password":"1234", "role": [ "USER" ] }'
+	
+	2. ME LOGEO
+	curl -X POST http://localhost:8080/api/auth/signin -H 'Content-Type: application/json' -d '{ "username":"esteban", "password":"1234" }'
+	
+		NOTA: si le agrego -v al final, puedo ver el token generado, en el apartado Set-Cookie
