@@ -1,4 +1,4 @@
-export class indumentaria{
+export class Dress{
     
     constructor(private sexo:string,private edad:string,private subcategoria:string,
                 private marca:string,private codigo:string,private talle:number,

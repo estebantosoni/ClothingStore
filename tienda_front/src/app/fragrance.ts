@@ -1,4 +1,4 @@
-export class Fragancia{
+export class Fragrance{
     //private imagen:ni idea;
 
     constructor(private volumen:number,private subcategoria:string,private aroma:string,
