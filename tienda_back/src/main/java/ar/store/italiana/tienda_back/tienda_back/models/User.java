@@ -1,7 +1,5 @@
 package ar.store.italiana.tienda_back.tienda_back.models;
 
-import java.util.ArrayList;
-
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
@@ -14,13 +12,13 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "users",			//COMO NO PUEDO LLAMAR A LA CLASE 'USER', YA QUE ESTA RESERVADO, CAMBIO EL NOMBRE A LA ENTIDAD						
+@Table(name = "users",			//COMO NO PUEDO LLAMAR A LA CLASE 'USER', YA QUE ESTA RESERVADO, CAMBIO EL NOMBRE A LA ENTIDAD
 uniqueConstraints = {
     @UniqueConstraint(columnNames = "username"),
     @UniqueConstraint(columnNames = "email")
 	})
 @NoArgsConstructor				//CREA EL CONSTRUCTOR SIN ARGUMENTOS DE FORMA AUTOMATICA
-public class User{
+public class User {
 	
 	public User(String username, String email, String password) {
 		this.username = username;
@@ -29,7 +27,7 @@ public class User{
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)		//EN EL EJEMPLO, SE USA 'IDENTITY' EN VEZ DE 'AUTO'
+	@GeneratedValue(strategy = GenerationType.IDENTITY)		//EN EL EJEMPLO, SE USA 'IDENTITY' EN VEZ DE 'AUTO'
 	private Long id;
 	
 	@NotBlank					//EVITO QUE LA VARIABLE SEA VACIA
@@ -57,7 +55,7 @@ public class User{
 	// SIN EMBARGO, NOSOTROS QUEREMOS TRABAJAR CON UN TIPO PRIMITIVO
 	// ANTE ESTO, SE USA TEMPORALMENTE ARRAYLIST
 	// NOTA: CREO QUE SERIA CONVENIENTE CREAR UNA FUNCION QUE IMPIDA AGREGAR ELEMENTOS YA EXISTENTES
-	private ArrayList<String> favoritos = new ArrayList<String>();		
+	//private ArrayList<String> favoritos = new ArrayList<String>();
 	
 	
 }
