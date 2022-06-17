@@ -1,7 +1,7 @@
 export class User{
 
     constructor(
-        private user:string,
+        private username:string,
         private password:string,
         //private admin:boolean
         ){}

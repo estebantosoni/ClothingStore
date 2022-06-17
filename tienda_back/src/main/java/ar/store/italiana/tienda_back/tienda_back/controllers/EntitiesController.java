@@ -2,9 +2,12 @@ package ar.store.italiana.tienda_back.tienda_back.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.store.italiana.tienda_back.tienda_back.models.User;
 import ar.store.italiana.tienda_back.tienda_back.services.ServiceInterface;
 
 
@@ -14,13 +17,19 @@ import ar.store.italiana.tienda_back.tienda_back.services.ServiceInterface;
 
 
 @RestController										//AGREGO REST
-//@CrossOrigin
-//@RequestMapping("/api")							//POR DEFECTO LO DEJAMOS EN API, PERO HAY QUE VER QUE HACEMOS EN EL FRONT
+@CrossOrigin
+@RequestMapping("/interface")							//POR DEFECTO LO DEJAMOS EN API, PERO HAY QUE VER QUE HACEMOS EN EL FRONT
 public class EntitiesController {					//LA CLASE TODAVIA NO ESTÁ DEFINIDA PARA UNA ENTIDAD PARTICULAR, MAS ADELANTE SE PUEDE CAMBIAR EL NOMBRE
 	
 	@Autowired
 	private ServiceInterface service;
 	
 	//ACÁ ABAJO SE VAN A IR AGREGANDO LOS ENDPOINTS (PUT, POST, DELETE, GET) CON SUS RESPECTIVAS FUNCIONES
+	
+	@PostMapping("/user")
+	public boolean checkIfUserExists(@RequestBody User user) {
+	
+		return service.checkUser(user);
+	}
 	
 }

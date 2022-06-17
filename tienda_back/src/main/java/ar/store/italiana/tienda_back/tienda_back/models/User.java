@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @Table(name = "users",			//COMO NO PUEDO LLAMAR A LA CLASE 'USER', YA QUE ESTA RESERVADO, CAMBIO EL NOMBRE A LA ENTIDAD
-uniqueConstraints = {
-    @UniqueConstraint(columnNames = "username"),
-    @UniqueConstraint(columnNames = "email")
-	})
+		uniqueConstraints = {
+				@UniqueConstraint(columnNames = "username"),
+				@UniqueConstraint(columnNames = "email")
+		})
 @NoArgsConstructor				//CREA EL CONSTRUCTOR SIN ARGUMENTOS DE FORMA AUTOMATICA
 public class User {
 	

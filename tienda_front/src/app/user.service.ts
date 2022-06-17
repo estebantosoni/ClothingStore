@@ -11,7 +11,7 @@ export class UserService {
 
   constructor(private backend: HttpClient) { }
 
-  checkUser(usr:User):Observable<Boolean>{
-    return this.backend.post<Boolean>(`${environment.backurl}/user`,usr);
+  checkUser(usr:User):Observable<boolean>{
+    return this.backend.post<boolean>(`${environment.backurl}/user`,usr);
   }
 }
