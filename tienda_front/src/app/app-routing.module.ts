@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DressComponent } from './dress/dress.component';
+import { FragranceComponent } from './fragrance/fragrance.component';
 //import { AppComponent } from './app.component';
 import { InterfaceComponent } from './interface/interface.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -7,9 +9,11 @@ import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
   {path: 'interface', component: InterfaceComponent},
-  {path: 'user', component: UserComponent},
+  {path: 'user',      component: UserComponent},
+  {path: 'dress',     component: DressComponent},
+  {path: 'fragance',  component: FragranceComponent},
   {path: '', redirectTo: '/interface', pathMatch: 'full'},
-  {path: '**', component: PageNotFoundComponent}
+  {path: '**',        component: PageNotFoundComponent}
 ];
 
 @NgModule({

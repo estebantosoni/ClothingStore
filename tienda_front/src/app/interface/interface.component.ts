@@ -15,8 +15,8 @@ export class InterfaceComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  goToLogin(){
-    return this.router.navigate(['/user']);
+  goTo(where:string){
+    return this.router.navigate([`/${where}`]);
   }
 
 }

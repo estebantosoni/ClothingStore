@@ -1,8 +1,7 @@
 export class Dress{
     
-    constructor(private sexo:string,private edad:string,private subcategoria:string,
-                private marca:string,private codigo:string,private talle:number,
-                private color:string,private stock:boolean,private precio:number,){
-        
+    constructor(public sex:string,public age:string,public subcategory:string,
+                public brand:string,private code:string,public size:number,
+                public color:string,public stock:boolean,public price:number,){
     }
 }

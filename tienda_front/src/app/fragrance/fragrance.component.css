@@ -1,0 +1,26 @@
+div.subcategorias{
+    width: 40%;
+    height: 100%;
+    outline: solid 2px;
+    color: rgb(204,204,0);
+    border-collapse: collapse;
+}
+ul{
+    color: black;
+}
+li{
+    cursor: pointer;
+}
+.productos{
+    margin-left: 40%;
+    width: 60%;
+    height: 100%;
+    outline: solid 2px;
+    color: blueviolet;
+    border-collapse: collapse;
+    position: relative;
+}
+.item{
+    width: 250px;
+    height: 350px;
+}

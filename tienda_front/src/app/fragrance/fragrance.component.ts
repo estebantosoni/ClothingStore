@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { FraganceService } from '../fragance.service';
 import { Fragrance } from '../fragrance';
 
 @Component({
@@ -7,14 +9,20 @@ import { Fragrance } from '../fragrance';
   styleUrls: ['./fragrance.component.css']
 })
 export class FragranceComponent implements OnInit {
+  fragrances$:Observable<Fragrance[]> = of([]);
 
-  constructor() { }
+  constructor(private service:FraganceService) { }
 
-  ngOnInit(): void {
+  ngOnInit():void{
+    this.fragrances$ = this.service.getAll();
   }
-
-  getAllFrag():Array<Fragrance>{
-    const fragancias:Array<Fragrance> = [];
-    return fragancias;
+  seeSub(subcategory:string){
+    this.fragrances$ = this.service.getFromSub(`subcategory ${subcategory}`);
+  }
+  seeSex(sex:string):void{
+    this.fragrances$ = this.service.getFromSex(`sexo ${sex}`);
+  }
+  seeOriginCountry(country:string):void{
+    this.fragrances$ = this.service.getFromCountry(`country ${country}`);
   }
 }

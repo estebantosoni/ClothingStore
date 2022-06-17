@@ -1,9 +1,9 @@
 export class Fragrance{
-    //private imagen:ni idea;
+    //public imagen:ni idea;
 
-    constructor(private volumen:number,private subcategoria:string,private aroma:string,
-                private paisOrigen:string,private sexo:string,private marca:string,
-                private codigo:string,private stock:boolean,private precio:number){
+    constructor(public volumen:number,public subcategory:string,public aroma:string,
+                public originCountry:string,public sex:string,public brand:string,
+                private code:string,public stock:boolean,public price:number){
         
     }
 

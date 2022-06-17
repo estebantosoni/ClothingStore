@@ -1,1 +1,31 @@
-<button class="producto">indumentaria</button>
+<div>
+    <div class="subcategorias">
+        <!-- ver si las ponemos estáticas acá o las traemos de la DB -->
+        <ul>Prendas
+            <li (click)="seeSub('remera')">remeras</li>
+            <li (click)="seeSub('pantalones')">pantalones</li>
+            <li (click)="seeSub('sweeters')">sweeters</li>
+            <li (click)="seeSub('buzos')">buzos</li>
+            <li (click)="seeSub('camperas')">camperas</li>
+            <li (click)="seeSub('chalecos')">chalecos</li>
+            <li (click)="seeSub('boxers')">boxers</li>
+            <li (click)="seeSub('zapatillas')">zapatillas</li>
+        </ul>
+        <ul>Sexo
+            <li (click)="seeSex('hombre')">hombre</li>
+            <li (click)="seeSex('mujer')">mujer</li>
+        </ul>
+        <ul>Edad
+            <li (click)="seeAge('niños')">niños</li>
+            <li (click)="seeAge('jovenes')">jovenes</li>
+            <li (click)="seeAge('adultos')">adultos</li>
+            <li (click)="seeAge('ancianos')">ancianos</li>
+        </ul>
+    </div>
+    <div class="productos">
+        <button *ngFor="let item of dresses$ | async" class="item">
+            <!-- <img src="item?.image" alt="product_image" width="200px" height="170px"/> -->
+            {{ item?.sex  }}: {{ item?.subcategory  }}: {{ item?.age  }}
+        </button>
+    </div>
+</div>

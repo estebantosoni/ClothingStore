@@ -1,0 +1,26 @@
+<div>
+    <div class="subcategorias">
+        <!-- ver si las ponemos estáticas acá o las traemos de la DB -->
+        <ul>Tipos
+            <li (click)="seeSub('remera')">eau de toilette</li>
+            <li (click)="seeSub('pantalones')">colonias</li>
+            <li (click)="seeSub('sweeters')">infantiles</li>
+        </ul>
+        <ul>Sexo
+            <li (click)="seeSex('hombre')">hombre</li>
+            <li (click)="seeSex('mujer')">mujer</li>
+        </ul>
+        <ul>País de origen
+            <li (click)="seeOriginCountry('niños')">niños</li>
+            <li (click)="seeOriginCountry('jovenes')">jovenes</li>
+            <li (click)="seeOriginCountry('adultos')">adultos</li>
+            <li (click)="seeOriginCountry('ancianos')">ancianos</li>
+        </ul>
+    </div>
+    <div class="productos">
+        <button *ngFor="let item of fragrances$ | async" class="item">
+            <!-- <img src="item?.image" alt="product_image" width="200px" height="170px"/> -->
+            {{ item?.sex  }}: {{ item?.subcategory  }}: {{ item?.volumen  }}
+        </button>
+    </div>
+</div>

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { Dress } from '../dress';
+import { DressService } from '../dress.service';
 
 @Component({
   selector: 'app-dress',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DressComponent implements OnInit {
 
-  constructor() { }
+  dresses$:Observable<Dress[]> = of([]);
 
-  ngOnInit(): void {
+  constructor(private service:DressService) { }
+
+  ngOnInit():void{
+    this.dresses$ = this.service.getAll();
   }
-
+  seeSub(subcategory:string){
+    this.dresses$ = this.service.getFromSub(`subcategory ${subcategory}`);
+  }
+  seeSex(sex:string):void{
+    this.dresses$ = this.service.getFromSex(`sexo ${sex}`);
+  }
+  seeAge(age:string):void{
+    this.dresses$ = this.service.getFromAge(`age ${age}`);
+  }
 }
