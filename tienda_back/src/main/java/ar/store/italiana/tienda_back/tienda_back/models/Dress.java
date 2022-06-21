@@ -11,16 +11,14 @@ import lombok.Data;
 @Entity
 @Data
 public class Dress {
-
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Embedded
 	private Product prod;
 	
-	private String edad;
-	private int talle;
+	private String age;
+	private String sizes;
 	private String color;
-	
 }

@@ -7,13 +7,12 @@ import lombok.Data;
 @Data
 @Embeddable								//EN VEZ DE HEREDAR, LO EMBEBO, PERO HAY QUE CHEQUEAR QUE ESTO SEA EFECTIVO
 public class Product {
-	
-	private String subcategoria;
-	private String sexo;
-	private String marca;
-	private String codigo;
+	private String subcategory;
+	private String sex;
+	private String brand;
+	private String code;
 	private Boolean stock;
-	private Float precio;
-	private String imagen;				//CREO QUE ESTO ES MAS COMPLEJO QUE SOLO UN STRING, HAY QUE INVESTIGAR MEJOR
+	private Float price;
+	private String image;				//CREO QUE ESTO ES MAS COMPLEJO QUE SOLO UN STRING, HAY QUE INVESTIGAR MEJOR
 	
 }

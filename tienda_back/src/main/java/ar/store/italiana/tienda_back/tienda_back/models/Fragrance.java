@@ -11,9 +11,8 @@ import lombok.Data;
 @Entity
 @Data
 public class Fragrance {
-	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Embedded
@@ -21,6 +20,6 @@ public class Fragrance {
 	
 	private int volumen;
 	private String aroma;
-	private String paisOrigen;
+	private String originCountry;
 	
 }

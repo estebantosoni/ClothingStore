@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.store.italiana.tienda_back.tienda_back.models.User;
-import ar.store.italiana.tienda_back.tienda_back.repositories.DressRepository;
-import ar.store.italiana.tienda_back.tienda_back.repositories.FragranceRepository;
 import ar.store.italiana.tienda_back.tienda_back.repositories.UserRepository;
-import ar.store.italiana.tienda_back.tienda_back.services.ServiceInterface;
+import ar.store.italiana.tienda_back.tienda_back.services.UserService;
 
 @Service
-public class UserServiceImpl implements ServiceInterface{
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository urepo;
@@ -19,7 +17,6 @@ public class UserServiceImpl implements ServiceInterface{
 	
 	@Override
 	public boolean checkUser(User user) {
-		
 		return urepo.existsByUsername(user.getUsername()) && urepo.existsByPassword(user.getPassword());
 	}
 	
