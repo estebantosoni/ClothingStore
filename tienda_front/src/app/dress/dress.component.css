@@ -19,6 +19,7 @@ div.productos{
     color: blueviolet;
     border-collapse: collapse;
     position: relative;
+    float: right;
 }
 .item{
     width: 250px;

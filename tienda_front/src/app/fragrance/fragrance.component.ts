@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { FraganceService } from '../fragance.service';
-import { Fragrance } from '../fragrance';
+import { FraganceService } from '../services/fragrance.service';
+import { Fragrance } from '../models/fragrance';
 
 @Component({
   selector: 'app-fragrance',
@@ -17,12 +17,12 @@ export class FragranceComponent implements OnInit {
     this.fragrances$ = this.service.getAll();
   }
   seeSub(subcategory:string){
-    this.fragrances$ = this.service.getFromSub(`subcategory ${subcategory}`);
+    this.fragrances$ = this.service.getFromSub(subcategory);
   }
   seeSex(sex:string):void{
-    this.fragrances$ = this.service.getFromSex(`sexo ${sex}`);
+    this.fragrances$ = this.service.getFromSex(sex);
   }
   seeOriginCountry(country:string):void{
-    this.fragrances$ = this.service.getFromCountry(`country ${country}`);
+    this.fragrances$ = this.service.getFromCountry(country);
   }
 }

@@ -15,17 +15,42 @@
     <button (click)="goTo('user')" class="login">Log in</button>
   </div>
 
-  <div style="top:75px; height:450px; outline:solid 1px; margin: 5px;background-color: aqua;">
+  <div style="top:75px; height:350px; outline:solid 1px; margin: 5px;background-color: aqua;">
     <button (click)="goTo('dress')"
             style="width: 30%;height: 100%;margin-left: 15px;">
             indumentaria
     </button>
-    <button (click)="goTo('fragance')" 
+    <button (click)="goTo('fragrance')" 
             style="width: 30%;height: 100%;margin-left: 15px;">
             fragrancias
     </button>
   </div>
 
-  <div style="top: 500px; height:200px; outline:solid 1px; margin: 5px;">
+  <div class="zona3" style="top:5px; height:200px; outline:solid 1px; margin: 5px;">
+    
+    <div class="box">
+      <div class="text">
+        <h3>La empresa</h3>
+        <a (click)="goTo('us')" class="subrayado"> Sobre nosotros</a>
+      </div>
+    </div>
+    
+    <div class="box">
+      <div class="text">
+        <h3>Ayuda</h3>
+        <a (click)="goTo('help')"> Consultar sobre un producto</a>
+      </div>  
+    </div>
+    
+    <div class="box">
+      <div class="text2">
+        <h3>Atencion al cliente</h3>
+        <p>341 1234567</p>
+        <p>Lunes a Viernes</p>
+        <p>De 9:00 hs a 18:00 hs</p>
+      </div> 
+    </div>
+    
   </div>
+
 </body>

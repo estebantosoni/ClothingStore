@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backurl: "http://localhost:8080/interface"
+  backurl: "http://localhost:8080"
 };
 
 /*

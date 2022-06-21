@@ -25,7 +25,11 @@
     <div class="productos">
         <button *ngFor="let item of dresses$ | async" class="item">
             <!-- <img src="item?.image" alt="product_image" width="200px" height="170px"/> -->
-            {{ item?.sex  }}: {{ item?.subcategory  }}: {{ item?.age  }}
+            <p>sexo: {{ item?.sex  }}</p>
+            <p>subcategoria: {{ item?.subcategory  }}</p>
+            <p>edad: {{ item?.age  }}</p>
+            <p>talle:{{ item?.size }}</p>
+            <p>color:{{ item?.color }}</p>
         </button>
     </div>
 </div>

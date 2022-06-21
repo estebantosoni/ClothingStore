@@ -1,0 +1,17 @@
+
+SEGURIZACION FRONT-END
+
+NO SE AGREGARON LAS SIGUENTES CLASES 
+    -> FAKE BACKEND
+    -> USER (YA CREADO, Y CON OTROS ATRIBUTOS)
+        - los atributos fueron agregados
+    -> USER SERVICE (YA CREADO, Y CON OTRO METODO)
+        - el metodo no fue agregado
+    -> HOME COMPONENT (HTML/TS)
+        - es un mensaje de bienvenida cuando me logueo
+        - se usan algunos atributos de user (firstname y lastname)
+    -> LOGIN COMPONENT (HTML/TS)
+        - nosotros lo llamamos user component
+
+ACTUALIZAR
+    - APP COMPONENT (HTML/TS)
