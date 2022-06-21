@@ -1,18 +1,18 @@
 package ar.store.italiana.tienda_back.tienda_back.models;
 
-import javax.persistence.Embeddable;
-
 import lombok.Data;
 
+import javax.persistence.*;
+
 @Data
-@Embeddable								//EN VEZ DE HEREDAR, LO EMBEBO, PERO HAY QUE CHEQUEAR QUE ESTO SEA EFECTIVO
-public class Product {
-	private String subcategory;
-	private String sex;
-	private String brand;
-	private String code;
-	private Boolean stock;
-	private Float price;
-	private String image;				//CREO QUE ESTO ES MAS COMPLEJO QUE SOLO UN STRING, HAY QUE INVESTIGAR MEJOR
-	
+@MappedSuperclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Product {
+	protected String subcategory;
+	protected String sex;
+	protected String brand;
+	protected String code;
+	protected Boolean stock;
+	protected Float price;
+	protected String image;	 //ver
 }

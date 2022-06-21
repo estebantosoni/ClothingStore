@@ -17,11 +17,11 @@ public class FragranceServiceImpl implements FragranceService {
     }
     @Override
     public List<Fragrance> getFromSubcategory(String which) {
-        return frepo.findByProdSubcategory(which);
+        return frepo.findBySubcategory(which);
     }
     @Override
     public List<Fragrance> getFromSex(String who) {
-        return frepo.findByProdSex(who);
+        return frepo.findBySex(who);
     }
     @Override
     public List<Fragrance> getFromOriginCountry(String what) {

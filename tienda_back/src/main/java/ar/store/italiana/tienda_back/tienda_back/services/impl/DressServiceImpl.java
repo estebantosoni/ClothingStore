@@ -1,9 +1,7 @@
 package ar.store.italiana.tienda_back.tienda_back.services.impl;
 
 import ar.store.italiana.tienda_back.tienda_back.models.Dress;
-import ar.store.italiana.tienda_back.tienda_back.models.Fragrance;
 import ar.store.italiana.tienda_back.tienda_back.repositories.DressRepository;
-import ar.store.italiana.tienda_back.tienda_back.repositories.FragranceRepository;
 import ar.store.italiana.tienda_back.tienda_back.services.DressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +16,15 @@ public class DressServiceImpl implements DressService {
 	@Override
 	public List<Dress> getAllDresses(){return drepo.findAll();}
 	@Override
-	public List<Dress> getFromSubcategory(String which){return drepo.findByProdSubcategory(which);}
+	public List<Dress> getFromSubcategory(String which){
+		return drepo.findBySubcategory(which);
+	}
 	@Override
-	public List<Dress> getFromSex(String which){return drepo.findByProdSex(which);}
+	public List<Dress> getFromSex(String which){
+		return drepo.findBySex(which);
+	}
 	@Override
-	public List<Dress> getFromAge(String who){return drepo.findByAge(who);}
+	public List<Dress> getFromAge(String who){
+		return drepo.findByAge(who);
+	}
 }
