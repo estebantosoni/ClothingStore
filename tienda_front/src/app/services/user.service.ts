@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  constructor(private backend: HttpClient) { }
+  constructor(private backend: HttpClient) {}
 
   checkUser(usr:User):Observable<boolean>{
     return this.backend.post<boolean>(`${environment.backurl}/interface/user`,usr);

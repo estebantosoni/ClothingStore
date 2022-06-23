@@ -9,7 +9,7 @@ import { Dress } from '../models/dress';
 })
 export class DressService {
 
-  constructor(private backend:HttpClient) { }
+  constructor(private backend:HttpClient) {}
 
   getAll():Observable<Dress[]>{
     return this.backend.get<Dress[]>(`${environment.backurl}/interface/dress/all`);

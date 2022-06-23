@@ -6,8 +6,6 @@ export class User{
         private token?: string,     //CREO QUE SERIA PASSWORD, PERO NO ESTOY SEGURO
     ){}
 
-        getToken(){
-            return this.token;
-        }
+    getToken() {return this.token;}
 
 }

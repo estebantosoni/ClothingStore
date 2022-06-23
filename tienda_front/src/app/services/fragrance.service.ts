@@ -9,7 +9,7 @@ import { Fragrance } from '../models/fragrance';
 })
 export class FraganceService {
 
-  constructor(private backend:HttpClient) { }
+  constructor(private backend:HttpClient) {}
 
   getAll():Observable<Fragrance[]>{
     return this.backend.get<Fragrance[]>(`${environment.backurl}/interface/fragrance/all`);

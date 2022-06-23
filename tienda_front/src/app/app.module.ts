@@ -33,8 +33,8 @@ import { HelpComponent } from './help/help.component';
     HttpClientModule
   ],
   providers: [                                    //SE AGREGARON LOS PROVIDERS Y NADA MAS
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

@@ -1,9 +1,8 @@
 div.subcategorias{
     width: 40%;
     height: 100%;
-    outline: solid 2px;
-    color: rgb(204,204,0);
     border-collapse: collapse;
+    float:left;
 }
 ul{
     color: black;
@@ -15,8 +14,6 @@ li{
     margin-left: 40%;
     width: 60%;
     height: 100%;
-    outline: solid 2px;
-    color: blueviolet;
     border-collapse: collapse;
     position: relative;
 }

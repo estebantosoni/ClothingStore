@@ -6,11 +6,12 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Dress extends Product{
+public class Dress extends Product {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String age;
-	private String sizes;
+	@Column(name = "sizes")
+	public String size;
 	private String color;
 }

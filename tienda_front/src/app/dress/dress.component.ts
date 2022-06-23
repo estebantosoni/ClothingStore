@@ -16,19 +16,15 @@ export class DressComponent implements OnInit {
     this.dresses$ = this.service.getAll();
   }
 
-  ngOnInit():void{
-  }
+  ngOnInit():void{}
 
   seeSub(subcategory:string){
     this.dresses$ = this.service.getFromSub(subcategory);
   }
-
   seeSex(sex:string):void{
     this.dresses$ = this.service.getFromSex(sex);
   }
-
   seeAge(age:string):void{
     this.dresses$ = this.service.getFromAge(age);
   }
-
 }

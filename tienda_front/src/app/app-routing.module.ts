@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'interface', component: InterfaceComponent},
   {path: 'user',      component: UserComponent},
   {path: 'dress',     component: DressComponent},
-  {path: 'fragance',  component: FragranceComponent},
+  {path: 'fragrance', component: FragranceComponent},
   {path: 'us',        component: UsComponent},
   {path: 'help',      component: HelpComponent},
   {path: '', redirectTo: '/interface', pathMatch: 'full'},

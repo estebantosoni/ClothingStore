@@ -11,11 +11,12 @@ import { Fragrance } from '../models/fragrance';
 export class FragranceComponent implements OnInit {
   fragrances$:Observable<Fragrance[]> = of([]);
 
-  constructor(private service:FraganceService) { }
-
-  ngOnInit():void{
+  constructor(private service:FraganceService) {
     this.fragrances$ = this.service.getAll();
   }
+
+  ngOnInit():void{}
+  
   seeSub(subcategory:string){
     this.fragrances$ = this.service.getFromSub(subcategory);
   }

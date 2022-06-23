@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 		})
 @NoArgsConstructor				//CREA EL CONSTRUCTOR SIN ARGUMENTOS DE FORMA AUTOMATICA
 public class User {
-	
 	public User(String username, String email, String password) {
 		this.username = username;
 		this.email = email;
