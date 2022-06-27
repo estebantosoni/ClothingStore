@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '../models/user';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-interface',
@@ -9,17 +11,20 @@ import { Router } from '@angular/router';
 export class InterfaceComponent implements OnInit {
   
   public logged:boolean;
+  public usrLogged?:User;
 
-  constructor(private router: Router) {
-    this.logged = false;
+  constructor(private router: Router,private uservice:UserService) {
+    if(this.uservice.usrLogged){
+      this.logged = true;
+      this.usrLogged = this.uservice.usrLogged;
+    } else {
+      this.logged = false;
+    }
   }
 
   ngOnInit(): void {}
 
   public goTo(where:string){
-    if(where == "user"){
-      
-    }
     return this.router.navigate([`/${where}`]);
   }
 }

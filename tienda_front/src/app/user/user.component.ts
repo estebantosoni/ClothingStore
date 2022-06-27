@@ -5,7 +5,6 @@ import { User } from '../models/user';
 import { UserService } from '../services/user.service';
 import { MatDialog, MatDialogConfig, _MatDialogBase } from '@angular/material/dialog'
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
-import { InterfaceComponent } from '../interface/interface.component';
 
 @Component({
   selector: 'app-user',
@@ -15,7 +14,6 @@ import { InterfaceComponent } from '../interface/interface.component';
 export class UserComponent implements OnInit {
 
   form:FormGroup;
-  logged$:Observable<boolean> = of();
 
   constructor(
     private service: UserService,
@@ -33,7 +31,9 @@ export class UserComponent implements OnInit {
     const psw = this.form.get('password')?.value;
     const usr = new User(usrname,psw);                          //HABRIA QUE AGREGAR EL RESTO DE ATRIBUTOS
     this.service.checkUser(usr).subscribe((valid:boolean) => {
-      this.logged$ = of(valid);
+      if(valid){
+        this.service.usrLogged = usr;
+      }
       //imprimimos el aviso
       const popiConfig:MatDialogConfig = new MatDialogConfig();
       popiConfig.disableClose = true;

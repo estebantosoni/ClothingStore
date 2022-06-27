@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
+  public usrLogged?:User;
+
   constructor(private backend: HttpClient) {}
 
   checkUser(usr:User):Observable<boolean>{

@@ -4,6 +4,16 @@
 	float: right;
 }
 
+.welcome{
+	background-color: gray;
+	color:aquamarine;
+	font-size: x-large;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	height: 100%;
+	width: 100%;
+	position: relative;
+}
+
 .subrayado{
 	text-decoration: none;
 }
@@ -18,18 +28,23 @@
 }
 
 .box:nth-child(1){
-	width: 33%;
+	width: 25%;
 	background-color: cadetblue;
 }
 
 .box:nth-child(2){
-	width: 33%;
+	width: 25%;
 	background-color: cadetblue;
 }
 
 .box:nth-child(3){
-	width: 33%;
+	width: 25%;
 	background-color: cadetblue;
+}
+
+.box:nth-child(4){
+	width: 25%;
+	background: linear-gradient(to right,cadetblue,white);
 }
 
 .text{
@@ -40,4 +55,11 @@
 .text2{
 	text-align: center;
 	padding: 1em 0;
+}
+
+.whatsapp{
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	margin-top: 20px;
 }

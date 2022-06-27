@@ -1,9 +1,16 @@
 <body>
 
   <div style="top: 0; height: 75px; outline: solid 1px; margin: 5px;">
-    <img src="/assets/images/logo.jpg" alt="logotype" width="200" height="75"/>
-    <button *ngIf="!logged" (click)="goTo('user')" class="login">
-      Log in</button>
+    <img src="/assets/images/logo.jpg" alt="logotype" width="200" height="100%"/>
+    <div *ngIf="!logged; then notLoggedBlock else loggedBlock"></div>
+    <ng-template #notLoggedBlock>
+      <button (click)="goTo('user')" class="login">Log in</button>
+    </ng-template>
+    <ng-template #loggedBlock>
+      <div class="login">
+        <p class="welcome">hola {{usrLogged?.getUsername()}}
+      </div>
+    </ng-template>
   </div>
 
   <div style="top:75px; height:350px; outline:solid 1px; margin: 5px;background-color: aqua;">
@@ -17,31 +24,42 @@
     </button>
     
   </div>
+
   <div class="zona3" style="top:5px; height:200px; outline:solid 1px; margin: 5px;">
-    
     <div class="box">
       <div class="text">
         <h3>La empresa</h3>
         <a (click)="goTo('us')" class="subrayado"> Sobre nosotros</a>
       </div>
     </div>
-    
+
     <div class="box">
       <div class="text">
         <h3>Ayuda</h3>
         <a (click)="goTo('help')"> Consultar sobre un producto</a>
       </div>  
     </div>
-    
+
     <div class="box">
       <div class="text2">
         <h3>Atencion al cliente</h3>
-        <p>341 1234567</p>
+        <p>Tel. fijo: 341 1234567</p>
         <p>Lunes a Viernes</p>
         <p>De 9:00 hs a 18:00 hs</p>
       </div> 
     </div>
-    
+
+    <div class="box">
+      <img  src="/assets/images/warap.png" 
+            alt="WhatsApp image" 
+            width="30%" 
+            class="whatsapp"
+            href="https://wa.me/+549341123456" />
+      <div style="margin-top: 20px; text-align: center; font-size: medium;">
+        <a href="https://wa.me/+549341123456" class="subrayado" style="color:black">
+          WhatsApp</a>
+      </div>
+    </div>
   </div>
 
 </body>
