@@ -18,7 +18,7 @@
         </ul>
     </div>
     <div class="productos">
-        <button *ngFor="let item of fragrances$ | async" class="item">
+        <button *ngFor="let item of fragrances$ | async" class="item" (click)="goTo('details',item.code)">
             <!-- <img src="item?.image" alt="product_image" width="200px" height="170px"/> -->
             <p>volumen: {{ item?.volumen  }}</p>
             <p>tipo: {{ item?.subcategory  }}</p>

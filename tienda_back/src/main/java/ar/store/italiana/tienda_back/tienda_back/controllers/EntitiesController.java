@@ -33,11 +33,19 @@ public class EntitiesController {					//LA CLASE TODAVIA NO ESTÁ DEFINIDA PARA 
 	public boolean checkIfUserExists(@RequestBody User usuario) {
 		return uservice.checkUser(usuario);
 	}
+	
+	
 	//DRESS SECTOR
 	@GetMapping("/dress/all")
 	public List<Dress> getAllDresses(){
 		return dservice.getAllDresses();
 	}
+	
+	@GetMapping("dress/obj/{codigo}")
+	public List<Dress> getObjD(@PathVariable String codigo) {
+		return dservice.getObjD(codigo);
+	}
+	
 	@GetMapping("/dress/sub/{subcategoria}")
 	public List<Dress> getSubcategoryD(@PathVariable String subcategoria){
 		return dservice.getFromSubcategory(subcategoria);
@@ -50,11 +58,19 @@ public class EntitiesController {					//LA CLASE TODAVIA NO ESTÁ DEFINIDA PARA 
 	public List<Dress> getAge(@PathVariable String edad){
 		return dservice.getFromAge(edad);
 	}
+	
+	
 	//FRAGRANCE SECTOR
 	@GetMapping("/fragrance/all")
 	public List<Fragrance> getAllFragances(){
 		return fservice.getAllFragrances();
 	}
+	
+	@GetMapping("fragrance/obj/{codigo}")
+	public List<Fragrance> getObjF(@PathVariable String codigo) {
+		return fservice.getObjF(codigo);
+	}
+	
 	@GetMapping("/fragrance/sub/{subcategoria}")
 	public List<Fragrance> getSubcategoryF(@PathVariable String subcategoria){
 		return fservice.getFromSubcategory(subcategoria);

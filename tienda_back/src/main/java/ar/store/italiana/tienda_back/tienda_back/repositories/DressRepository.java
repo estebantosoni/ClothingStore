@@ -10,4 +10,5 @@ public interface DressRepository extends JpaRepository<Dress, Long>{
     List<Dress> findBySubcategory(String subcategory);
     List<Dress> findBySex(String sex);
     List<Dress> findByAge(String age);
+    List<Dress> findByCode(String code);
 }

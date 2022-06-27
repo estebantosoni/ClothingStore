@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { FraganceService } from '../services/fragrance.service';
 import { Fragrance } from '../models/fragrance';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-fragrance',
@@ -11,7 +12,10 @@ import { Fragrance } from '../models/fragrance';
 export class FragranceComponent implements OnInit {
   fragrances$:Observable<Fragrance[]> = of([]);
 
-  constructor(private service:FraganceService) {
+  constructor(
+    private service:FraganceService,
+    private router: Router,
+    ) {
     this.fragrances$ = this.service.getAll();
   }
 
@@ -26,4 +30,9 @@ export class FragranceComponent implements OnInit {
   seeOriginCountry(country:string):void{
     this.fragrances$ = this.service.getFromCountry(country);
   }
+
+  goTo(where: string,code:string){
+    return this.router.navigate([`/${where}/${code}`]);
+  }
+
 }

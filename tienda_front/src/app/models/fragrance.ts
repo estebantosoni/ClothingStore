@@ -8,7 +8,7 @@ export class Fragrance{
         public originCountry:string,
         public sex:string,
         public brand:string,
-        private code:string,
+        public code:string,
         public stock:boolean,
         public price:number
     ){}

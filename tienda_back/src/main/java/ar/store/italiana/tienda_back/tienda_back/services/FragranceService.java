@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface FragranceService {
     List<Fragrance> getAllFragrances();
+    List<Fragrance> getObjF(String who);
     List<Fragrance> getFromSubcategory(String which);
     List<Fragrance> getFromSex(String who);
     List<Fragrance> getFromOriginCountry(String what);

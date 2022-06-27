@@ -14,6 +14,9 @@ export class DressService {
   getAll():Observable<Dress[]>{
     return this.backend.get<Dress[]>(`${environment.backurl}/interface/dress/all`);
   }
+  getObj(who:string):Observable<Dress[]>{
+    return this.backend.get<Dress[]>(`${environment.backurl}/interface/dress/obj/${who}`);
+  }
   getFromSub(which:string):Observable<Dress[]>{
     return this.backend.get<Dress[]>(`${environment.backurl}/interface/dress/sub/${which}`);
   }

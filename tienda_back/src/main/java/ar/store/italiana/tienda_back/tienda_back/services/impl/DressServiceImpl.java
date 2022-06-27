@@ -14,7 +14,13 @@ public class DressServiceImpl implements DressService {
 	private DressRepository drepo;
 
 	@Override
-	public List<Dress> getAllDresses(){return drepo.findAll();}
+	public List<Dress> getAllDresses(){
+		return drepo.findAll();
+	}
+	@Override
+	public List<Dress> getObjD(String who) {
+		return drepo.findByCode(who);
+	}
 	@Override
 	public List<Dress> getFromSubcategory(String which){
 		return drepo.findBySubcategory(which);

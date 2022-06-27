@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { DetailsComponent } from './details/details.component';
 import { DressComponent } from './dress/dress.component';
 import { FragranceComponent } from './fragrance/fragrance.component';
 import { HelpComponent } from './help/help.component';
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'fragrance', component: FragranceComponent},
   {path: 'us',        component: UsComponent},
   {path: 'help',      component: HelpComponent},
+  {path: 'details/:id',   component: DetailsComponent},
   {path: '', redirectTo: '/interface', pathMatch: 'full'},
   {path: '**',        component: PageNotFoundComponent}
 ];

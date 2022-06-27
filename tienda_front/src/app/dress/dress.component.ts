@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Dress } from '../models/dress';
 import { DressService } from '../services/dress.service';
@@ -12,7 +13,10 @@ export class DressComponent implements OnInit {
 
   dresses$:Observable<Dress[]> = of([]);
 
-  constructor(private service:DressService) {
+  constructor(
+    private service:DressService,
+    private router: Router,
+    ) {
     this.dresses$ = this.service.getAll();
   }
 
@@ -27,4 +31,9 @@ export class DressComponent implements OnInit {
   seeAge(age:string):void{
     this.dresses$ = this.service.getFromAge(age);
   }
+
+  goTo(where:string,code:string){
+    return this.router.navigate([`/${where}/${code}`]);
+  }
+
 }

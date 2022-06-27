@@ -1,0 +1,11 @@
+.box{
+	float: left;
+	height: 400px;
+    width: 400px;
+    margin: 5px;
+}
+
+.list{
+    margin: 10px;
+    line-height: 10px;
+}

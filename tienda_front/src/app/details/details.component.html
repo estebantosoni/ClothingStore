@@ -1,0 +1,77 @@
+<div>       <!-- pantalla completa -->
+
+    <div style="height: 400px;">       <!-- para la imagen y las caracteristicas -->
+        
+        <div class="box">       <!-- para la imagen -->
+            <p>acá va la imagen</p>
+        </div>
+
+        <div class="box" style="outline:solid 1px;">       <!-- para las caracteristicas -->
+                
+            <div *ngIf="checkId == true; then fBlock else dBlock"> </div>     
+                
+                <ng-template #fBlock>                          <!--para fragrance -->
+                    <div class="list" *ngFor="let item of itemF$ | async">
+                        <h2> {{item?.brand}} </h2>
+                        <p style="font-size: 30px;"> ${{item?.price}} </p>
+                        <div *ngIf="item?.stock; then t else f"> </div>
+                            <ng-template #t>
+                                ¡Hay stock! :)
+                            </ng-template>
+                            <ng-template #f>
+                                No hay stock... :(
+                            </ng-template>
+                        <p>Volumen de la unidad: <b>{{ item?.volumen  }}ml</b> </p>
+                        <p>Categoria: {{ item?.subcategory  }}</p>
+                        <p>Sexo: {{item?.sex}} </p>
+                        <p>Aroma: {{ item?.aroma  }}</p>
+                        <p>País: {{ item?.originCountry }}</p>
+                    </div>
+                    
+                </ng-template>
+
+                <ng-template #dBlock>                           <!--para dress -->
+                    <div class="list" *ngFor="let item of itemD$ | async">
+                        <h2> {{item?.brand}} </h2>
+                        <p style="font-size: 30px;"> ${{item?.price}} </p>
+                        <div *ngIf="item?.stock; then t else f"> </div>
+                            <ng-template #t>
+                                ¡Hay stock! :)
+                            </ng-template>
+                            <ng-template #f>
+                                No hay stock... :(
+                            </ng-template>
+                        <p>Categoria: {{ item?.subcategory  }}</p>
+                        <p>Sexo: {{item?.sex}} </p>
+                        <p>Edad: {{ item?.age}}</p>
+                        <p>Talle disponible: {{ item?.size }}</p>
+                        <p>Color: {{ item?.color }}</p>      <!--pendiente-->
+                    </div>
+                </ng-template>
+
+        </div>
+
+    </div>
+
+    <div style="height:200px;">       <!-- para la seccion de consultas-->
+        <h3> ¿Tienes consultas sobre el producto? ¡Envíala a continuacion y estaremos atentos a contestarte!</h3>
+
+        <form [formGroup]="form">
+            <p>Nombre: 
+                <input type="text" pattern="[a-zA-Z ]{3,15}" formControlName="name" required/></p>
+            <p>Telefono: 
+                <input type="tel" pattern="[0-9]{10,10}" formControlName="cellphone" required/></p>
+            <p>Consulta: 
+                <textarea cols="50" rows="10" maxlength="200" formControlName="query" required></textarea> </p>
+            <p>
+                <input type="submit" value="Enviar consulta" (click)="send()">
+                <!-- 
+                    <button (click)="send()">Enviar consulta</button>
+                -->
+            </p>
+            
+        </form>
+
+    </div>
+
+</div>

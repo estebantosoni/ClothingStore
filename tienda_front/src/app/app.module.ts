@@ -14,6 +14,7 @@ import { JwtInterceptor } from './helpers/jwt.interceptor';
 import { ErrorInterceptor } from './helpers/error.interceptor';
 import { UsComponent } from './us/us.component';
 import { HelpComponent } from './help/help.component';
+import { DetailsComponent } from './details/details.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { HelpComponent } from './help/help.component';
     FragranceComponent,
     PageNotFoundComponent,
     UsComponent,
-    HelpComponent
+    HelpComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,
