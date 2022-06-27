@@ -18,7 +18,7 @@ public class DressServiceImpl implements DressService {
 		return drepo.findAll();
 	}
 	@Override
-	public List<Dress> getObjD(String who) {
+	public Dress getObjD(String who) {
 		return drepo.findByCode(who);
 	}
 	@Override

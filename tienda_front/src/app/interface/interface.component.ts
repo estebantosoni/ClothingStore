@@ -7,13 +7,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./interface.component.css']
 })
 export class InterfaceComponent implements OnInit {
+  
+  public logged:boolean;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    this.logged = false;
+  }
 
   ngOnInit(): void {}
 
-  goTo(where:string){
+  public goTo(where:string){
+    if(where == "user"){
+      
+    }
     return this.router.navigate([`/${where}`]);
   }
-
 }

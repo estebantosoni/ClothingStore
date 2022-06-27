@@ -42,7 +42,7 @@ public class EntitiesController {					//LA CLASE TODAVIA NO ESTÁ DEFINIDA PARA 
 	}
 	
 	@GetMapping("dress/obj/{codigo}")
-	public List<Dress> getObjD(@PathVariable String codigo) {
+	public Dress getObjD(@PathVariable String codigo) {
 		return dservice.getObjD(codigo);
 	}
 	
@@ -67,7 +67,7 @@ public class EntitiesController {					//LA CLASE TODAVIA NO ESTÁ DEFINIDA PARA 
 	}
 	
 	@GetMapping("fragrance/obj/{codigo}")
-	public List<Fragrance> getObjF(@PathVariable String codigo) {
+	public Fragrance getObjF(@PathVariable String codigo) {
 		return fservice.getObjF(codigo);
 	}
 	

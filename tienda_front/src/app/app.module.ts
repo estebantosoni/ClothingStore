@@ -15,6 +15,10 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
 import { UsComponent } from './us/us.component';
 import { HelpComponent } from './help/help.component';
 import { DetailsComponent } from './details/details.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialog, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
+import { UserDialogComponent } from './user-dialog/user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,15 +30,19 @@ import { DetailsComponent } from './details/details.component';
     PageNotFoundComponent,
     UsComponent,
     HelpComponent,
-    DetailsComponent
+    DetailsComponent,
+    UserDialogComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatListModule
   ],
-  providers: [                                    //SE AGREGARON LOS PROVIDERS Y NADA MAS
+  providers: [                                    
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],

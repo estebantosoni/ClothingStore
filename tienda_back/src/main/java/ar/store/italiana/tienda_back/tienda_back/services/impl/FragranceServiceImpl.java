@@ -16,7 +16,7 @@ public class FragranceServiceImpl implements FragranceService {
         return frepo.findAll();
     }
     @Override
-    public List<Fragrance> getObjF(String who) {
+    public Fragrance getObjF(String who) {
     	return frepo.findByCode(who);
     }
     @Override

@@ -14,25 +14,16 @@ import { FraganceService } from '../services/fragrance.service';
   styleUrls: ['./details.component.css']
 })
 export class DetailsComponent implements OnInit {
-
-  form:FormGroup;
   //id: string = '';
-  itemF$:Observable<(Fragrance)[]> = of([]);
-  itemD$:Observable<(Dress)[]> = of([]);
+  itemF$:Observable<Fragrance> = of();
+  itemD$:Observable<Dress> = of();
   checkId:boolean = false;
 
   constructor(
     private servF:FraganceService,
     private servD:DressService,
-    private builder: FormBuilder,
     private route: ActivatedRoute
     ) {
-    this.form = this.builder.group({
-      name:[''],
-      cellphone:[''],
-      query:['']
-    });
-
     const id = this.route.snapshot.paramMap.get('id');
     //console.log(id);
 
@@ -44,17 +35,10 @@ export class DetailsComponent implements OnInit {
       this.itemD$ = this.servD.getObj(id);
       this.checkId = false;
     }
-
   }
 
   ngOnInit(): void {
     
-  }
-
-  send():void{
-    const name = this.form.get('name')?.value;
-    const phone = this.form.get('cellphone')?.value;
-    const query = this.form.get('query')?.value;
   }
 
 }

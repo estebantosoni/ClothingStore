@@ -10,5 +10,5 @@ public interface FragranceRepository extends JpaRepository<Fragrance, Long>{
     List<Fragrance> findBySubcategory(String which);
     List<Fragrance> findBySex(String who);
     List<Fragrance> findByOriginCountry(String what);
-    List<Fragrance> findByCode(String who);
+    Fragrance findByCode(String who);
 }

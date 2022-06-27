@@ -1,18 +1,9 @@
-<!--
-<!DOCTYPE html>
-
-<head>
-  <style type="text/css">
-  a { text-decoration: none;
-  color: black;}
-  </style>
-</head>
--->
 <body>
 
   <div style="top: 0; height: 75px; outline: solid 1px; margin: 5px;">
     <img src="/assets/images/logo.jpg" alt="logotype" width="200" height="75"/>
-    <button (click)="goTo('user')" class="login">Log in</button>
+    <button *ngIf="!logged" (click)="goTo('user')" class="login">
+      Log in</button>
   </div>
 
   <div style="top:75px; height:350px; outline:solid 1px; margin: 5px;background-color: aqua;">
@@ -24,8 +15,8 @@
             style="width: 30%;height: 100%;margin-left: 15px;">
             fragrancias
     </button>
+    
   </div>
-
   <div class="zona3" style="top:5px; height:200px; outline:solid 1px; margin: 5px;">
     
     <div class="box">

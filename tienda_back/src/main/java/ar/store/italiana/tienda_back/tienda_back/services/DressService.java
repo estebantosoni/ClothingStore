@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DressService {
     List<Dress> getAllDresses();
-    List<Dress> getObjD(String who);
+    Dress getObjD(String who);
     List<Dress> getFromSubcategory(String which);
     List<Dress> getFromSex(String which);
     List<Dress> getFromAge(String who);
