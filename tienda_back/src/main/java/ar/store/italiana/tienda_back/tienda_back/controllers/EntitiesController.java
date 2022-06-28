@@ -46,6 +46,11 @@ public class EntitiesController {					//LA CLASE TODAVIA NO ESTÁ DEFINIDA PARA 
 		return dservice.getObjD(codigo);
 	}
 	
+	@GetMapping("dress/size/{codigo}")
+	public List<Dress> getSizeD(@PathVariable String codigo){
+		return dservice.getSizeD(codigo);
+	}
+	
 	@GetMapping("/dress/sub/{subcategoria}")
 	public List<Dress> getSubcategoryD(@PathVariable String subcategoria){
 		return dservice.getFromSubcategory(subcategoria);

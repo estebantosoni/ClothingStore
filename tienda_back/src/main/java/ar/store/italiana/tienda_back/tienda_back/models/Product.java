@@ -11,6 +11,7 @@ public abstract class Product {
 	protected String subcategory;
 	protected String sex;
 	protected String brand;
+	protected String model;
 	protected String code;
 	protected Boolean stock;
 	protected Float price;

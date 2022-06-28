@@ -17,6 +17,7 @@ export class DetailsComponent implements OnInit {
   //id: string = '';
   itemF$:Observable<Fragrance> = of();
   itemD$:Observable<Dress> = of();
+  talle$:Observable<Dress[]> = of([]);
   checkId:boolean = false;
 
   constructor(
@@ -33,6 +34,7 @@ export class DetailsComponent implements OnInit {
     }
     else if(id?.length == 7){                 //dress
       this.itemD$ = this.servD.getObj(id);
+      this.talle$ = this.servD.getFromSize(id);
       this.checkId = false;
     }
   }

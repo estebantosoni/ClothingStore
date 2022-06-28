@@ -9,9 +9,10 @@
         <div class="box" style="outline:solid 1px;">       <!-- para las caracteristicas -->
             <div *ngIf="checkId == true; then fBlock else dBlock"> </div>
                 
-                 <ng-template #fBlock>                        
+                 <ng-template #fBlock>                     <!-- fragrance -->
                     <div class="list">
                         <h2> {{(itemF$ | async)?.brand}} </h2>
+                        <h3> {{(itemF$ | async)?.model}} </h3>
                         <p style="font-size: 30px;"> ${{(itemF$ | async)?.price}} </p>
                         <div *ngIf="(itemF$ | async)?.stock; then t else f"> </div>
                             <ng-template #t>
@@ -29,9 +30,10 @@
                     
                 </ng-template>
 
-                <ng-template #dBlock>                           
+                <ng-template #dBlock>                      <!-- dress -->     
                     <div class="list">
                         <h2> {{(itemD$ | async)?.brand}} </h2>
+                        <h3> {{(itemD$ | async)?.model}} </h3>
                         <p style="font-size: 30px;"> ${{(itemD$ | async)?.price}} </p>
                         <div *ngIf="(itemD$ | async)?.stock; then t else f"> </div>
                             <ng-template #t>
@@ -43,7 +45,16 @@
                         <p>Categoria: {{ (itemD$ | async)?.subcategory  }}</p>
                         <p>Sexo: {{(itemD$ | async)?.sex}} </p>
                         <p>Edad: {{ (itemD$ | async)?.age}}</p>
-                        <p>Talle disponible: {{ (itemD$ | async)?.size }}</p>
+                        <div>
+                            <form name="size" method="" action="">
+                                Talle disponibles:
+                                <select name="size-list">
+                                    <option *ngFor="let item of talle$ | async">
+                                        {{ item?.size }}
+                                    </option>
+                                </select>
+                            </form>
+                        </div>
                         <p>Color: {{ (itemD$ | async)?.color }}</p>      
                     </div>
                 </ng-template>

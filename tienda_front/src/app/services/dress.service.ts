@@ -26,4 +26,7 @@ export class DressService {
   getFromAge(which:string):Observable<Dress[]>{
     return this.backend.get<Dress[]>(`${environment.backurl}/interface/dress/age/${which}`);
   }
+  getFromSize(who:string):Observable<Dress[]>{
+    return this.backend.get<Dress[]>(`${environment.backurl}/interface/dress/size/${who}`);
+  }
 }

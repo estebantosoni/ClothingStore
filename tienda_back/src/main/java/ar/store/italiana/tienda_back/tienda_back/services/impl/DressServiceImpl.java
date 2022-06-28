@@ -22,6 +22,15 @@ public class DressServiceImpl implements DressService {
 		return drepo.findByCode(who);
 	}
 	@Override
+	public List<Dress> getSizeD(String who) {
+		Dress prod = new Dress();
+		prod = drepo.findByCode(who);
+		String brand; String model;
+		brand = prod.getBrand();
+		model = prod.getModel();
+		return drepo.findByBrandAndModel(brand,model);
+	}
+	@Override
 	public List<Dress> getFromSubcategory(String which){
 		return drepo.findBySubcategory(which);
 	}
