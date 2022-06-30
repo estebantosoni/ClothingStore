@@ -10,5 +10,6 @@ export class Dress{
         public color:string,
         public stock:boolean,
         public price:number,
+        public imagen:string  //base 64
     ){}
 }

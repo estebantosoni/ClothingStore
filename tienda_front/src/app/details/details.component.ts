@@ -26,7 +26,6 @@ export class DetailsComponent implements OnInit {
     private route: ActivatedRoute
     ) {
     const id = this.route.snapshot.paramMap.get('id');
-    //console.log(id);
 
     if(id?.length == 4){                      //fragrance
       this.itemF$ = this.servF.getObj(id);

@@ -6,7 +6,10 @@ import ar.store.italiana.tienda_back.tienda_back.services.DressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Vector;
 
 @Service
 public class DressServiceImpl implements DressService {
@@ -15,16 +18,16 @@ public class DressServiceImpl implements DressService {
 
 	@Override
 	public List<Dress> getAllDresses(){
-		return drepo.findAll();
+		return drepo.filterByBrandsAndModels();
 	}
 	@Override
-	public Dress getObjD(String who) {
-		return drepo.findByCode(who);
+	public Dress getObjD(String which) {
+		return drepo.findByCode(which);
 	}
 	@Override
-	public List<Dress> getSizeD(String who) {
+	public List<Dress> getSizeD(String what) {
 		Dress prod = new Dress();
-		prod = drepo.findByCode(who);
+		prod = drepo.findByCode(what);
 		String brand; String model;
 		brand = prod.getBrand();
 		model = prod.getModel();

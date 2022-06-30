@@ -7,6 +7,8 @@ export class User{
     ){}
 
     getToken():string | undefined {return this.token;}
-    
+
     getUsername():string {return this.username;}
+
+    getPassword():string {return this.password;}
 }

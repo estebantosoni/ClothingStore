@@ -15,7 +15,7 @@ export class DressComponent implements OnInit {
 
   constructor(
     private service:DressService,
-    private router: Router,
+    private router: Router
     ) {
     this.dresses$ = this.service.getAll();
   }
@@ -31,9 +31,7 @@ export class DressComponent implements OnInit {
   seeAge(age:string):void{
     this.dresses$ = this.service.getFromAge(age);
   }
-
   goTo(where:string,code:string){
     return this.router.navigate([`/${where}/${code}`]);
   }
-
 }
