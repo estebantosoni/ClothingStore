@@ -47,10 +47,10 @@
                         <p>Edad: {{ (itemD$ | async)?.age}}</p>
                         <div>
                             <form name="size" method="" action="">
-                                Talle disponibles:
+                                Talle disponibles: 
                                 <select name="size-list">
-                                    <option *ngFor="let item of talle$ | async">
-                                        {{ item?.size }}
+                                    <option *ngFor="let item of talle$ | async" [disabled]="item.stock == false">
+                                        {{item?.size}}
                                     </option>
                                 </select>
                             </form>

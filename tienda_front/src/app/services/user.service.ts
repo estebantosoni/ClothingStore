@@ -13,7 +13,10 @@ export class UserService {
 
   constructor(private backend: HttpClient) {}
 
+//EN VEZ DE USAR USER-SERVICE, USAMOS AUTHENTICATION-SERVICE
+/*
   checkUser(usr:User):Observable<boolean>{
     return this.backend.post<boolean>(`${environment.backurl}/interface/user`,usr);
   }
+*/
 }

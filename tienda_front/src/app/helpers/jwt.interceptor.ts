@@ -21,8 +21,8 @@ import { environment } from 'src/environments/environment';
 import { AuthenticationService } from '../services/authentication.service';              //CREAR CARPETA SERVICE
 
 @Injectable()
-export class JwtInterceptor {   //implements HttpInterceptor
-/*
+export class JwtInterceptor implements HttpInterceptor {
+
     constructor(private authenticationService: AuthenticationService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -41,5 +41,5 @@ export class JwtInterceptor {   //implements HttpInterceptor
         return next.handle(request);
     }
 
-*/
+
 }

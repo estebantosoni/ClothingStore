@@ -42,4 +42,8 @@ export class DetailsComponent implements OnInit {
     
   }
 
+  checkStock(){
+    
+  }
+
 }

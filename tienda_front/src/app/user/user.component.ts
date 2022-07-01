@@ -5,6 +5,7 @@ import { User } from '../models/user';
 import { UserService } from '../services/user.service';
 import { MatDialog, MatDialogConfig, _MatDialogBase } from '@angular/material/dialog'
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-user',
@@ -16,7 +17,7 @@ export class UserComponent implements OnInit {
   form:FormGroup;
 
   constructor(
-    private service: UserService,
+    private service: AuthenticationService,
     private builder: FormBuilder,
     private popi: MatDialog
   ) {
@@ -29,10 +30,10 @@ export class UserComponent implements OnInit {
   send():void{
     const usrname = this.form.get('username')?.value;
     const psw = this.form.get('password')?.value;
-    const usr = new User(usrname,psw);                          //HABRIA QUE AGREGAR EL RESTO DE ATRIBUTOS
-    this.service.checkUser(usr).subscribe((valid:boolean) => {
+    const usr = new User(usrname,psw);                          //CREO QUE HABRIA QUE AGREGAR EL RESTO DE ATRIBUTOS
+    this.service.login(usr.getUsername(),usr.getPassword()).subscribe((valid:boolean) => {
       if(valid){
-        this.service.usrLogged = usr;
+        this.service.usrLogged = usr;     //OJO CON usrLogged Y LO QUE HACE, EN AUTH-CONTROLLER (BACK) NO RETORNO UN BOOL
       }
       //imprimimos el aviso
       const popiConfig:MatDialogConfig = new MatDialogConfig();

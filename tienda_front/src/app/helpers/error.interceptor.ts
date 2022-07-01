@@ -22,8 +22,8 @@ import { catchError } from 'rxjs/operators';
 import { AuthenticationService } from '../services/authentication.service';                  //CREAR CARPETA SERVICE
 
 @Injectable()
-export class ErrorInterceptor {     //implements HttpInterceptor
-/*
+export class ErrorInterceptor implements HttpInterceptor {
+
     constructor(private authenticationService: AuthenticationService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -39,5 +39,5 @@ export class ErrorInterceptor {     //implements HttpInterceptor
             //return throwError(() => new Error(error));        //REEMPLAZA LA FUNCION OBSOLETA
         }))
     }
-*/
+
 }

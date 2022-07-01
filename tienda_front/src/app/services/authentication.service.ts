@@ -50,16 +50,18 @@ import { User } from '../models/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-/*    
-    private currentUserSubject: BehaviorSubject<User>;
-    public currentUser: Observable<User>;
+    
+    private currentUserSubject: BehaviorSubject<User|null>;
+    public currentUser: Observable<User|null>;
+    public usrLogged?:User;
 
     constructor(private http: HttpClient) {
-        this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+        const seval = localStorage.getItem('currentUser')!;     //le digo q no va a ser null, PERO OJO, porque el user puede ser null y no estar en localstorage, y tal vez necesite q no sea null para mantener el log
+        this.currentUserSubject = new BehaviorSubject<User|null>(JSON.parse(seval));
         this.currentUser = this.currentUserSubject.asObservable();
     }
 
-    public get currentUserValue(): User {                   //OJO CON ESE GET
+    public get currentUserValue(): User | null {                   //lo accedo como propiedad en vez de metodo
         return this.currentUserSubject.value;
     }
 
@@ -79,5 +81,5 @@ export class AuthenticationService {
         this.currentUserSubject.next(null);
     }
 
-*/
+
 }

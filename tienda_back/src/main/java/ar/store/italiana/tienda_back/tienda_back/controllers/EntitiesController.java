@@ -7,8 +7,8 @@ import ar.store.italiana.tienda_back.tienda_back.services.FragranceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import ar.store.italiana.tienda_back.tienda_back.models.User;
-import ar.store.italiana.tienda_back.tienda_back.services.UserService;
+//import ar.store.italiana.tienda_back.tienda_back.models.User;
+//import ar.store.italiana.tienda_back.tienda_back.services.UserService;
 
 import java.util.List;
 
@@ -20,20 +20,23 @@ import java.util.List;
 
 @RestController										//AGREGO REST
 @CrossOrigin
-@RequestMapping("/interface")							//POR DEFECTO LO DEJAMOS EN API, PERO HAY QUE VER QUE HACEMOS EN EL FRONT
-public class EntitiesController {					//LA CLASE TODAVIA NO ESTÁ DEFINIDA PARA UNA ENTIDAD PARTICULAR, MAS ADELANTE SE PUEDE CAMBIAR EL NOMBRE
-	@Autowired
-	private UserService uservice;
+@RequestMapping("/interface")
+public class EntitiesController {
+//	@Autowired
+//	private UserService uservice;
 	@Autowired
 	private DressService dservice;
 	@Autowired
 	private FragranceService fservice;
+	
+	//ESTO NO SE HACE EN ENTITIES, HAY QUE BORRARLO. EL LOGUEO DEBE MATCHEAR CON EL ENDPOINT EN AUTHCONTROLLER
+/*
 	//USER SECTOR
 	@PostMapping("/user")
 	public boolean checkIfUserExists(@RequestBody User usuario) {
 		return uservice.checkUser(usuario);
 	}
-	
+*/	
 	
 	//DRESS SECTOR
 	@GetMapping("/dress/all")
