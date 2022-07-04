@@ -35,14 +35,14 @@ public class DressServiceImpl implements DressService {
 	}
 	@Override
 	public List<Dress> getFromSubcategory(String which){
-		return drepo.findBySubcategory(which);
+		return drepo.filterBySubcategory(which);
 	}
 	@Override
 	public List<Dress> getFromSex(String which){
-		return drepo.findBySex(which);
+		return drepo.filterBySex(which);
 	}
 	@Override
 	public List<Dress> getFromAge(String who){
-		return drepo.findByAge(who);
+		return drepo.filterByAge(who);
 	}
 }

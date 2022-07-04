@@ -18,6 +18,7 @@ export class UserComponent implements OnInit {
 
   constructor(
     private service: AuthenticationService,
+    private uservice: UserService,
     private builder: FormBuilder,
     private popi: MatDialog
   ) {
@@ -31,18 +32,29 @@ export class UserComponent implements OnInit {
     const usrname = this.form.get('username')?.value;
     const psw = this.form.get('password')?.value;
     const usr = new User(usrname,psw);                          //CREO QUE HABRIA QUE AGREGAR EL RESTO DE ATRIBUTOS
-    this.service.login(usr.getUsername(),usr.getPassword()).subscribe((valid:boolean) => {
-      if(valid){
-        this.service.usrLogged = usr;     //OJO CON usrLogged Y LO QUE HACE, EN AUTH-CONTROLLER (BACK) NO RETORNO UN BOOL
-      }
-      //imprimimos el aviso
-      const popiConfig:MatDialogConfig = new MatDialogConfig();
-      popiConfig.disableClose = true;
-      popiConfig.width = '600px';
-      popiConfig.height = '400px';
-      const popiRef = this.popi.open(UserDialogComponent,popiConfig);
-      popiRef.componentInstance.positive = valid;
-      popiRef.afterClosed().subscribe();
-    });
+    
+    //BORRAR ÉSTO CUANDO SOLUCIONEMOS SEGURIZACIÓN
+    this.uservice.usrLogged = usr;
+    const popiConfig:MatDialogConfig = new MatDialogConfig();
+    popiConfig.disableClose = true;
+    popiConfig.width = '600px';
+    popiConfig.height = '400px';
+    const popiRef = this.popi.open(UserDialogComponent,popiConfig);
+    popiRef.componentInstance.positive = true;
+    popiRef.afterClosed().subscribe();
+
+    // this.service.login(usr.getUsername(),usr.getPassword()).subscribe((valid:boolean) => {
+    //   if(valid){
+    //     this.service.usrLogged = usr;     //OJO CON usrLogged Y LO QUE HACE, EN AUTH-CONTROLLER (BACK) NO RETORNO UN BOOL
+    //   }
+    //   //imprimimos el aviso
+    //   const popiConfig:MatDialogConfig = new MatDialogConfig();
+    //   popiConfig.disableClose = true;
+    //   popiConfig.width = '600px';
+    //   popiConfig.height = '400px';
+    //   const popiRef = this.popi.open(UserDialogComponent,popiConfig);
+    //   popiRef.componentInstance.positive = valid;
+    //   popiRef.afterClosed().subscribe();
+    // });
   }
 }
