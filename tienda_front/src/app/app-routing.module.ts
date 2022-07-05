@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AbmComponent } from './abm/abm.component';
 import { DetailsComponent } from './details/details.component';
 import { DressComponent } from './dress/dress.component';
 import { FragranceComponent } from './fragrance/fragrance.component';
@@ -14,9 +15,10 @@ const routes: Routes = [
   {path: 'user',      component: UserComponent},
   {path: 'dress',     component: DressComponent},
   {path: 'fragrance', component: FragranceComponent},
+  {path: 'details/:id',   component: DetailsComponent},
+  {path: 'abm', component:AbmComponent},
   {path: 'us',        component: UsComponent},
   {path: 'help',      component: HelpComponent},
-  {path: 'details/:id',   component: DetailsComponent},
   {path: '', redirectTo: '/interface', pathMatch: 'full'},
   {path: '**',        component: PageNotFoundComponent}
 ];

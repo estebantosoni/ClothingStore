@@ -1,0 +1,69 @@
+<div class="space"></div>
+
+<div class="box">
+    <div class="box-button">
+        <a (click)="goTo('interface')" class="button"> Ir a pagina principal </a>
+        <a (click)="addUser()" class="button"> Añadir usuario </a>
+        <a (click)="callUsers()" class="button"> Mostrar usuarios </a>
+    </div>
+    
+</div>
+
+<div class="space"></div>
+
+<ng-container *ngIf="bit==null then nothing"></ng-container>
+<ng-container *ngIf="bit==false then add"></ng-container>
+<ng-container *ngIf="bit==true then call"></ng-container>
+
+<ng-template #nothing></ng-template>
+
+<ng-template #add>    
+    <form method="get" action="">   <!-- get envia la info en la URL y post en el body del http (revisar cual usar)-->
+        <fieldset>
+            <legend> Agregue los datos en los campos y pulse Enviar </legend>
+            <p> <label for="mail"> Email: </label> <input type="email" name="correo" id="mail" required> </p>
+            <p> <label for="user"> Nombre de usuario: </label> <input type="text" name="usuario" id="user" maxlength="10" required> </p>
+            <p> <label for="pass"> Contraseña: </label> <input type="password" name="contraseña" id="pass" required> </p>
+            <!-- Se podria ver de agregar el rol tambien -->
+            <p> <input type="submit" value="Enviar" style="margin-right: 5px;"> <input type="reset" value="Limpiar"> </p>
+        </fieldset>
+    </form>
+</ng-template>
+
+<ng-template #call>
+    
+    <div class="details">
+        <h2> Detalles de los usuarios </h2>
+    </div>
+    
+    <table class="center">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>EMAIL</th>
+                <th>NOMBRE DE USUARIO</th>
+                <th>Opciones de configuración</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <!-- Aca se agregan los datos a mostrar para una sola fila -->
+                <td> {{bit}} </td>
+                <td> {{bit}} </td>
+                <td> {{bit}} </td>
+                <!-- Luego hay que ver como colocar al final de cada fila un boton
+                        para deshabilitar (q se muestre en Opciones de conf.),
+                        pero eso se hace despues -->
+            </tr>
+    
+            <tr>
+                <td> {{bit}} </td>
+                <td> adsfsadfasfasfasfasfafads </td>
+                <td> {{bit}} </td>
+            </tr>
+        </tbody>
+        
+    </table>
+
+</ng-template>

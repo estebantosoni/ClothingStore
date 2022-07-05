@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialog, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
+import { AbmComponent } from './abm/abm.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { UserDialogComponent } from './user-dialog/user-dialog.component';
     UsComponent,
     HelpComponent,
     DetailsComponent,
-    UserDialogComponent
+    UserDialogComponent,
+    AbmComponent
   ],
   imports: [
     BrowserModule,
