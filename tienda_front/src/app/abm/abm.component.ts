@@ -8,15 +8,12 @@ import { Router } from '@angular/router';
 })
 export class AbmComponent implements OnInit {
 
-//esta variable tiene 3 valores y, por ende, 3 opciones
-      //null: cuando recien entro a la pagina y no quiero q se muestre nada hasta que aprete un boton
-      //false: si apreto para añadir usuario
-      //true: si apreto para llamar a todos los usuarios
+  //son importantes para que se muestre el bloque correcto en el front
 
-      //es importante para que se muestre el bloque correcto en el front
-
-      bit:boolean|null = null;
-
+  bit:boolean|null = null;      //para los botones principales
+  addbit:boolean|null = null;   //para añadir producto
+  callbit:boolean|null = null;  //para llamar los productos
+  
   constructor(
     private router: Router
   ) { }
@@ -28,21 +25,32 @@ export class AbmComponent implements OnInit {
     return this.router.navigate([`/${where}`]);
   }
 
-  //funcion para añadir usuarios al back
-  //hay que ver que utilidad puede tener teniendo en cuenta el metodo puesto en form (en el html)
-  public addUser(){
-
-    this.bit=false;
-
+  //para la funcion de añadir
+  group1(){
+    this.bit = false;
   }
-
-  //funcion para llamar a los usuarios desde el back
-  public callUsers(){
-    
-    this.bit=true;
-
-  }
-
   
+  //para la funcion de llamar
+  group2(){
+    this.bit = true;
+  }
+
+  addDress(){
+    this.addbit = false;
+  }
+
+  addFragrance(){
+    this.addbit = true;
+  }
+
+  //en esta funcion se devuelven los datos del back para dress
+  callDress(){
+    this.callbit = false;
+  }
+
+  //en esta funcion se devuelven los datos del back para fragrance
+  callFragrance(){
+    this.callbit = true;
+  }
 
 }

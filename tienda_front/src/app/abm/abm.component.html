@@ -1,10 +1,11 @@
+
 <div class="space"></div>
 
 <div class="box">
     <div class="box-button">
         <a (click)="goTo('interface')" class="button"> Ir a pagina principal </a>
-        <a (click)="addUser()" class="button"> Añadir usuario </a>
-        <a (click)="callUsers()" class="button"> Mostrar usuarios </a>
+        <a (click)="group1()" class="button"> Añadir producto </a>
+        <a (click)="group2()" class="button"> Mostrar productos </a>
     </div>
     
 </div>
@@ -12,58 +13,173 @@
 <div class="space"></div>
 
 <ng-container *ngIf="bit==null then nothing"></ng-container>
-<ng-container *ngIf="bit==false then add"></ng-container>
-<ng-container *ngIf="bit==true then call"></ng-container>
+<ng-container *ngIf="bit==false then block1"></ng-container>   <!-- me dirijo a la parte de añadir producto -->
+<ng-container *ngIf="bit==true then block2"></ng-container>   <!-- me dirijo a la parte de llamar a los productos -->
 
 <ng-template #nothing></ng-template>
 
-<ng-template #add>    
-    <form method="get" action="">   <!-- get envia la info en la URL y post en el body del http (revisar cual usar)-->
-        <fieldset>
-            <legend> Agregue los datos en los campos y pulse Enviar </legend>
-            <p> <label for="mail"> Email: </label> <input type="email" name="correo" id="mail" required> </p>
-            <p> <label for="user"> Nombre de usuario: </label> <input type="text" name="usuario" id="user" maxlength="10" required> </p>
-            <p> <label for="pass"> Contraseña: </label> <input type="password" name="contraseña" id="pass" required> </p>
-            <!-- Se podria ver de agregar el rol tambien -->
-            <p> <input type="submit" value="Enviar" style="margin-right: 5px;"> <input type="reset" value="Limpiar"> </p>
-        </fieldset>
-    </form>
-</ng-template>
-
-<ng-template #call>
+<ng-template #block1>
     
     <div class="details">
-        <h2> Detalles de los usuarios </h2>
+        <h2> Seleccione la categoria del producto a añadir </h2>
     </div>
-    
-    <table class="center">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>EMAIL</th>
-                <th>NOMBRE DE USUARIO</th>
-                <th>Opciones de configuración</th>
-            </tr>
-        </thead>
 
-        <tbody>
-            <tr>
-                <!-- Aca se agregan los datos a mostrar para una sola fila -->
-                <td> {{bit}} </td>
-                <td> {{bit}} </td>
-                <td> {{bit}} </td>
-                <!-- Luego hay que ver como colocar al final de cada fila un boton
-                        para deshabilitar (q se muestre en Opciones de conf.),
-                        pero eso se hace despues -->
-            </tr>
+    <!-- Al seleccionar alguno de los dos, debemos deshabilitarlo, y si elegimos el otro, lo volvemos a activar, y asi-->
+    <div style="text-align: center;">
+        <button (click)="addDress()" [disabled]="addbit==false" style="margin-right: 10px;"> Indumentaria </button>
+        <button (click)="addFragrance()" [disabled]="addbit==true"> Fragrancia </button>
+    </div>
+
+    <ng-container *ngIf="addbit==null then nothing2"></ng-container>
+    <ng-container *ngIf="addbit==false then add_dress"></ng-container>
+    <ng-container *ngIf="addbit==true then add_frag"></ng-container>
+
+    <ng-template #nothing2></ng-template>
+
+    <ng-template #add_dress>
+        <!-- creo el form para dress-->
+        <form action="" method="GET">    <!-- get envia la info en la URL y post en el body del http (revisar cual usar) -->
+            <fieldset>
+                <legend> Agregue los datos en los campos y pulse Enviar </legend>
+                
+                <!-- LA SUBCATEGORIA NO SE ELIJE -->
+                
+                <!-- OJO DE AGREGAR LOS LABEL FALTANTES Y DE VER QUE TODOS LOS CAMPOS SEAN REQUERIDOS -->
+
+                <p> <label for="sexo"> Sexo: </label> <input type="radio" name="sexo"> Masculino <input type="radio" name="sexo"> Femenino </p>
+                <p> <label for="edad"> Edad: </label>
+                    <select name="edad" required>
+                        <option value="niño"> Niños </option>
+                        <option value="joven"> Jovenes </option>
+                        <option value="adulto"> Adultos </option>
+                        <option value="anciano"> Ancianos </option>
+                    </select>
+                </p>
+                <p> <label for="brand"> Marca: </label> <input type="text" name="marca" id="brand" maxlength="20" required> </p>
+                <p> <label for="model"> Modelo: </label> <input type="text" name="modelo" id="model" maxlength="20" required> </p>
+                <p> <label for="code"> Codigo: </label> <input type="text" name="codigo" id="code" maxlength="7" required> </p>
+                <p> <label for="size"> Talle: </label> <input type="text" name="talle" id="size" maxlength="4" required> </p>
+                <p> <label for="color"> Color: </label> <input type="text" name="color" id="color" maxlength="20" required> </p>
+                <p> <label for="stock"> Stock: </label> <input type="radio" name="stock"> Si <input type="radio" name="stock"> No </p>
+                <p> <label for="price"> Precio: $</label> <input style="width: 100px;" type="number" name="precio" id="price" required> </p>
+                <p> <label for="image"> Imagen: </label> <input type="file" name="imagen" id="image" required> </p>
+                <p> <input type="submit" value="Enviar" style="margin-right: 5px;"> <input type="reset" value="Limpiar"> </p>
+            </fieldset>
+        </form>
+    </ng-template>
+
+    <ng-template #add_frag>
+        <!-- creo el form para fragrance -->
+        <form action="" method="GET">
+            <fieldset>
+                <legend> Agregue los datos en los campos y pulse Enviar </legend>
+                
+                <!-- FALTARIA AGREGAR LA IMAGEN COMO VARIABLE PARA LOS PERFUMES -->
+
+                <p> <label for="volume"> Volumen: </label> <input style="width: 60px;" type="number" name="volumen" id="volume" maxlength="4" required>ml </p>
+                <p> <label for="smell"> Aroma: </label> <input type="text" name="aroma" id="smell" maxlength="30" placeholder="Breve descripcion" required> </p>
+                <p> <label for="country"> Pais de origen: </label> <input type="pais" name="country" id="volume" maxlength="30" required> </p>
+                <p> <label for="sexo"> Sexo: </label> <input type="radio" name="sexo"> Masculino <input type="radio" name="sexo"> Femenino </p>
+                <p> <label for="brand"> Marca: </label> <input type="text" name="marca" id="brand" maxlength="20" required> </p>
+                <p> <label for="model"> Modelo: </label> <input type="text" name="modelo" id="model" maxlength="20" required> </p>
+                <p> <label for="code"> Codigo: </label> <input type="text" name="codigo" id="code" maxlength="4" required> </p>
+                <p> <label for="stock"> Stock: </label> <input type="radio" name="stock"> Si <input type="radio" name="stock"> No </p>
+                <p> <label for="price"> Precio: $</label> <input style="width: 100px;" type="number" name="precio" id="price" required> </p>
+                <p> <label for="image"> Imagen: </label> <input type="file" name="imagen" id="image" required> </p>
+                <p> <input type="submit" value="Enviar" style="margin-right: 5px;"> <input type="reset" value="Limpiar"> </p>
+            
+
+            </fieldset>
+        </form>
+    </ng-template>
+
+</ng-template>
+
+
+<ng-template #block2>
+
+    <div class="details">
+        <h2> Detalles de los productos </h2>
+    </div>
+
+    <div style="text-align: center;">
+        <p> Seleccione la categoria para visualizar sus productos </p>
+        <button (click)="callDress()" [disabled]="callbit==false" style="margin-right: 10px;"> Indumentaria </button>
+        <button (click)="callFragrance()" [disabled]="callbit==true"> Fragrancia </button>
+    </div>
+
+    <ng-container *ngIf="callbit==null then nothing3"></ng-container>
+    <ng-container *ngIf="callbit==false then call_dress"></ng-container>
+    <ng-container *ngIf="callbit==true then call_frag"></ng-container>
+
+    <ng-template #nothing3></ng-template>
+
+    <ng-template #call_dress>
+        <table class="center">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>SEXO</th>
+                    <th>EDAD</th>
+                    <th>MARCA</th>
+                    <th>MODELO</th>
+                    <th>CODIGO UNICO</th>
+                    <th>TALLE</th>
+                    <th>COLOR</th>
+                    <th>STOCK</th>
+                    <th>PRECIO</th>
+                    <th>URL IMAGEN</th>
+                    <th>Opciones de configuración</th>
+                </tr>
+            </thead>
     
-            <tr>
-                <td> {{bit}} </td>
-                <td> adsfsadfasfasfasfasfafads </td>
-                <td> {{bit}} </td>
-            </tr>
-        </tbody>
+            <tbody>
+                <tr>
+                    <!-- Aca se agregan los datos a mostrar para una sola fila -->
+                    <td> {{bit}} </td>
+                    <td> {{bit}} </td>
+                    <td> {{bit}} </td>
+                    <!-- Luego hay que ver como colocar al final de cada fila un boton
+                            para modificar y deshabilitar (q se muestre en Opciones de conf.),
+                            pero eso se hace despues -->
+                </tr>
         
-    </table>
+                <tr>
+                    <td> {{bit}} </td>
+                    <td> adsfsadfasfasfasfasfafads </td>
+                    <td> {{bit}} </td>
+                </tr>
+            </tbody>
+            
+        </table>
+    </ng-template>
+
+    <ng-template #call_frag>
+        <table class="center">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>VOLUMEN</th>
+                    <th>AROMA</th>
+                    <th>PAIS DE ORIGEN</th>
+                    <th>SEXO</th>
+                    <th>MARCA</th>
+                    <th>MODELO</th>
+                    <th>CODIGO</th>
+                    <th>STOCK</th>
+                    <th>PRECIO</th>
+                    <th>URL IMAGEN</th>
+                    <th>Opciones de configuración</th>
+                </tr>
+            </thead>
+    
+            <tbody>
+                <tr>
+                    
+                </tr>
+            </tbody>
+            
+        </table>
+    </ng-template>
 
 </ng-template>
