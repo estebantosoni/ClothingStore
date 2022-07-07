@@ -10,4 +10,6 @@ public interface FragranceService {
     List<Fragrance> getFromSubcategory(String which);
     List<Fragrance> getFromSex(String who);
     List<Fragrance> getFromOriginCountry(String what);
+
+    void save(Fragrance which);
 }

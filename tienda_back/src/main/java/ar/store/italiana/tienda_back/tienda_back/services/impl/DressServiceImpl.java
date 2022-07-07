@@ -20,10 +20,17 @@ public class DressServiceImpl implements DressService {
 	public List<Dress> getAllDresses(){
 		return drepo.filterByBrandsAndModels();
 	}
+
+	@Override
+	public List<Dress> getEverything() {
+		return drepo.findAll();
+	}
+
 	@Override
 	public Dress getObjD(String which) {
 		return drepo.findByCode(which);
 	}
+
 	@Override
 	public List<Dress> getSizeD(String what) {
 		Dress prod = new Dress();
@@ -33,16 +40,24 @@ public class DressServiceImpl implements DressService {
 		model = prod.getModel();
 		return drepo.findByBrandAndModel(brand,model);
 	}
+
 	@Override
 	public List<Dress> getFromSubcategory(String which){
 		return drepo.filterBySubcategory(which);
 	}
+
 	@Override
 	public List<Dress> getFromSex(String which){
 		return drepo.filterBySex(which);
 	}
+
 	@Override
 	public List<Dress> getFromAge(String who){
 		return drepo.filterByAge(who);
+	}
+
+	@Override
+	public void save(Dress which) {
+		drepo.save(which);
 	}
 }

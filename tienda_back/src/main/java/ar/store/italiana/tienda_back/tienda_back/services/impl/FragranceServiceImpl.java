@@ -11,24 +11,34 @@ import java.util.List;
 public class FragranceServiceImpl implements FragranceService {
     @Autowired
     private FragranceRepository frepo;
+
     @Override
     public List<Fragrance> getAllFragrances() {
         return frepo.findAll();
     }
+
     @Override
     public Fragrance getObjF(String who) {
     	return frepo.findByCode(who);
     }
+
     @Override
     public List<Fragrance> getFromSubcategory(String which) {
         return frepo.findBySubcategory(which);
     }
+
     @Override
     public List<Fragrance> getFromSex(String who) {
         return frepo.findBySex(who);
     }
+
     @Override
     public List<Fragrance> getFromOriginCountry(String what) {
         return frepo.findByOriginCountry(what);
+    }
+
+    @Override
+    public void save(Fragrance which) {
+        frepo.save(which);
     }
 }

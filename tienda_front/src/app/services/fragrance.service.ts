@@ -9,21 +9,27 @@ import { Fragrance } from '../models/fragrance';
 })
 export class FraganceService {
 
+  url:string = `${environment.backurl}/interface/fragrance`;
+
   constructor(private backend:HttpClient) {}
 
   getAll():Observable<Fragrance[]>{
-    return this.backend.get<Fragrance[]>(`${environment.backurl}/interface/fragrance/all`);
+    return this.backend.get<Fragrance[]>(`${this.url}/all`);
   }
   getObj(who:string):Observable<Fragrance>{
-    return this.backend.get<Fragrance>(`${environment.backurl}/interface/fragrance/obj/${who}`);
+    return this.backend.get<Fragrance>(`${this.url}/obj/${who}`);
   }
   getFromSub(which:string):Observable<Fragrance[]>{
-    return this.backend.get<Fragrance[]>(`${environment.backurl}/interface/fragrance/sub/${which}`);
+    return this.backend.get<Fragrance[]>(`${this.url}/sub/${which}`);
   }
   getFromSex(who:string):Observable<Fragrance[]>{
-    return this.backend.get<Fragrance[]>(`${environment.backurl}/interface/fragrance/sex/${who}`);
+    return this.backend.get<Fragrance[]>(`${this.url}/sex/${who}`);
   }
   getFromCountry(which:string):Observable<Fragrance[]>{
-    return this.backend.get<Fragrance[]>(`${environment.backurl}/interface/fragrance/country/${which}`);
+    return this.backend.get<Fragrance[]>(`${this.url}/country/${which}`);
+  }
+
+  storeFragrance(which:Fragrance):Observable<void>{
+    return this.backend.post<void>(`${this.url}/save`,which);
   }
 }

@@ -43,6 +43,11 @@ public class EntitiesController {
 	public List<Dress> getAllDresses(){
 		return dservice.getAllDresses();
 	}
+
+	@GetMapping("/dress/everything")
+	public List<Dress> getEverything(){
+		return dservice.getEverything();
+	}
 	
 	@GetMapping("dress/obj/{codigo}")
 	public Dress getObjD(@PathVariable String codigo) {
@@ -65,6 +70,10 @@ public class EntitiesController {
 	@GetMapping("/dress/age/{edad}")
 	public List<Dress> getAge(@PathVariable String edad){
 		return dservice.getFromAge(edad);
+	}
+	@PostMapping("/dress/save")
+	public void saveDress(@RequestBody Dress which){
+		dservice.save(which);
 	}
 	
 	
@@ -90,5 +99,9 @@ public class EntitiesController {
 	@GetMapping("/fragrance/country/{pais}")
 	public List<Fragrance> getOriginCountry(@PathVariable String pais){
 		return fservice.getFromOriginCountry(pais);
+	}
+	@PostMapping("/fragrance/save")
+	public void saveFragrance(@RequestBody Fragrance which){
+		fservice.save(which);
 	}
 }

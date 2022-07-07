@@ -15,6 +15,7 @@ public interface DressRepository extends JpaRepository<Dress,Long>{
                 "FROM DRESS ",
             GROUP_BY =
             "GROUP BY BRAND,MODEL";
+    List<Dress> findAll();
     @Query(value =  DEF_QUERY + GROUP_BY,nativeQuery = true)
     List<Dress> filterByBrandsAndModels();
     @Query(value = DEF_QUERY + "WHERE subcategory = ?1 " + GROUP_BY,nativeQuery = true)
