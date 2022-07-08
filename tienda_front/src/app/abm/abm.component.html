@@ -74,7 +74,7 @@
                 <p> <label for="price"> Precio: $</label> 
                     <input style="width: 100px;" type="number" name="precio" id="price" formControlName="precio" required> </p>
                 <p> <label for="image"> Imagen: </label> 
-                    <input type="file" name="imagen" id="image" required> </p>
+                    <input type="file" name="imagen" id="image" (change)="encodeAsBase64($event)" required></p>
                 <p> <input (click)="sendDress()" type="submit" value="Guardar" style="margin-right: 5px;"> <input type="reset" value="Limpiar"> </p>
             </fieldset>
         </form>
@@ -85,7 +85,6 @@
         <form [formGroup]="fform">
             <fieldset>
                 <legend> Agregue los datos en los campos y pulse Guardar </legend>
-                <!-- FALTARIA AGREGAR LA IMAGEN COMO VARIABLE PARA LOS PERFUMES -->
                 <p> <label for="volume"> Volumen: </label>
                     <input style="width: 60px;" type="number" name="volumen" id="volume" maxlength="4" formControlName="volumen" required>ml </p>
                 <p> <label for="smell"> Aroma: </label>
@@ -106,8 +105,8 @@
                     <input type="radio" name="stock" formControlName="stock" value="false"> No </p>
                 <p> <label for="price"> Precio: $</label> 
                     <input style="width: 100px;" type="number" name="precio" id="price" formControlName="precio" required> </p>
-                <p> <label for="image"> Imagen: </label> 
-                    <input type="file" name="imagen" id="image" required> </p>
+                <p> <label for="image"> Imagen: </label>
+                    <input type="file" name="imagen" id="image" (change)="encodeAsBase64($event)" required></p>
                 <p> <input (click)="sendFragrance()" type="submit" value="Guardar" style="margin-right: 5px;"> <input type="reset" value="Limpiar"> </p>
             </fieldset>
         </form>
@@ -165,10 +164,16 @@
                     <td>{{item.color}}</td>
                     <td>{{item.stock}}</td>
                     <td>{{item.price}}</td>
-                    <td>{{item.imagen}}</td>
+                    <td>{{item.image}}</td>
                     <td>
                         <button style="background-color: yellow;">modificar</button>
-                        <button (click)="disableDress(item?.id)" style="background-color: red;">deshabilitar</button>
+                        <ng-container *ngIf="item.enabled then enabled else disabled"></ng-container>
+                        <ng-template #enabled>
+                            <button (click)="disableDress(item?.id)" style="background-color: red;">deshabilitar</button>
+                        </ng-template>
+                        <ng-template #disabled>
+                            <button (click)="enableDress(item?.id)" style="background-color: green;">habilitar</button>
+                        </ng-template>
                     </td>
                 </tr>
                 <!-- 
@@ -211,7 +216,7 @@
                     <td>{{item.code}}</td>
                     <td>{{item.stock}}</td>
                     <td>{{item.price}}</td>
-                    <td>{{item.imagen}}</td>
+                    <td>{{item.image}}</td>
                     <td>
                         <button style="background-color: yellow;">modificar</button>
                         <button (click)="disableFragrance(item?.id)" style="background-color: red;">deshabilitar</button>

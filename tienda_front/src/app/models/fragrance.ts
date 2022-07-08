@@ -10,7 +10,8 @@ export class Fragrance{
         public code:string,
         public stock:boolean,
         public price:number,
-        public imagen:string,    //base 64
+        public image:string,    //base 64
+        public enabled:boolean,
         public id?:number
     ){}
 

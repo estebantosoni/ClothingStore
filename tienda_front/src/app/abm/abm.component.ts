@@ -13,16 +13,16 @@ import { FraganceService } from '../services/fragrance.service';
   styleUrls: ['./abm.component.css']
 })
 export class AbmComponent implements OnInit {
-
   //son importantes para que se muestre el bloque correcto en el front
-
   bit:boolean|null = null;      //para los botones principales
   addbit:boolean|null = null;   //para añadir producto
   callbit:boolean|null = null;  //para llamar los productos
+
   dresses$:Observable<Dress[]> = of([]);
   fragrances$:Observable<Fragrance[]> = of([]);
   dform:FormGroup;
   fform:FormGroup;
+  imgAsSTR:string;
   
   constructor(
     private router:Router,
@@ -30,6 +30,7 @@ export class AbmComponent implements OnInit {
     private fservice:FraganceService,
     private builder:FormBuilder
   ) {
+    this.imgAsSTR = "";
     this.dform = this.builder.group({
       sexo:[''],
       edad:[''],
@@ -62,22 +63,14 @@ export class AbmComponent implements OnInit {
   }
 
   //para la funcion de añadir
-  group1():void{
-    this.bit = false;
-  }
+  group1():void{this.bit = false;}
   
   //para la funcion de llamar
-  group2():void{
-    this.bit = true;
-  }
+  group2():void{this.bit = true;}
 
-  addDress():void{
-    this.addbit = false;
-  }
+  addDress():void{this.addbit = false;}
 
-  addFragrance():void{
-    this.addbit = true;
-  }
+  addFragrance():void{this.addbit = true;}
 
   callDress():void{
     this.callbit = false;
@@ -107,9 +100,12 @@ export class AbmComponent implements OnInit {
       this.dform.get('color')?.value,
       stock,
       this.dform.get('precio')?.value,
-      this.dform.get('imagen')?.value
+      "",
+      //this.imgAsSTR,
+      true
     );
     this.dservice.storeDress(storing).subscribe();
+    console.log("IMAGE IS " + this.imgAsSTR);
   }
 
   sendFragrance():void{
@@ -130,16 +126,45 @@ export class AbmComponent implements OnInit {
       this.fform.get('codigo')?.value,
       stock,
       this.fform.get('precio')?.value,
-      this.fform.get('imagen')?.value
+      "",
+      //this.imgAsSTR,
+      true
     );
     this.fservice.storeFragrance(storing).subscribe();
+    console.log("IMAGE IS " + this.imgAsSTR);
   }
 
   disableDress(id?:number):void{
     console.log("id de la prenda a deshabilitar " + id);
   }
 
+  enableDress(id?:number):void{
+    console.log("id de la prenda a habilitar " + id);
+  }
+
   disableFragrance(id?:number):void{
     console.log("id del perfume a deshabilitar " + id);
+  }
+
+  enableFragrance(id?:number):void{
+    console.log("id del perfume a habilitar " + id);
+  }
+
+  encodeAsBase64(event:any):void{
+    const MAXSZ:number = 999999999;
+    var file = event.target.files[0];
+    var reader:FileReader = new FileReader();
+    reader.onloadend = () => {
+      if(file.size > MAXSZ){
+        alert(`tamaño de imagen mayor a ${MAXSZ} Bytes. pruebe con otra`);
+        return;
+      }
+      const res = reader.result;
+      if(typeof res === 'string')
+        this.imgAsSTR = res;
+      else
+        this.imgAsSTR = "";
+    };
+    reader.readAsDataURL(file);
   }
 }

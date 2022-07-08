@@ -8,6 +8,7 @@ import javax.persistence.*;
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Product {
+	protected Boolean enabled;
 	protected String subcategory;
 	protected String sex;
 	protected String brand;
