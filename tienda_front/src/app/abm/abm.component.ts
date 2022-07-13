@@ -20,7 +20,7 @@ export class AbmComponent implements OnInit {
   callbit:boolean|null = null;  //para llamar los productos
   bit_size:boolean = false; //para elegir valor del talle segun la prenda
 
-  prendas:string[] = [ 'Remeras', 'Pantalones', 'Sweeters', 'Buzos', 'Camperas', 'Chalecos', 'Boxers', 'Zapatillas'];
+  prendas:string[] = ['Remeras', 'Pantalones', 'Sweeters', 'Buzos', 'Camperas', 'Chalecos', 'Boxers', 'Zapatillas'];
   
   dresses$:Observable<Dress[]> = of([]);
   fragrances$:Observable<Fragrance[]> = of([]);
@@ -36,16 +36,17 @@ export class AbmComponent implements OnInit {
   ) {
     this.imgAsSTR = "";
     this.dform = this.builder.group({
-      sexo:[''],
-      edad:[''],
-      subcategoria:[''],
-      marca:[''],
-      modelo:[''],
-      codigo:[''],
-      talle:[''],
-      color:[''],
-      stock:[''],
-      precio:['']
+      sexo:['',[ Validators.required ]],
+      edad:['',[ Validators.required ]],
+      subcategoria:['',[ Validators.required ]],
+      marca:['',[ Validators.required ]],
+      modelo:['',[ Validators.required ]],
+      codigo:['',[ Validators.required ]],
+      talle:['',[ Validators.required ]],
+      color:['',[ Validators.required ]],
+      stock:['',[ Validators.required ]],
+      precio:['',[ Validators.required ]],
+      imagen:['',[ Validators.required ]]
     });
     this.fform = this.builder.group({
       volumen:['',[ Validators.required ]],
@@ -57,7 +58,8 @@ export class AbmComponent implements OnInit {
       modelo:['',[ Validators.required ]],
       codigo:['',[ Validators.required ]],
       stock:['',[ Validators.required ]],
-      precio:['',[ Validators.required ]]
+      precio:['',[ Validators.required ]],
+      imagen:['',[ Validators.required ]]
     });
   }
 
@@ -95,6 +97,8 @@ export class AbmComponent implements OnInit {
     } else {
       stock = false;
     }
+    if(!this.dform.valid)
+      return;
     const storing = new Dress(
       this.dform.get('sexo')?.value,
       this.dform.get('edad')?.value,
@@ -121,6 +125,8 @@ export class AbmComponent implements OnInit {
     } else {
       stock = false;
     }
+    if(!this.fform.valid)
+      return;
     const storing = new Fragrance(
       this.fform.get('volumen')?.value,
       this.fform.get('subcategoria')?.value,
@@ -142,12 +148,12 @@ export class AbmComponent implements OnInit {
 
   enableDisableDress(id?:number|undefined){
     console.log("id de la prenda " + id);
-    this.dservice.enableDisableDress(id);
+    this.dservice.enableDisableDress(id).subscribe();
   }
 
   enableDisableFragrance(id?:number|undefined){
     console.log("id de la prenda " + id);
-    this.fservice.enableDisableFragrance(id);
+    this.fservice.enableDisableFragrance(id).subscribe();
   }
 
 /*
@@ -193,7 +199,7 @@ export class AbmComponent implements OnInit {
   size(valor:string){
     if(valor == "Zapatillas"){
       this.bit_size = true;
-    console.log(this.bit_size);
+      console.log(this.bit_size);
     }
     else{
       this.bit_size = false;

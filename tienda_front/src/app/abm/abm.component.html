@@ -39,7 +39,7 @@
     <ng-template #add_dress>
         <!-- creo el form para dress-->
 
-        <form [formGroup]="dform">  <!--method="GET">     get envia la info en la URL y post en el body del http (revisar cual usar) -->
+        <form [formGroup]="dform" ngNativeValidate>  <!--method="GET">     get envia la info en la URL y post en el body del http (revisar cual usar) -->
             <fieldset>
                 <legend> Agregue los datos en los campos y pulse Guardar </legend>
                 
@@ -47,7 +47,7 @@
 
                 <p>
                     <label for="sub"> Subcategoria: </label>
-                    <select name="prenda" #p (change)="size(p.value)" formControlName="prenda" id="sub" required >
+                    <select name="prenda" #p (change)="size(p.value)" formControlName="subcategoria" id="sub" required >
                         <option *ngFor="let prenda of prendas" [value]="prenda"> {{prenda}} </option>
                     </select>
                 </p>
@@ -108,20 +108,20 @@
 
     <ng-template #add_frag>
         <!-- creo el form para fragrance -->
-        <form [formGroup]="fform">
+        <form [formGroup]="fform" ngNativeValidate>
             <fieldset>
                 <legend> Agregue los datos en los campos y pulse Guardar </legend>
                 
                 <p>
                     <label for="sub"> Subcategoria: </label>
-                    <select name="tipo" formControlName="tipo" id="sub" required>
+                    <select name="tipo" formControlName="subcategoria" id="sub" required>
                         <option value="Eau de Toilette"> Eau de Toilette </option>
                         <option value="Colonias"> Colonias </option>
                         <option value="Infantiles"> Infantiles </option>
                     </select>
                 </p>
                 <p> <label for="volume"> Volumen: </label>
-                    <input style="width: 60px;" type="number" name="volumen" formControlName="volumen" id="volume" maxlength="4" required>ml </p>
+                    <input style="width: 60px;" type="number" name="volumen" id="volume" maxlength="4" formControlName="volumen" required>ml </p>
                 <p> <label for="smell"> Aroma: </label>
                     <input type="text" name="aroma" formControlName="aroma" id="smell" maxlength="30" placeholder="Breve descripcion" required> </p>
                 <p> <label for="country"> Pais de origen: </label> 

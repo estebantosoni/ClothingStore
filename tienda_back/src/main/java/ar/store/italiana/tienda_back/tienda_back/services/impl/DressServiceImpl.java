@@ -64,17 +64,18 @@ public class DressServiceImpl implements DressService {
 	
 	@Override
 	public void status(Long id) {
-		
-		Dress prod = new Dress();
-		prod = drepo.findById(id);
-		if(prod.getEnabled() == true) {
-			prod.setEnabled(false);
-			drepo.save(prod);
+		Optional<Dress> prod = drepo.findById(id);
+		Dress dress = new Dress();
+		if(prod.isPresent()){
+			dress = prod.get();
+		}
+		if(dress.getEnabled()) {
+			dress.setEnabled(false);
+			drepo.save(dress);
 		}
 		else {
-			prod.setEnabled(true);
-			drepo.save(prod);
+			dress.setEnabled(true);
+			drepo.save(dress);
 		}
-		
 	}
 }

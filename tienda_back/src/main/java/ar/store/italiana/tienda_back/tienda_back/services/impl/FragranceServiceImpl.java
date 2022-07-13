@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class FragranceServiceImpl implements FragranceService {
     @Autowired
@@ -45,15 +47,20 @@ public class FragranceServiceImpl implements FragranceService {
     
     @Override
 	public void status(Long id) {
-    	Fragrance prod = new Fragrance();
-		prod = frepo.findById(id);
-		if(prod.getEnabled() == true) {
-			prod.setEnabled(false);
-			frepo.save(prod);
+        Optional<Fragrance> prod = frepo.findById(id);
+    	Fragrance fr = new Fragrance();
+        if(prod.isPresent()){
+            fr = prod.get();
+        }
+		if(fr.getEnabled()) {
+            System.out.println("ANTES ES" + fr.getEnabled());
+			fr.setEnabled(false);
 		}
 		else {
-			prod.setEnabled(true);
-			drepo.save(prod);
+            System.out.println("ANTES ES" + fr.getEnabled());
+			fr.setEnabled(true);
 		}
+        frepo.save(fr);
+        System.out.println("DESPUES ES" + fr.getEnabled());
 	}
 }

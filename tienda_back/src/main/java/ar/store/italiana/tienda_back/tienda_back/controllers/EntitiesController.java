@@ -108,7 +108,7 @@ public class EntitiesController {
 	public void saveFragrance(@RequestBody Fragrance which){
 		fservice.save(which);
 	}
-	@PostMapping("fragrance/status")
+	@PostMapping("/fragrance/status")
 	public void statusFragrance(@RequestBody Long id) {
 		fservice.status(id);
 	}
