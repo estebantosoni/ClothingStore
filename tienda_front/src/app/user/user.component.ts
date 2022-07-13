@@ -43,7 +43,7 @@ export class UserComponent implements OnInit {
     popiRef.componentInstance.positive = true;
     popiRef.afterClosed().subscribe();
 
-    // this.service.login(usr.getUsername(),usr.getPassword()).subscribe((valid:boolean) => {
+    // this.service.login(usr.getUsername(),usr.getPassword()).subscribe((valid:User) => {
     //   if(valid){
     //     this.service.usrLogged = usr;     //OJO CON usrLogged Y LO QUE HACE, EN AUTH-CONTROLLER (BACK) NO RETORNO UN BOOL
     //   }

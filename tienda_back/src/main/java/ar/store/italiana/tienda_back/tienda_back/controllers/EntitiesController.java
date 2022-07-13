@@ -75,6 +75,10 @@ public class EntitiesController {
 	public void saveDress(@RequestBody Dress which){
 		dservice.save(which);
 	}
+	@PostMapping("dress/status")
+	public void statusDress(@RequestBody Long id) {
+		dservice.status(id);
+	}
 	
 	
 	//FRAGRANCE SECTOR
@@ -103,5 +107,9 @@ public class EntitiesController {
 	@PostMapping("/fragrance/save")
 	public void saveFragrance(@RequestBody Fragrance which){
 		fservice.save(which);
+	}
+	@PostMapping("fragrance/status")
+	public void statusFragrance(@RequestBody Long id) {
+		fservice.status(id);
 	}
 }

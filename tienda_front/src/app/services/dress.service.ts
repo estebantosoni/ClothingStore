@@ -38,4 +38,9 @@ export class DressService {
   storeDress(which:Dress):Observable<void>{
     return this.backend.post<void>(`${this.url}/save`,which);
   }
+
+  enableDisableDress(id:number|undefined){
+    return this.backend.post<void>(`${this.url}/status`,id);
+  }
+
 }

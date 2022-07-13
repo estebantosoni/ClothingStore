@@ -38,20 +38,48 @@
 
     <ng-template #add_dress>
         <!-- creo el form para dress-->
+
         <form [formGroup]="dform">  <!--method="GET">     get envia la info en la URL y post en el body del http (revisar cual usar) -->
             <fieldset>
                 <legend> Agregue los datos en los campos y pulse Guardar </legend>
                 
-                <!-- LA SUBCATEGORIA NO SE ELIJE -->
-                
                 <!-- OJO DE AGREGAR LOS LABEL FALTANTES Y DE VER QUE TODOS LOS CAMPOS SEAN REQUERIDOS -->
 
+                <p>
+                    <label for="sub"> Subcategoria: </label>
+                    <select name="prenda" #p (change)="size(p.value)" formControlName="prenda" id="sub" required >
+                        <option *ngFor="let prenda of prendas" [value]="prenda"> {{prenda}} </option>
+                    </select>
+                </p>
+                
+                <ng-container *ngIf="bit_size==false then letra"></ng-container>
+                <ng-container *ngIf="bit_size==true then nro"></ng-container>
+
+                <ng-template #nro>
+                    <label for="size"> Talle: </label> 
+                    <input type="number" name="talle" formControlName="talle" id="size" min="10" max="50" required>
+                </ng-template>
+
+                <ng-template #letra>
+                    <label for="size"> Talle: </label> 
+                    <select name="prenda" formControlName="prenda" id="sub" required>
+                        <option value="xs" selected> XS </option>
+                        <option value="s"> S </option>
+                        <option value="m"> M </option>
+                        <option value="l"> L </option>
+                        <option value="xl"> XL </option>
+                        <option value="xxl"> XXL </option>
+                        <option value="xxxl"> XXXL </option>
+                        <option value="xxxxl"> XXXXL </option>
+                    </select>
+                </ng-template>
+
                 <p> <label for="sexo"> Sexo: </label>
-                    <input type="radio" name="sexo" formControlName="sexo" value="hombre"> Masculino 
-                    <input type="radio" name="sexo" formControlName="sexo" value="mujer"> Femenino 
+                    <input type="radio" name="sexo" formControlName="sexo" value="hombre" id="sexo" checked="checked"> Masculino 
+                    <input type="radio" name="sexo" formControlName="sexo" value="mujer" id="sexo"> Femenino 
                 </p>
                 <p> <label for="edad"> Edad: </label>
-                    <select name="edad" required formControlName="edad">
+                    <select name="edad" formControlName="edad" id="edad" required>
                         <option value="niño"> Niños </option>
                         <option value="joven"> Jovenes </option>
                         <option value="adulto"> Adultos </option>
@@ -59,22 +87,20 @@
                     </select>
                 </p>
                 <p> <label for="brand"> Marca: </label>
-                    <input type="text" name="marca" id="brand" maxlength="20" formControlName="marca"  required> </p>
+                    <input type="text" name="marca" formControlName="marca" id="brand" maxlength="20" required> </p>
                 <p> <label for="model"> Modelo: </label>
-                    <input type="text" name="modelo" id="model" maxlength="20" formControlName="modelo" required> </p>
+                    <input type="text" name="modelo" formControlName="modelo" id="model" maxlength="20" required> </p>
                 <p> <label for="code"> Codigo: </label> 
-                    <input type="text" name="codigo" id="code" maxlength="7" formControlName="codigo" required> </p>
-                <p> <label for="size"> Talle: </label> 
-                    <input type="text" name="talle" id="size" maxlength="4" formControlName="talle"  required> </p>
+                    <input type="text" name="codigo" formControlName="codigo" id="code" maxlength="7" required> </p>
                 <p> <label for="color"> Color: </label> 
-                    <input type="text" name="color" id="color" maxlength="20" formControlName="color"  required> </p>
+                    <input type="text" name="color" formControlName="color" id="color" maxlength="20" required> </p>
                 <p> <label for="stock"> Stock: </label> 
-                    <input type="radio" name="stock" formControlName="stock" value="true"> Si 
-                    <input type="radio" name="stock" formControlName="stock" value="false"> No </p>
+                    <input type="radio" name="stock" formControlName="stock" value="true" id="stock" checked="checked"> Si 
+                    <input type="radio" name="stock" formControlName="stock" value="false" id="stock"> No </p>
                 <p> <label for="price"> Precio: $</label> 
-                    <input style="width: 100px;" type="number" name="precio" id="price" formControlName="precio" required> </p>
+                    <input style="width: 100px;" type="number" name="precio" formControlName="precio" id="price"  required> </p>
                 <p> <label for="image"> Imagen: </label> 
-                    <input type="file" name="imagen" id="image" (change)="encodeAsBase64($event)" required></p>
+                    <input type="file" name="imagen" formControlName="imagen" (change)="encodeAsBase64($event)" id="image" required></p>
                 <p> <input (click)="sendDress()" type="submit" value="Guardar" style="margin-right: 5px;"> <input type="reset" value="Limpiar"> </p>
             </fieldset>
         </form>
@@ -85,28 +111,39 @@
         <form [formGroup]="fform">
             <fieldset>
                 <legend> Agregue los datos en los campos y pulse Guardar </legend>
+                
+                <p>
+                    <label for="sub"> Subcategoria: </label>
+                    <select name="tipo" formControlName="tipo" id="sub" required>
+                        <option value="Eau de Toilette"> Eau de Toilette </option>
+                        <option value="Colonias"> Colonias </option>
+                        <option value="Infantiles"> Infantiles </option>
+                    </select>
+                </p>
                 <p> <label for="volume"> Volumen: </label>
-                    <input style="width: 60px;" type="number" name="volumen" id="volume" maxlength="4" formControlName="volumen" required>ml </p>
+                    <input style="width: 60px;" type="number" name="volumen" formControlName="volumen" id="volume" maxlength="4" required>ml </p>
                 <p> <label for="smell"> Aroma: </label>
-                    <input type="text" name="aroma" id="smell" maxlength="30" placeholder="Breve descripcion" formControlName="aroma"  required> </p>
+                    <input type="text" name="aroma" formControlName="aroma" id="smell" maxlength="30" placeholder="Breve descripcion" required> </p>
                 <p> <label for="country"> Pais de origen: </label> 
-                    <input type="text" name="pais" id="volume" maxlength="30" formControlName="pais" required> </p>
+                    <input type="text" name="pais" formControlName="pais" id="volume" maxlength="30" required> </p>
                 <p> <label for="sexo"> Sexo: </label> 
-                    <input type="radio" name="sexo" formControlName="sexo" value="hombre"> Masculino 
-                    <input type="radio" name="sexo" formControlName="sexo" value="mujer"> Femenino </p>
+                    <input type="radio" name="sexo" formControlName="sexo" value="hombre" id="sexo" checked="checked"> Masculino 
+                    <input type="radio" name="sexo" formControlName="sexo" value="mujer" id="sexo" > Femenino
+                </p>
                 <p> <label for="brand"> Marca: </label> 
-                    <input type="text" name="marca" id="brand" maxlength="20" formControlName="marca" required> </p>
+                    <input type="text" name="marca" formControlName="marca" id="brand" maxlength="20" required> </p>
                 <p> <label for="model"> Modelo: </label> 
-                    <input type="text" name="modelo" id="model" maxlength="20" formControlName="modelo" required> </p>
+                    <input type="text" name="modelo" formControlName="modelo" id="model" maxlength="20" required> </p>
                 <p> <label for="code"> Codigo: </label> 
-                    <input type="text" name="codigo" id="code" maxlength="4" formControlName="codigo" required> </p>
+                    <input type="text" name="codigo" formControlName="codigo" id="code" maxlength="4" required> </p>
                 <p> <label for="stock"> Stock: </label> 
-                    <input type="radio" name="stock" formControlName="stock" value="true"> Si 
-                    <input type="radio" name="stock" formControlName="stock" value="false"> No </p>
+                    <input type="radio" name="stock" formControlName="stock" value="true" id="stock" checked="checked"> Si 
+                    <input type="radio" name="stock" formControlName="stock" value="false" id="stock"> No
+                </p>
                 <p> <label for="price"> Precio: $</label> 
-                    <input style="width: 100px;" type="number" name="precio" id="price" formControlName="precio" required> </p>
+                    <input style="width: 100px;" type="number" name="precio" formControlName="precio" id="price" required> </p>
                 <p> <label for="image"> Imagen: </label>
-                    <input type="file" name="imagen" id="image" (change)="encodeAsBase64($event)" required></p>
+                    <input type="file" name="imagen" formControlName="imagen" id="image" (change)="encodeAsBase64($event)" required></p>
                 <p> <input (click)="sendFragrance()" type="submit" value="Guardar" style="margin-right: 5px;"> <input type="reset" value="Limpiar"> </p>
             </fieldset>
         </form>
@@ -119,6 +156,7 @@
 
     <div class="details">
         <h2> Detalles de los productos </h2>
+        <p> Recargue la pagina para ver los cambios.</p>
     </div>
 
     <div style="text-align: center;">
@@ -166,13 +204,13 @@
                     <td>{{item.price}}</td>
                     <td>{{item.image}}</td>
                     <td>
-                        <button style="background-color: yellow;">modificar</button>
+                        <button style="background-color: yellow; margin-right: 10px;">Modificar</button>
                         <ng-container *ngIf="item.enabled then enabled else disabled"></ng-container>
                         <ng-template #enabled>
-                            <button (click)="disableDress(item?.id)" style="background-color: red;">deshabilitar</button>
+                            <button (click)="enableDisableDress(item?.id)" style="background-color: red;">Deshabilitar</button>
                         </ng-template>
                         <ng-template #disabled>
-                            <button (click)="enableDress(item?.id)" style="background-color: green;">habilitar</button>
+                            <button (click)="enableDisableDress(item?.id)" style="background-color: green;">Habilitar</button>
                         </ng-template>
                     </td>
                 </tr>
@@ -205,7 +243,7 @@
             </thead>
     
             <tbody>
-                <tr *ngFor="let item of fragrances$ | async">
+                <tr *ngFor="let item of fragrances$ | async; let i = index">
                     <td>{{item.id}}</td>
                     <td>{{item.volumen}}</td>
                     <td>{{item.aroma}}</td>
@@ -218,9 +256,14 @@
                     <td>{{item.price}}</td>
                     <td>{{item.image}}</td>
                     <td>
-                        <button style="background-color: yellow;">modificar</button>
-                        <button (click)="disableFragrance(item?.id)" style="background-color: red;">deshabilitar</button>
-                    </td>
+                        <button style="background-color: yellow; margin-right: 10px;">Modificar</button>
+                        <ng-container *ngIf="item.enabled then enabled else disabled"></ng-container>
+                        <ng-template #enabled>
+                            <button (click)="enableDisableFragrance(item?.id)" style="background-color: red;">Deshabilitar</button>
+                        </ng-template>
+                        <ng-template #disabled>
+                            <button (click)="enableDisableFragrance(item?.id)" style="background-color: green;">Habilitar</button>
+                        </ng-template></td>
                 </tr>
             </tbody>
             

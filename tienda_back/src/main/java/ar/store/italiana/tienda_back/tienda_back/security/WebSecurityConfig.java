@@ -56,6 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     return super.authenticationManagerBean();
   }
   
+  //EL PROFE LO COMENTÓ, PERO CREO QUE ES NECESARIO AL MOMENTO DE REGISTRARNOS Y QUE EL PROGRAMA ENCRIPTE LA CONTRASEÑA
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();

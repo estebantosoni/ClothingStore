@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { Dress } from '../models/dress';
@@ -13,11 +13,15 @@ import { FraganceService } from '../services/fragrance.service';
   styleUrls: ['./abm.component.css']
 })
 export class AbmComponent implements OnInit {
+  
   //son importantes para que se muestre el bloque correcto en el front
   bit:boolean|null = null;      //para los botones principales
   addbit:boolean|null = null;   //para añadir producto
   callbit:boolean|null = null;  //para llamar los productos
+  bit_size:boolean = false; //para elegir valor del talle segun la prenda
 
+  prendas:string[] = [ 'Remeras', 'Pantalones', 'Sweeters', 'Buzos', 'Camperas', 'Chalecos', 'Boxers', 'Zapatillas'];
+  
   dresses$:Observable<Dress[]> = of([]);
   fragrances$:Observable<Fragrance[]> = of([]);
   dform:FormGroup;
@@ -34,6 +38,7 @@ export class AbmComponent implements OnInit {
     this.dform = this.builder.group({
       sexo:[''],
       edad:[''],
+      subcategoria:[''],
       marca:[''],
       modelo:[''],
       codigo:[''],
@@ -43,15 +48,16 @@ export class AbmComponent implements OnInit {
       precio:['']
     });
     this.fform = this.builder.group({
-      volumen:[''],
-      aroma:[''],
-      pais:[''],
-      sexo:[''],
-      marca:[''],
-      modelo:[''],
-      codigo:[''],
-      stock:[''],
-      precio:['']
+      volumen:['',[ Validators.required ]],
+      subcategoria:['',[ Validators.required ]],
+      aroma:['',[ Validators.required ]],
+      pais:['',[ Validators.required ]],
+      sexo:['',[ Validators.required ]],
+      marca:['',[ Validators.required ]],
+      modelo:['',[ Validators.required ]],
+      codigo:['',[ Validators.required ]],
+      stock:['',[ Validators.required ]],
+      precio:['',[ Validators.required ]]
     });
   }
 
@@ -92,7 +98,7 @@ export class AbmComponent implements OnInit {
     const storing = new Dress(
       this.dform.get('sexo')?.value,
       this.dform.get('edad')?.value,
-      null,
+      this.dform.get('subcategoria')?.value,
       this.dform.get('marca')?.value,
       this.dform.get('modelo')?.value,
       this.dform.get('codigo')?.value,
@@ -117,7 +123,7 @@ export class AbmComponent implements OnInit {
     }
     const storing = new Fragrance(
       this.fform.get('volumen')?.value,
-      null,
+      this.fform.get('subcategoria')?.value,
       this.fform.get('aroma')?.value,
       this.fform.get('pais')?.value,
       this.fform.get('sexo')?.value,
@@ -134,21 +140,37 @@ export class AbmComponent implements OnInit {
     console.log("IMAGE IS " + this.imgAsSTR);
   }
 
+  enableDisableDress(id?:number|undefined){
+    console.log("id de la prenda " + id);
+    this.dservice.enableDisableDress(id);
+  }
+
+  enableDisableFragrance(id?:number|undefined){
+    console.log("id de la prenda " + id);
+    this.fservice.enableDisableFragrance(id);
+  }
+
+/*
   disableDress(id?:number):void{
     console.log("id de la prenda a deshabilitar " + id);
+    this.dservice.disableD(id);
   }
 
   enableDress(id?:number):void{
     console.log("id de la prenda a habilitar " + id);
+    this.dservice.enableD(id);
   }
 
   disableFragrance(id?:number):void{
     console.log("id del perfume a deshabilitar " + id);
+    this.fservice.disableF(id);
   }
 
   enableFragrance(id?:number):void{
     console.log("id del perfume a habilitar " + id);
+    this.fservice.enableF(id);
   }
+*/
 
   encodeAsBase64(event:any):void{
     const MAXSZ:number = 999999999;
@@ -167,4 +189,15 @@ export class AbmComponent implements OnInit {
     };
     reader.readAsDataURL(file);
   }
+
+  size(valor:string){
+    if(valor == "Zapatillas"){
+      this.bit_size = true;
+    console.log(this.bit_size);
+    }
+    else{
+      this.bit_size = false;
+    }
+  }
+
 }

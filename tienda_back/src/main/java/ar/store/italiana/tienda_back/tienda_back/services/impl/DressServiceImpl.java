@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Vector;
 
 @Service
@@ -59,5 +60,21 @@ public class DressServiceImpl implements DressService {
 	@Override
 	public void save(Dress which) {
 		drepo.save(which);
+	}
+	
+	@Override
+	public void status(Long id) {
+		
+		Dress prod = new Dress();
+		prod = drepo.findById(id);
+		if(prod.getEnabled() == true) {
+			prod.setEnabled(false);
+			drepo.save(prod);
+		}
+		else {
+			prod.setEnabled(true);
+			drepo.save(prod);
+		}
+		
 	}
 }
