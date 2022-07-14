@@ -16,5 +16,6 @@ public abstract class Product {
 	protected String code;
 	protected Boolean stock;
 	protected Float price;
+	@Column(length = 350000)
 	protected String image;
 }

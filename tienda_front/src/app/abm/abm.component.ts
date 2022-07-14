@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { Dress } from '../models/dress';
 import { Fragrance } from '../models/fragrance';
 import { DressService } from '../services/dress.service';
@@ -27,7 +27,7 @@ export class AbmComponent implements OnInit {
   dform:FormGroup;
   fform:FormGroup;
   imgAsSTR:string;
-  
+
   constructor(
     private router:Router,
     private dservice:DressService,
@@ -87,7 +87,7 @@ export class AbmComponent implements OnInit {
 
   callFragrance():void{
     this.callbit = true;
-    this.fragrances$ = this.fservice.getAll();
+    this.fragrances$ = this.fservice.getEverything();
   }
 
   sendDress():void{
@@ -110,12 +110,10 @@ export class AbmComponent implements OnInit {
       this.dform.get('color')?.value,
       stock,
       this.dform.get('precio')?.value,
-      "",
-      //this.imgAsSTR,
+      this.imgAsSTR,
       true
     );
     this.dservice.storeDress(storing).subscribe();
-    console.log("IMAGE IS " + this.imgAsSTR);
   }
 
   sendFragrance():void{
@@ -138,53 +136,27 @@ export class AbmComponent implements OnInit {
       this.fform.get('codigo')?.value,
       stock,
       this.fform.get('precio')?.value,
-      "",
-      //this.imgAsSTR,
+      this.imgAsSTR,
       true
     );
     this.fservice.storeFragrance(storing).subscribe();
-    console.log("IMAGE IS " + this.imgAsSTR);
   }
 
   enableDisableDress(id?:number|undefined){
-    console.log("id de la prenda " + id);
     this.dservice.enableDisableDress(id).subscribe();
   }
 
   enableDisableFragrance(id?:number|undefined){
-    console.log("id de la prenda " + id);
     this.fservice.enableDisableFragrance(id).subscribe();
   }
 
-/*
-  disableDress(id?:number):void{
-    console.log("id de la prenda a deshabilitar " + id);
-    this.dservice.disableD(id);
-  }
-
-  enableDress(id?:number):void{
-    console.log("id de la prenda a habilitar " + id);
-    this.dservice.enableD(id);
-  }
-
-  disableFragrance(id?:number):void{
-    console.log("id del perfume a deshabilitar " + id);
-    this.fservice.disableF(id);
-  }
-
-  enableFragrance(id?:number):void{
-    console.log("id del perfume a habilitar " + id);
-    this.fservice.enableF(id);
-  }
-*/
-
   encodeAsBase64(event:any):void{
-    const MAXSZ:number = 999999999;
+    const MAXSZ:number = 235000;
     var file = event.target.files[0];
     var reader:FileReader = new FileReader();
     reader.onloadend = () => {
       if(file.size > MAXSZ){
-        alert(`tamaño de imagen mayor a ${MAXSZ} Bytes. pruebe con otra`);
+        alert(`tamaño de imagen mayor a ${MAXSZ/1000} KB. pruebe con otra`);
         return;
       }
       const res = reader.result;

@@ -16,6 +16,9 @@ export class FraganceService {
   getAll():Observable<Fragrance[]>{
     return this.backend.get<Fragrance[]>(`${this.url}/all`);
   }
+  getEverything():Observable<Fragrance[]>{
+    return this.backend.get<Fragrance[]>(`${this.url}/everything`)
+  }
   getObj(who:string):Observable<Fragrance>{
     return this.backend.get<Fragrance>(`${this.url}/obj/${who}`);
   }

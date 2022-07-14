@@ -45,7 +45,7 @@ public class EntitiesController {
 	}
 
 	@GetMapping("/dress/everything")
-	public List<Dress> getEverything(){
+	public List<Dress> getEverythingOnDress(){
 		return dservice.getEverything();
 	}
 	
@@ -85,6 +85,11 @@ public class EntitiesController {
 	@GetMapping("/fragrance/all")
 	public List<Fragrance> getAllFragances(){
 		return fservice.getAllFragrances();
+	}
+
+	@GetMapping("/fragrance/everything")
+	public List<Fragrance> getEverythingOnFragrance(){
+		return fservice.getEverything();
 	}
 	
 	@GetMapping("fragrance/obj/{codigo}")

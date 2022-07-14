@@ -6,11 +6,8 @@ import ar.store.italiana.tienda_back.tienda_back.services.DressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.Vector;
 
 @Service
 public class DressServiceImpl implements DressService {
@@ -65,17 +62,13 @@ public class DressServiceImpl implements DressService {
 	@Override
 	public void status(Long id) {
 		Optional<Dress> prod = drepo.findById(id);
-		Dress dress = new Dress();
-		if(prod.isPresent()){
-			dress = prod.get();
-		}
-		if(dress.getEnabled()) {
-			dress.setEnabled(false);
-			drepo.save(dress);
-		}
-		else {
-			dress.setEnabled(true);
-			drepo.save(dress);
-		}
+		Dress ret = new Dress();
+		if(prod.isPresent())
+			ret = prod.get();
+		if(ret.getEnabled())
+			ret.setEnabled(false);
+		else
+			ret.setEnabled(true);
+		drepo.save(ret);
 	}
 }

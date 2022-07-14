@@ -62,7 +62,7 @@
 
                 <ng-template #letra>
                     <label for="size"> Talle: </label> 
-                    <select name="prenda" formControlName="prenda" id="sub" required>
+                    <select name="prenda" formControlName="talle" id="sub" required>
                         <option value="xs" selected> XS </option>
                         <option value="s"> S </option>
                         <option value="m"> M </option>
@@ -185,7 +185,6 @@
                     <th>COLOR</th>
                     <th>STOCK</th>
                     <th>PRECIO</th>
-                    <th>URL IMAGEN</th>
                     <th>Opciones de configuración</th>
                 </tr>
             </thead>
@@ -202,15 +201,18 @@
                     <td>{{item.color}}</td>
                     <td>{{item.stock}}</td>
                     <td>{{item.price}}</td>
-                    <td>{{item.image}}</td>
                     <td>
                         <button style="background-color: yellow; margin-right: 10px;">Modificar</button>
                         <ng-container *ngIf="item.enabled then enabled else disabled"></ng-container>
                         <ng-template #enabled>
-                            <button (click)="enableDisableDress(item?.id)" style="background-color: red;">Deshabilitar</button>
+                            <button (click)="item.enabled = !item.enabled; enableDisableDress(item?.id)" style="background-color: red;">
+                                Deshabilitar
+                            </button>
                         </ng-template>
                         <ng-template #disabled>
-                            <button (click)="enableDisableDress(item?.id)" style="background-color: green;">Habilitar</button>
+                            <button (click)="item.enabled = !item.enabled; enableDisableDress(item?.id)" style="background-color: green;">
+                                Habilitar
+                            </button>
                         </ng-template>
                     </td>
                 </tr>
@@ -237,7 +239,6 @@
                     <th>CODIGO</th>
                     <th>STOCK</th>
                     <th>PRECIO</th>
-                    <th>URL IMAGEN</th>
                     <th>Opciones de configuración</th>
                 </tr>
             </thead>
@@ -254,15 +255,18 @@
                     <td>{{item.code}}</td>
                     <td>{{item.stock}}</td>
                     <td>{{item.price}}</td>
-                    <td>{{item.image}}</td>
                     <td>
                         <button style="background-color: yellow; margin-right: 10px;">Modificar</button>
                         <ng-container *ngIf="item.enabled then enabled else disabled"></ng-container>
                         <ng-template #enabled>
-                            <button (click)="enableDisableFragrance(item?.id)" style="background-color: red;">Deshabilitar</button>
+                            <button (click)="item.enabled = !item.enabled; enableDisableFragrance(item?.id)" style="background-color: red;">
+                                Deshabilitar
+                            </button>
                         </ng-template>
                         <ng-template #disabled>
-                            <button (click)="enableDisableFragrance(item?.id)" style="background-color: green;">Habilitar</button>
+                            <button (click)="item.enabled = !item.enabled; enableDisableFragrance(item?.id)" style="background-color: green;">
+                                Habilitar
+                            </button>
                         </ng-template></td>
                 </tr>
             </tbody>
