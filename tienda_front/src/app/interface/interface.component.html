@@ -2,9 +2,12 @@
 
   <div style="top: 0; height: 75px; outline: solid 1px; margin: 5px;">
     <img src="/assets/images/logo.jpg" alt="logotype" width="200" height="100%"/>
+    <div>
+      <button (click)="goTo('user/1')" class="login">Sign up</button>
+    </div>
     <div *ngIf="!logged; then notLoggedBlock else loggedBlock"></div>
     <ng-template #notLoggedBlock>
-      <button (click)="goTo('user')" class="login">Log in</button>
+      <button (click)="goTo('user/2')" class="login">Log in</button>
     </ng-template>
     <ng-template #loggedBlock>
       <div class="login">

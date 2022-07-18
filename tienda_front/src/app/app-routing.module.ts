@@ -12,7 +12,7 @@ import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
   {path: 'interface', component: InterfaceComponent},
-  {path: 'user',      component: UserComponent},
+  {path: 'user/:id',      component: UserComponent},
   {path: 'dress',     component: DressComponent},
   {path: 'fragrance', component: FragranceComponent},
   {path: 'details/:id',   component: DetailsComponent},
