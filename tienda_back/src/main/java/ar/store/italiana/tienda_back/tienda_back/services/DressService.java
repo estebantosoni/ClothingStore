@@ -14,5 +14,4 @@ public interface DressService {
     List<Dress> getFromAge(String who);
 
     void save(Dress which);
-    void status(Long id);
 }

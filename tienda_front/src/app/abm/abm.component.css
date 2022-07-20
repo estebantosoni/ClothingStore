@@ -36,3 +36,13 @@
 tr{
     border-bottom: 1px solid black;
 }
+
+.photo_preview{
+    width: auto;
+    max-width: 80px;
+    height: 75px;
+}
+
+td{
+    height: 75px;
+}

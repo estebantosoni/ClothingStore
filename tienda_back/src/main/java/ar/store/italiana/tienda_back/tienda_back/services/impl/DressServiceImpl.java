@@ -58,17 +58,4 @@ public class DressServiceImpl implements DressService {
 	public void save(Dress which) {
 		drepo.save(which);
 	}
-	
-	@Override
-	public void status(Long id) {
-		Optional<Dress> prod = drepo.findById(id);
-		Dress ret = new Dress();
-		if(prod.isPresent())
-			ret = prod.get();
-		if(ret.getEnabled())
-			ret.setEnabled(false);
-		else
-			ret.setEnabled(true);
-		drepo.save(ret);
-	}
 }

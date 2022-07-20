@@ -32,12 +32,11 @@ export class FraganceService {
     return this.backend.get<Fragrance[]>(`${this.url}/country/${which}`);
   }
 
-  storeFragrance(which:Fragrance):Observable<void>{
+  store(which:Fragrance):Observable<void>{
     return this.backend.post<void>(`${this.url}/save`,which);
   }
 
-  enableDisableFragrance(id:number|undefined){
-    return this.backend.post<void>(`${this.url}/status`,id);
+  update(which:Fragrance):Observable<void>{
+    return this.backend.put<void>(`${this.url}/update`,which);
   }
-
 }

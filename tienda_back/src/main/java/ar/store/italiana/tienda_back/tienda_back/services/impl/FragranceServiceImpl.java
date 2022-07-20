@@ -48,17 +48,4 @@ public class FragranceServiceImpl implements FragranceService {
     public void save(Fragrance which) {
         frepo.save(which);
     }
-    
-    @Override
-	public void status(Long id) {
-        Optional<Fragrance> prod = frepo.findById(id);
-    	Fragrance ret = new Fragrance();
-        if(prod.isPresent())
-            ret = prod.get();
-		if(ret.getEnabled())
-			ret.setEnabled(false);
-		else
-			ret.setEnabled(true);
-        frepo.save(ret);
-	}
 }

@@ -75,9 +75,9 @@ public class EntitiesController {
 	public void saveDress(@RequestBody Dress which){
 		dservice.save(which);
 	}
-	@PostMapping("dress/status")
-	public void statusDress(@RequestBody Long id) {
-		dservice.status(id);
+	@PutMapping("/dress/update")
+	public void updateDress(@RequestBody Dress which){
+		dservice.save(which);
 	}
 	
 	
@@ -91,7 +91,6 @@ public class EntitiesController {
 	public List<Fragrance> getEverythingOnFragrance(){
 		return fservice.getEverything();
 	}
-	
 	@GetMapping("fragrance/obj/{codigo}")
 	public Fragrance getObjF(@PathVariable String codigo) {
 		return fservice.getObjF(codigo);
@@ -113,8 +112,8 @@ public class EntitiesController {
 	public void saveFragrance(@RequestBody Fragrance which){
 		fservice.save(which);
 	}
-	@PostMapping("/fragrance/status")
-	public void statusFragrance(@RequestBody Long id) {
-		fservice.status(id);
+	@PutMapping("/fragrance/update")
+	public void updateFragrance(@RequestBody Fragrance which){
+		fservice.save(which);
 	}
 }

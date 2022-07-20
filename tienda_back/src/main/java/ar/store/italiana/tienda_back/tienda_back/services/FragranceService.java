@@ -13,5 +13,4 @@ public interface FragranceService {
     List<Fragrance> getFromOriginCountry(String what);
 
     void save(Fragrance which);
-    void status(Long id);
 }

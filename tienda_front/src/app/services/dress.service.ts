@@ -35,12 +35,11 @@ export class DressService {
     return this.backend.get<Dress[]>(`${this.url}/size/${who}`);
   }
 
-  storeDress(which:Dress):Observable<void>{
+  store(which:Dress):Observable<void>{
     return this.backend.post<void>(`${this.url}/save`,which);
   }
 
-  enableDisableDress(id:number|undefined){
-    return this.backend.post<void>(`${this.url}/status`,id);
+  update(which:Dress):Observable<void>{
+    return this.backend.put<void>(`${this.url}/update`,which);
   }
-
 }

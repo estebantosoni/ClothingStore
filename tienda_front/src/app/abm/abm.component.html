@@ -38,13 +38,9 @@
 
     <ng-template #add_dress>
         <!-- creo el form para dress-->
-
         <form [formGroup]="dform" ngNativeValidate>  <!--method="GET">     get envia la info en la URL y post en el body del http (revisar cual usar) -->
             <fieldset>
-                <legend> Agregue los datos en los campos y pulse Guardar </legend>
-                
-                <!-- OJO DE AGREGAR LOS LABEL FALTANTES Y DE VER QUE TODOS LOS CAMPOS SEAN REQUERIDOS -->
-
+                <legend> Agregue los datos en los campos y pulse 'Guardar' </legend>
                 <p>
                     <label for="sub"> Subcategoria: </label>
                     <select name="prenda" #p (change)="size(p.value)" formControlName="subcategoria" id="sub" required >
@@ -100,7 +96,7 @@
                 <p> <label for="price"> Precio: $</label> 
                     <input style="width: 100px;" type="number" name="precio" formControlName="precio" id="price"  required> </p>
                 <p> <label for="image"> Imagen: </label> 
-                    <input type="file" name="imagen" formControlName="imagen" (change)="encodeAsBase64($event)" id="image" required></p>
+                    <input type="file" name="imagen" (change)="encodeAsBase64($event)" id="image" required></p>
                 <p> <input (click)="sendDress()" type="submit" value="Guardar" style="margin-right: 5px;"> <input type="reset" value="Limpiar"> </p>
             </fieldset>
         </form>
@@ -110,8 +106,7 @@
         <!-- creo el form para fragrance -->
         <form [formGroup]="fform" ngNativeValidate>
             <fieldset>
-                <legend> Agregue los datos en los campos y pulse Guardar </legend>
-                
+                <legend> Agregue los datos en los campos y pulse 'Guardar' </legend>
                 <p>
                     <label for="sub"> Subcategoria: </label>
                     <select name="tipo" formControlName="subcategoria" id="sub" required>
@@ -143,7 +138,7 @@
                 <p> <label for="price"> Precio: $</label> 
                     <input style="width: 100px;" type="number" name="precio" formControlName="precio" id="price" required> </p>
                 <p> <label for="image"> Imagen: </label>
-                    <input type="file" name="imagen" formControlName="imagen" id="image" (change)="encodeAsBase64($event)" required></p>
+                    <input type="file" name="imagen" id="image" (change)="encodeAsBase64($event)" required></p>
                 <p> <input (click)="sendFragrance()" type="submit" value="Guardar" style="margin-right: 5px;"> <input type="reset" value="Limpiar"> </p>
             </fieldset>
         </form>
@@ -153,125 +148,240 @@
 
 
 <ng-template #block2>
+    <ng-container *ngIf="iModify; then modify else seeDetails"></ng-container>
 
-    <div class="details">
-        <h2> Detalles de los productos </h2>
-        <p> Recargue la pagina para ver los cambios.</p>
-    </div>
-
-    <div style="text-align: center;">
-        <p> Seleccione la categoria para visualizar sus productos </p>
-        <button (click)="callDress()" [disabled]="callbit==false" style="margin-right: 10px;"> Indumentaria </button>
-        <button (click)="callFragrance()" [disabled]="callbit==true"> Fragrancia </button>
-    </div>
-
-    <ng-container *ngIf="callbit==null then nothing3"></ng-container>
-    <ng-container *ngIf="callbit==false then call_dress"></ng-container>
-    <ng-container *ngIf="callbit==true then call_frag"></ng-container>
-
-    <ng-template #nothing3></ng-template>
-
-    <ng-template #call_dress>
-        <table class="center">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>SEXO</th>
-                    <th>EDAD</th>
-                    <th>MARCA</th>
-                    <th>MODELO</th>
-                    <th>CODIGO UNICO</th>
-                    <th>TALLE</th>
-                    <th>COLOR</th>
-                    <th>STOCK</th>
-                    <th>PRECIO</th>
-                    <th>Opciones de configuración</th>
-                </tr>
-            </thead>
+    <ng-template #modify>
+        <ng-container *ngIf="modifyingCategory == 'dress';then modify_dress else modify_fragrance"></ng-container>
     
-            <tbody>
-                <tr *ngFor="let item of dresses$ | async">
-                    <td>{{item.id}}</td>
-                    <td>{{item.sex}}</td>
-                    <td>{{item.age}}</td>
-                    <td>{{item.brand}}</td>
-                    <td>{{item.model}}</td>
-                    <td>{{item.code}}</td>
-                    <td>{{item.size}}</td>
-                    <td>{{item.color}}</td>
-                    <td>{{item.stock}}</td>
-                    <td>{{item.price}}</td>
-                    <td>
-                        <button style="background-color: yellow; margin-right: 10px;">Modificar</button>
-                        <ng-container *ngIf="item.enabled then enabled else disabled"></ng-container>
-                        <ng-template #enabled>
-                            <button (click)="item.enabled = !item.enabled; enableDisableDress(item?.id)" style="background-color: red;">
-                                Deshabilitar
-                            </button>
-                        </ng-template>
-                        <ng-template #disabled>
-                            <button (click)="item.enabled = !item.enabled; enableDisableDress(item?.id)" style="background-color: green;">
-                                Habilitar
-                            </button>
-                        </ng-template>
-                    </td>
-                </tr>
-                <!-- 
-                    Luego hay que ver como colocar al final de cada fila un boton
-                    para modificar y deshabilitar (q se muestre en Opciones de conf.),
-                    pero eso se hace despues -->
-            </tbody>
-            
-        </table>
+        <ng-template #modify_dress>
+            <form [formGroup]="dform" ngNativeValidate>  <!--method="GET">     get envia la info en la URL y post en el body del http (revisar cual usar) -->
+                <fieldset>
+                    <legend> Modifique los datos en los campos y pulse 'Guardar cambios' </legend>
+                    <p>
+                        <label for="sub"> Subcategoria: </label>
+                        <select name="prenda" #p (change)="size(p.value)" formControlName="subcategoria" id="sub" required >
+                            <option *ngFor="let prenda of prendas" [value]="prenda"> {{prenda}} </option>
+                        </select>
+                    </p>
+                    
+                    <ng-container *ngIf="bit_size==false then letra"></ng-container>
+                    <ng-container *ngIf="bit_size==true then nro"></ng-container>
+    
+                    <ng-template #nro>
+                        <label for="size"> Talle: </label> 
+                        <input type="number" name="talle" formControlName="talle" id="size" min="10" max="50" required>
+                    </ng-template>
+    
+                    <ng-template #letra>
+                        <label for="size"> Talle: </label> 
+                        <select name="prenda" formControlName="talle" id="sub" required>
+                            <option value="xs" selected> XS </option>
+                            <option value="s"> S </option>
+                            <option value="m"> M </option>
+                            <option value="l"> L </option>
+                            <option value="xl"> XL </option>
+                            <option value="xxl"> XXL </option>
+                            <option value="xxxl"> XXXL </option>
+                            <option value="xxxxl"> XXXXL </option>
+                        </select>
+                    </ng-template>
+    
+                    <p> <label for="sexo"> Sexo: </label>
+                        <input type="radio" name="sexo" formControlName="sexo" value="hombre" id="sexo" checked="checked"> Masculino 
+                        <input type="radio" name="sexo" formControlName="sexo" value="mujer" id="sexo"> Femenino 
+                    </p>
+                    <p> <label for="edad"> Edad: </label>
+                        <select name="edad" formControlName="edad" id="edad" required>
+                            <option value="niño"> Niños </option>
+                            <option value="joven"> Jovenes </option>
+                            <option value="adulto"> Adultos </option>
+                            <option value="anciano"> Ancianos </option>
+                        </select>
+                    </p>
+                    <p> <label for="brand"> Marca: </label>
+                        <input type="text" name="marca" formControlName="marca" id="brand" maxlength="20" required> </p>
+                    <p> <label for="model"> Modelo: </label>
+                        <input type="text" name="modelo" formControlName="modelo" id="model" maxlength="20" required> </p>
+                    <p> <label for="code"> Codigo: </label> 
+                        <input type="text" name="codigo" formControlName="codigo" id="code" maxlength="7" required> </p>
+                    <p> <label for="color"> Color: </label> 
+                        <input type="text" name="color" formControlName="color" id="color" maxlength="20" required> </p>
+                    <p> <label for="stock"> Stock: </label> 
+                        <input type="radio" name="stock" formControlName="stock" value="true" id="stock" checked="checked"> Si 
+                        <input type="radio" name="stock" formControlName="stock" value="false" id="stock"> No </p>
+                    <p> <label for="price"> Precio: $</label> 
+                        <input style="width: 100px;" type="number" name="precio" formControlName="precio" id="price"  required> </p>
+                    <p> <label for="image"> Imagen: </label> 
+                        <input type="file" name="imagen" (change)="encodeAsBase64($event)" id="image" required></p>
+                    <p> <input (click)="updateDress(modifyingDress!.id)" type="submit" value="Guardar cambios" style="margin-right: 5px;"> <input type="reset" value="Limpiar"> </p>
+                </fieldset>
+            </form>
+        </ng-template>
+        
+        <ng-template #modify_fragrance>
+            <form [formGroup]="fform" ngNativeValidate>
+                <fieldset>
+                    <legend> Modifique los datos en los campos y pulse 'Guardar cambios' </legend>
+                    <p>
+                        <label for="sub"> Subcategoria: </label>
+                        <select name="tipo" formControlName="subcategoria" id="sub" required>
+                            <option value="Eau de Toilette" > Eau de Toilette </option>
+                            <option value="Colonias"> Colonias </option>
+                            <option value="Infantiles"> Infantiles </option>
+                        </select>
+                    </p>
+                    <p> <label for="volume"> Volumen: </label>
+                        <input style="width: 60px;" type="number" name="volumen" id="volume" maxlength="4" formControlName="volumen" required>ml </p>
+                    <p> <label for="smell"> Aroma: </label>
+                        <input type="text" [value]="modifyingFragrance!.aroma" name="aroma" formControlName="aroma" id="smell" maxlength="30" placeholder="Breve descripcion" required> </p>
+                    <p> <label for="country"> Pais de origen: </label> 
+                        <input type="text" name="pais" formControlName="pais" id="volume" maxlength="30" required> </p>
+                    <p> <label for="sexo"> Sexo: </label> 
+                        <input type="radio" name="sexo" formControlName="sexo" value="hombre" id="sexo" checked="checked"> Masculino 
+                        <input type="radio" name="sexo" formControlName="sexo" value="mujer" id="sexo" > Femenino
+                    </p>
+                    <p> <label for="brand"> Marca: </label> 
+                        <input type="text" name="marca" formControlName="marca" id="brand" maxlength="20" required> </p>
+                    <p> <label for="model"> Modelo: </label> 
+                        <input type="text"  name="modelo" formControlName="modelo" id="model" maxlength="20" required> </p>
+                    <p> <label for="code"> Codigo: </label> 
+                        <input type="text"  name="codigo" formControlName="codigo" id="code" maxlength="4" required> </p>
+                    <p> <label for="stock"> Stock: </label> 
+                        <input type="radio" name="stock" formControlName="stock" value="true" id="stock" checked="checked"> Si 
+                        <input type="radio" name="stock" formControlName="stock" value="false" id="stock"> No
+                    </p>
+                    <p> <label for="price"> Precio: $</label> 
+                        <input style="width: 100px;"  type="number" name="precio" formControlName="precio" id="price" required> </p>
+                    <p> <label for="image"> Imagen: </label>
+                        <input type="file" name="imagen" id="image" (change)="encodeAsBase64($event)" required></p>
+                    <p> <input (click)="updateFragrance(modifyingFragrance!.id)" type="submit" style="margin-left: 5px;margin-right: 5px;" value="Guardar cambios"/> <input type="reset" value="Limpiar"> </p>                    
+                </fieldset>
+            </form>
+        </ng-template>
+
     </ng-template>
 
-    <ng-template #call_frag>
-        <table class="center">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>VOLUMEN</th>
-                    <th>AROMA</th>
-                    <th>PAIS DE ORIGEN</th>
-                    <th>SEXO</th>
-                    <th>MARCA</th>
-                    <th>MODELO</th>
-                    <th>CODIGO</th>
-                    <th>STOCK</th>
-                    <th>PRECIO</th>
-                    <th>Opciones de configuración</th>
-                </tr>
-            </thead>
-    
-            <tbody>
-                <tr *ngFor="let item of fragrances$ | async; let i = index">
-                    <td>{{item.id}}</td>
-                    <td>{{item.volumen}}</td>
-                    <td>{{item.aroma}}</td>
-                    <td>{{item.originCountry}}</td>
-                    <td>{{item.sex}}</td>
-                    <td>{{item.brand}}</td>
-                    <td>{{item.model}}</td>
-                    <td>{{item.code}}</td>
-                    <td>{{item.stock}}</td>
-                    <td>{{item.price}}</td>
-                    <td>
-                        <button style="background-color: yellow; margin-right: 10px;">Modificar</button>
-                        <ng-container *ngIf="item.enabled then enabled else disabled"></ng-container>
-                        <ng-template #enabled>
-                            <button (click)="item.enabled = !item.enabled; enableDisableFragrance(item?.id)" style="background-color: red;">
-                                Deshabilitar
-                            </button>
-                        </ng-template>
-                        <ng-template #disabled>
-                            <button (click)="item.enabled = !item.enabled; enableDisableFragrance(item?.id)" style="background-color: green;">
-                                Habilitar
-                            </button>
-                        </ng-template></td>
-                </tr>
-            </tbody>
-            
-        </table>
-    </ng-template>
+    <ng-template #seeDetails>
+        <div class="details">
+            <h2> Detalles de los productos </h2>
+        </div>
+        <div style="text-align: center;">
+            <p> Seleccione la categoria para visualizar sus productos </p>
+            <button (click)="callDress()" [disabled]="callbit==false" style="margin-right: 10px;"> Indumentaria </button>
+            <button (click)="callFragrance()" [disabled]="callbit==true"> Fragrancia </button>
+        </div>
 
+        <ng-container *ngIf="callbit==null then nothing3"></ng-container>
+        <ng-container *ngIf="callbit==false then call_dress"></ng-container>
+        <ng-container *ngIf="callbit==true then call_frag"></ng-container>
+
+        <ng-template #nothing3></ng-template>
+
+        <ng-template #call_dress>
+            <table class="center">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>SEXO</th>
+                        <th>EDAD</th>
+                        <th>MARCA</th>
+                        <th>MODELO</th>
+                        <th>CODIGO UNICO</th>
+                        <th>TALLE</th>
+                        <th>COLOR</th>
+                        <th>STOCK</th>
+                        <th>PRECIO</th>
+                        <th>IMAGEN</th>
+                        <th>Opciones de configuración</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of dresses$ | async">
+                        <td>{{item.id}}</td>
+                        <td>{{item.sex}}</td>
+                        <td>{{item.age}}</td>
+                        <td>{{item.brand}}</td>
+                        <td>{{item.model}}</td>
+                        <td>{{item.code}}</td>
+                        <td>{{item.size}}</td>
+                        <td>{{item.color}}</td>
+                        <td>{{item.stock}}</td>
+                        <td>{{item.price}}</td>
+                        <td>
+                            <img class="photo_preview" src="{{item.image}}" alt="imagen prenda"/>
+                        </td>
+                        <td>
+                            <button (click)="configModify(item,'dress')" style="background-color: yellow; margin-right: 10px;">
+                                Modificar
+                            </button>
+                            <ng-container *ngIf="item.enabled then enabled else disabled"></ng-container>
+                            <ng-template #enabled>
+                                <button (click)="enableDisableDress(item)" style="background-color: red;">
+                                    Deshabilitar
+                                </button>
+                            </ng-template>
+                            <ng-template #disabled>
+                                <button (click)="enableDisableDress(item)" style="background-color: green;">
+                                    Habilitar
+                                </button>
+                            </ng-template>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-template>
+
+        <ng-template #call_frag>
+            <table class="center">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>VOLUMEN</th>
+                        <th>AROMA</th>
+                        <th>PAIS DE ORIGEN</th>
+                        <th>SEXO</th>
+                        <th>MARCA</th>
+                        <th>MODELO</th>
+                        <th>CODIGO</th>
+                        <th>STOCK</th>
+                        <th>PRECIO</th>
+                        <th>IMAGEN</th>
+                        <th>Opciones de configuración</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of fragrances$ | async">
+                        <td>{{item.id}}</td>
+                        <td>{{item.volumen}}</td>
+                        <td>{{item.aroma}}</td>
+                        <td>{{item.originCountry}}</td>
+                        <td>{{item.sex}}</td>
+                        <td>{{item.brand}}</td>
+                        <td>{{item.model}}</td>
+                        <td>{{item.code}}</td>
+                        <td>{{item.stock}}</td>
+                        <td>{{item.price}}</td>
+                        <td>
+                            <img class="photo_preview" src="{{item.image}}" alt="imagen prenda"/>
+                        </td>
+                        <td>
+                            <button type="button" (click)="configModify(item,'fragrance')" style="background-color: yellow; margin-right: 10px;">
+                                Modificar
+                            </button>
+                            <ng-container *ngIf="item.enabled then enabled else disabled"></ng-container>
+                            <ng-template #enabled>
+                                <button (click)="enableDisableFragrance(item)" style="background-color: red;">
+                                    Deshabilitar
+                                </button>
+                            </ng-template>
+                            <ng-template #disabled>
+                                <button (click)="enableDisableFragrance(item)" style="background-color: green;">
+                                    Habilitar
+                                </button>
+                            </ng-template></td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-template>
+    </ng-template>
 </ng-template>
