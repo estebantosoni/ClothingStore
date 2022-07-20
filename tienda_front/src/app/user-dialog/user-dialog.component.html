@@ -1,17 +1,45 @@
-<div *ngIf="positive" class="yes">
-  <h1 mat-dialog-title>Te logueaste pa</h1>
-  <div mat-dialog-actions>
-    <a mat-button mat-dialog-close routerLink="/interface">
-      presione aquí para volver a la pantalla principal</a>
-  </div>
-</div>
+<ng-container *ngIf="positive; then register else login"></ng-container>
 
-<div *ngIf="!positive" class="no">
-  <h1 mat-dialog-title>No te logueaste una mierda pa</h1>
-  <div mat-dialog-actions>
-    <p>puede <a routerLink="/user" mat-dialog-close>
-      intentar nuevamente</a> o 
-    <a routerLink="/interface" mat-dialog-close>
-      redirigirse a la pantalla principal</a></p>
+<ng-template #register>     <!-- si positive es true -->
+
+  <div *ngIf="reg" class="yes">
+    <h1 mat-dialog-title>Te registraste exitosamente</h1>
+    <div mat-dialog-actions>
+      <a mat-button mat-dialog-close routerLink="/user/2">
+        presione aquí para loguearse</a>
+    </div>
   </div>
-</div>
+  
+  <div *ngIf="!reg" class="no">
+    <h1 mat-dialog-title>Los datos son incorrectos</h1>
+    <div mat-dialog-actions>
+      <p>puede <a routerLink="/user/1" mat-dialog-close>
+        intentar nuevamente</a> o 
+      <a routerLink="/interface" mat-dialog-close>
+        redirigirse a la pantalla principal</a></p>
+    </div>
+  </div>
+
+</ng-template>
+
+<ng-template #login>        <!-- si positive es false -->
+
+  <div *ngIf="log" class="yes">
+    <h1 mat-dialog-title>Te logueaste pa</h1>
+    <div mat-dialog-actions>
+      <a mat-button mat-dialog-close routerLink="/interface">
+        presione aquí para volver a la pantalla principal</a>
+    </div>
+  </div>
+  
+  <div *ngIf="!log" class="no">
+    <h1 mat-dialog-title>No te logueaste una mierda pa</h1>
+    <div mat-dialog-actions>
+      <p>puede <a routerLink="/user" mat-dialog-close>
+        intentar nuevamente</a> o 
+      <a routerLink="/interface" mat-dialog-close>
+        redirigirse a la pantalla principal</a></p>
+    </div>
+  </div>
+
+</ng-template>

@@ -8,6 +8,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserLogin } from '../models/userLogin';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'app-user',
@@ -52,7 +53,22 @@ export class UserComponent implements OnInit {
       const usr = new User(usrname,psw,mail,rol);
       
       this.service.register(usr.getUsername(),usr.getEmail(),usr.getPassword(),usr.getRol()).subscribe((msj:string) =>{
+
+        const popiConfig:MatDialogConfig = new MatDialogConfig();
+        popiConfig.disableClose = true;
+        popiConfig.width = '600px';
+        popiConfig.height = '400px';
+
+        const popiRef = this.popi.open(UserDialogComponent,popiConfig);
+        popiRef.componentInstance.positive = true;
         console.log(msj);
+        if(msj == "User registered successfully!"){
+          popiRef.componentInstance.reg = true;
+        }else{
+          popiRef.componentInstance.reg = false;
+        }
+        popiRef.afterClosed().subscribe();
+
       });
 
     }
@@ -84,11 +100,13 @@ export class UserComponent implements OnInit {
         popiConfig.disableClose = true;
         popiConfig.width = '600px';
         popiConfig.height = '400px';
+
         const popiRef = this.popi.open(UserDialogComponent,popiConfig);
+        popiRef.componentInstance.positive = false;
         if(valid.ok){
-          popiRef.componentInstance.positive = true;
+          popiRef.componentInstance.log = true;
         }else{
-          popiRef.componentInstance.positive = false;
+          popiRef.componentInstance.log = false;
         }
         popiRef.afterClosed().subscribe();
       });

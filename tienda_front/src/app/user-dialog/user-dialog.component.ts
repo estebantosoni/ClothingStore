@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-user-dialog',
@@ -8,8 +8,14 @@ import { Component, OnInit } from '@angular/core';
 export class UserDialogComponent implements OnInit {
 
   public positive?:boolean;
-  
-  constructor(){}
+
+  public reg?:boolean;
+  public log?:boolean;
+
+  constructor(){
+    
+  }
 
   ngOnInit():void {}
+
 }
