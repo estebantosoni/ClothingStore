@@ -13,6 +13,4 @@ export class UserLogin{
     getEmail():string {return this.email;}
     getRol():string {return this.rol;}
     getToken():string {return this.token;}
-    
-
 }

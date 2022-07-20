@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../models/user';
+import { UserLogin } from '../models/userLogin';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
@@ -11,7 +11,8 @@ import { AuthenticationService } from '../services/authentication.service';
 export class InterfaceComponent implements OnInit {
   
   public logged:boolean;
-  public usrLogged?:User;
+  public usrLogged?:UserLogin;
+  
   constructor(private router: Router,private uservice:AuthenticationService) {
     if(this.uservice.usrLogged){
       this.logged = true;

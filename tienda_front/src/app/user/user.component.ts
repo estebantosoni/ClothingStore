@@ -44,7 +44,6 @@ export class UserComponent implements OnInit {
   }
 
   send():void{
-
     if(this.id == '1'){      //registro
       const usrname = this.form.get('username')?.value;
       const mail = this.form.get('email')?.value;
@@ -52,8 +51,7 @@ export class UserComponent implements OnInit {
       const rol = this.form.get('rol')?.value;
       const usr = new User(usrname,psw,mail,rol);
       
-      this.service.register(usr.getUsername(),usr.getEmail(),usr.getPassword(),usr.getRol()).subscribe((msj:string) =>{
-
+      this.service.register(usr.getUsername(),usr.getEmail(),usr.getPassword(),usr.getRol()).subscribe((obj) =>{
         const popiConfig:MatDialogConfig = new MatDialogConfig();
         popiConfig.disableClose = true;
         popiConfig.width = '600px';
@@ -61,40 +59,24 @@ export class UserComponent implements OnInit {
 
         const popiRef = this.popi.open(UserDialogComponent,popiConfig);
         popiRef.componentInstance.positive = true;
-        console.log(msj);
-        if(msj == "User registered successfully!"){
+        if(obj.message == "User registered successfully!"){
           popiRef.componentInstance.reg = true;
         }else{
           popiRef.componentInstance.reg = false;
         }
         popiRef.afterClosed().subscribe();
-
       });
 
     }
     else{               //login
-
       const usrname = this.form.get('username')?.value;
       const psw = this.form.get('password')?.value;
-      const usr = new User(usrname,psw);                          //CREO QUE HABRIA QUE AGREGAR EL RESTO DE ATRIBUTOS
+      //const usr = new User(usrname,psw);                          //CREO QUE HABRIA QUE AGREGAR EL RESTO DE ATRIBUTOS
       
-      /*
-      //BORRAR ÉSTO CUANDO SOLUCIONEMOS SEGURIZACIÓN
-      this.uservice.usrLogged = usr;
-      const popiConfig:MatDialogConfig = new MatDialogConfig();
-      popiConfig.disableClose = true;
-      popiConfig.width = '600px';
-      popiConfig.height = '400px';
-      const popiRef = this.popi.open(UserDialogComponent,popiConfig);
-      popiRef.componentInstance.positive = true;
-      popiRef.afterClosed().subscribe();
-      */
-
-      this.service.login(usr.getUsername(),usr.getPassword()).subscribe((valid:HttpResponse<UserLogin>) => {
-        const result:UserLogin = new UserLogin(valid.body!?.getId(),valid.body!?.getUsername(),valid.body!?.getEmail(),valid.body!?.getRol(),valid.body!?.getToken());
-        //this.service.usrLogged = valid;
-        console.log(result);
-        console.log(result.getUsername());
+      this.service.login(usrname,psw).subscribe((obj) => {
+        const usr:UserLogin = new UserLogin(obj.id,obj.username,obj.email,obj.rol,obj.token);
+        this.service.usrLogged = usr;
+        console.log(obj);
          //imprimimos el aviso
         const popiConfig:MatDialogConfig = new MatDialogConfig();
         popiConfig.disableClose = true;
@@ -103,7 +85,7 @@ export class UserComponent implements OnInit {
 
         const popiRef = this.popi.open(UserDialogComponent,popiConfig);
         popiRef.componentInstance.positive = false;
-        if(valid.ok){
+        if(obj.id != undefined){
           popiRef.componentInstance.log = true;
         }else{
           popiRef.componentInstance.log = false;

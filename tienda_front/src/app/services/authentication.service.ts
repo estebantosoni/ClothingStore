@@ -54,7 +54,7 @@ export class AuthenticationService {
     
     private currentUserSubject: BehaviorSubject<User|null>;
     public currentUser: Observable<User|null>;
-    public usrLogged?:User;
+    public usrLogged?:UserLogin;
 
     constructor(private http: HttpClient) {
         const seval = localStorage.getItem('currentUser')!;     //le digo q no va a ser null, PERO OJO, porque el user puede ser null y no estar en localstorage, y tal vez necesite q no sea null para mantener el log
