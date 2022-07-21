@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserLogin } from '../models/userLogin';
+import { User } from '../models/user';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
@@ -11,17 +11,16 @@ import { AuthenticationService } from '../services/authentication.service';
 export class InterfaceComponent implements OnInit {
   
   public logged:boolean;
-  public usrLogged?:UserLogin;
+  public usrLogged?:User;
   
   constructor(private router: Router,private uservice:AuthenticationService) {
-    if(this.uservice.usrLogged){
+    const isUsr = this.uservice.usrLogged;
+    if(isUsr){
       this.logged = true;
-      console.log(this.logged);
-      this.usrLogged = this.uservice.usrLogged;
-    } else {
-      this.logged = false;
-      console.log(this.logged);
+      this.usrLogged = isUsr;
     }
+    else 
+      this.logged = false;
   }
 
   ngOnInit(): void {}

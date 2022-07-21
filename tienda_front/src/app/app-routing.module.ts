@@ -17,7 +17,7 @@ const routes: Routes = [
   {path: 'dress',                   component: DressComponent},
   {path: 'fragrance',               component: FragranceComponent},
   {path: 'details/:id',             component: DetailsComponent},
-  {path: 'abm',                     component: AbmComponent},
+  {path: 'abm',                     component: AbmComponent,canActivate:[AuthGuard]},
   {path: 'us',                      component: UsComponent},
   {path: 'help',                    component: HelpComponent},
   {path: '', redirectTo: '/interface', pathMatch: 'full'},

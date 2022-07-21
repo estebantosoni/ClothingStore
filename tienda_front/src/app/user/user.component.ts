@@ -24,21 +24,18 @@ export class UserComponent implements OnInit {
     private service: AuthenticationService,
     private builder: FormBuilder,
     private popi: MatDialog,
-    private router: Router,
     private route: ActivatedRoute
   )
   {
-    this.form = this.builder.group({username:[''],email:[''],password:[''],rol:['']});
-    /*
-    //si el usuario ya se logueó, lo devolvemos a la pagina principal
-    if (this.service.currentUserValue) { 
-      this.router.navigate(['/interface']);
-    }
-    */
+    this.form = this.builder.group({
+      username:[''],
+      email:[''],
+      password:[''],
+      rol:['']
+    });
   }
 
   ngOnInit(): void {
-    
     //REVISAR SI ESTO ES CORRECTO AGREGARLO ACÁ
     this.id = this.route.snapshot.paramMap.get('id');
   }
@@ -74,9 +71,13 @@ export class UserComponent implements OnInit {
       //const usr = new User(usrname,psw);                          //CREO QUE HABRIA QUE AGREGAR EL RESTO DE ATRIBUTOS
       
       this.service.login(usrname,psw).subscribe((obj) => {
-        const usr:UserLogin = new UserLogin(obj.id,obj.username,obj.email,obj.rol,obj.token);
-        this.service.usrLogged = usr;
-        console.log(obj);
+        const usr:UserLogin = new UserLogin(obj.id,obj.username,obj.email,obj.roles[0],obj.token);
+        this.service.usrLogged = new User(
+          obj.username,
+          "",
+          obj.email,
+          obj.rol
+        )
          //imprimimos el aviso
         const popiConfig:MatDialogConfig = new MatDialogConfig();
         popiConfig.disableClose = true;

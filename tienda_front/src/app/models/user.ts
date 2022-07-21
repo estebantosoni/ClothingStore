@@ -1,9 +1,9 @@
 export class User{    
     constructor(
-        private username:string,
+        public username:string,
         private password:string,
-        private email?:string,
-        private rol?:string,
+        public email?:string,
+        public rol?:string,
         private id?:number,
         private token?: string,
     ){}

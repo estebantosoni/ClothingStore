@@ -47,26 +47,26 @@ import { map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
-import { UserLogin } from '../models/userLogin';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     
     private currentUserSubject: BehaviorSubject<User|null>;
     public currentUser: Observable<User|null>;
-    public usrLogged?:UserLogin;
+    public usrLogged:User|null;
 
     constructor(private http: HttpClient) {
         const seval = localStorage.getItem('currentUser')!;     //le digo q no va a ser null, PERO OJO, porque el user puede ser null y no estar en localstorage, y tal vez necesite q no sea null para mantener el log
         this.currentUserSubject = new BehaviorSubject<User|null>(JSON.parse(seval));
         this.currentUser = this.currentUserSubject.asObservable();
+        this.usrLogged = this.currentUserValue;
     }
 
     public get currentUserValue(): User | null {                   //lo accedo como propiedad en vez de metodo
         return this.currentUserSubject.value;
     }
 
-    login(username: string, password: string) {
+    login(username: string, password: string):Observable<any>{
         return this.http.post<any>(`${environment.backurl}/api/auth/signin`, { username, password })
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -76,15 +76,14 @@ export class AuthenticationService {
             }));
     }
 
-    register(username:string,email:string|undefined,password:string,rol:string|undefined){
+    register(username:string,email:string|undefined,password:string,rol:string|undefined):Observable<any>{
         return this.http.post<any>(`${environment.backurl}/api/auth/signup`, { username, email, password, rol });
     }
 
-    logout() {
+    logout():void{
         // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
+        this.usrLogged = null;
     }
-
-
 }
