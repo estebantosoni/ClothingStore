@@ -34,4 +34,11 @@ export class InterfaceComponent implements OnInit {
     }
     
   }
+
+  quit(){
+    //this.logged = false;
+    this.uservice.logout();
+    window.location.reload();
+  }
+
 }

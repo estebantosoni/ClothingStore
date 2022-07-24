@@ -16,10 +16,11 @@ import { UsComponent } from './us/us.component';
 import { HelpComponent } from './help/help.component';
 import { DetailsComponent } from './details/details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialog, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatListModule } from '@angular/material/list';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { AbmComponent } from './abm/abm.component';
+import { MiniPopiComponent } from './mini-popi/mini-popi.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AbmComponent } from './abm/abm.component';
     HelpComponent,
     DetailsComponent,
     UserDialogComponent,
-    AbmComponent
+    AbmComponent,
+    MiniPopiComponent
   ],
   imports: [
     BrowserModule,

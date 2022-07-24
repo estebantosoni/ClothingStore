@@ -1,21 +1,30 @@
 <ng-container *ngIf="id=='1'; then registro else login"></ng-container>
 
 <ng-template #registro>
-    <form [formGroup]="form">
+    <form [formGroup]="form" ngNativeValidate>
         <!-- SE DEBERIAN AÑADIR CAMPOS ADICIONALES COMO "REPETIR EMAIL" O "REPETIR PASSWORD"-->
             <!-- PERO HABRIA QUE ESTAR ATENTOS A COMO LO RESOLVEMOS EN FRONT Y BACK-->
-        <p>Email: <input type="email" formControlName="email"> </p>
-        <p>Nombre de usuario: <input type="text" formControlName="username"/></p>
-        <p>Password: <input type="password" formControlName="password" /></p>
-        <p><button mat_button (click)="send()">sign in</button></p>
+        <p>Email: <input type="email" formControlName="email" (change)="onEmailChange()" required> </p>
+        <p> Repetir email: <input type="email" formControlName="confirm_email" (change)="onEmailChange()" required/> </p>
+        <p class="error"> <span *ngIf="confirm_email.hasError('mismatch')">Email do not match.</span> </p>
+        
+        <p>Nombre de usuario: <input type="text" formControlName="username" required/></p>
+        
+        <p> Contraseña: <input type="password" formControlName="password" (change)="onPasswordChange()" minlength="7" required/> </p>
+        <p> Repetir contraseña: <input type="password" formControlName="confirm_password" (change)="onPasswordChange()" minlength="7" required /> </p>
+        <p class="error"> <span *ngIf="confirm_password.hasError('mismatch')">Password do not match.</span> </p>
+
+        <p><button mat_button (click)="send(0)">sign in</button></p>
+        <p class="error"> {{ error.toUpperCase() }} </p>
+
     </form>
 </ng-template>
 
 <ng-template #login>
-    <form [formGroup]="form">
-        <p>Usuario: <input type="text" formControlName="username"/></p>
-        <p>Password: <input type="password" formControlName="password" /></p>
-        <p><button mat_button (click)="send()">sign in</button></p>
+    <form [formGroup]="form" ngNativeValidate>
+        <p>Usuario: <input type="text" formControlName="username" required/></p>
+        <p>Password: <input type="password" formControlName="password" required></p>
+        <p><button mat_button (click)="send(-1)">sign in</button></p>
     </form>
 </ng-template>
 

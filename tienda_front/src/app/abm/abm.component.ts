@@ -1,7 +1,9 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { from, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { MiniPopiComponent } from '../mini-popi/mini-popi.component';
 import { Dress } from '../models/dress';
 import { Fragrance } from '../models/fragrance';
 import { DressService } from '../services/dress.service';
@@ -36,6 +38,7 @@ export class AbmComponent implements OnInit {
     private router:Router,
     private dservice:DressService,
     private fservice:FraganceService,
+    private popi: MatDialog,
     private builder:FormBuilder
   ) {
     this.imgAsSTR = "";
@@ -93,6 +96,20 @@ export class AbmComponent implements OnInit {
     this.fragrances$ = this.fservice.getEverything();
   }
 
+  callPopi(status:boolean):void{
+
+    const popiConfig:MatDialogConfig = new MatDialogConfig();
+    popiConfig.disableClose = true;
+    popiConfig.width = '300px';
+    popiConfig.height = '300px';
+
+    const popiRef = this.popi.open(MiniPopiComponent,popiConfig);
+    popiRef.componentInstance.block = status;
+    
+    popiRef.afterClosed().subscribe();
+
+  }
+
   sendDress():void{
     var stock:boolean;
     if(this.dform.get('stock')?.value == "true"){
@@ -117,8 +134,11 @@ export class AbmComponent implements OnInit {
       true
     );
     this.dservice.store(storing).subscribe(() => {
+    
       //HACER POPUP
-      this.dform.reset();
+    this.callPopi(true);
+    
+    this.dform.reset();
     });
   }
 
@@ -148,6 +168,10 @@ export class AbmComponent implements OnInit {
       id
     );
     this.dservice.update(updating).subscribe();
+    
+    //POPUP
+    this.callPopi(false);
+
     this.callDress();
     this.dform.reset();
   }
@@ -177,6 +201,8 @@ export class AbmComponent implements OnInit {
     );
     this.fservice.store(storing).subscribe(() => {
       //HACER POPUP
+      this.callPopi(true);
+
       this.fform.reset();
     });
   }
@@ -207,6 +233,10 @@ export class AbmComponent implements OnInit {
       id
     );
     this.fservice.update(updating).subscribe();
+    
+    //POPUP
+    this.callPopi(false);
+    
     this.callFragrance();
     this.fform.reset();
   }

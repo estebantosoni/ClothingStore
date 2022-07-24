@@ -1,0 +1,23 @@
+<ng-container *ngIf="block; then addp else modp"></ng-container>
+
+<ng-template #addp>
+    
+    <div>
+        <h1 mat-dialog-title>Producto añadido exitosamente</h1>
+        <div mat-dialog-actions>
+            <button mat-button mat-dialog-close>Ok</button>
+        </div>
+    </div>
+    
+</ng-template>
+
+<ng-template #modp>
+
+    <div>
+        <h1 mat-dialog-title>Producto modificado exitosamente</h1>
+        <div mat-dialog-actions>
+            <button mat-button mat-dialog-close>Ok</button>
+        </div>
+    </div>
+
+</ng-template>

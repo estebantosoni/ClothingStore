@@ -1,14 +1,11 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../models/user';
-import { UserService } from '../services/user.service';
 import { MatDialog, MatDialogConfig, _MatDialogBase } from '@angular/material/dialog'
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 import { AuthenticationService } from '../services/authentication.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { UserLogin } from '../models/userLogin';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Component({
   selector: 'app-user',
@@ -19,6 +16,7 @@ export class UserComponent implements OnInit {
 
   form:FormGroup;
   id:string|null = '';
+  error:string = '';
 
   constructor(
     private service: AuthenticationService,
@@ -28,11 +26,14 @@ export class UserComponent implements OnInit {
   )
   {
     this.form = this.builder.group({
-      username:[''],
-      email:[''],
-      password:[''],
-      rol:['']
+      username:['', [ Validators.required ]], 
+      email:['', [ Validators.required ]],
+      confirm_email:['', [ Validators.required ] ],
+      password:['', [ Validators.required ]],
+      confirm_password:['', [ Validators.required ] ],
+      rol:this.builder.control('')
     });
+
   }
 
   ngOnInit(): void {
@@ -40,8 +41,42 @@ export class UserComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
-  send():void{
+  onPasswordChange() {
+    if (this.confirm_password.value == this.password.value) {
+      this.confirm_password.setErrors(null);
+    } else {
+      this.confirm_password.setErrors({ mismatch: true });
+    }
+  }
+  
+  get password(): AbstractControl {return this.form.controls['password'];}
+  get confirm_password(): AbstractControl {return this.form.controls['confirm_password'];}
+
+  onEmailChange() {
+    if (this.confirm_email.value == this.email.value) {
+      this.confirm_email.setErrors(null);
+    } else {
+      this.confirm_email.setErrors({ mismatch: true });
+    }
+  }
+  
+  get email(): AbstractControl {return this.form.controls['email'];}
+  get confirm_email(): AbstractControl {return this.form.controls['confirm_email'];}
+
+  send(nro:number):void{
+    
+    if(nro == 0){
+      if(this.form.get('email')?.value !== this.form.get('confirm_email')?.value || this.form.get('password')?.value !== this.form.get('confirm_password')?.value ){
+        this.error = 'El email y/o contraseña no coinciden.';
+        return;
+      }
+      else{
+        this.error = '';
+      }
+    }
+
     if(this.id == '1'){      //registro
+
       const usrname = this.form.get('username')?.value;
       const mail = this.form.get('email')?.value;
       const psw = this.form.get('password')?.value;
@@ -62,8 +97,8 @@ export class UserComponent implements OnInit {
           popiRef.componentInstance.reg = false;
         }
         popiRef.afterClosed().subscribe();
+        
       });
-
     }
     else{               //login
       const usrname = this.form.get('username')?.value;
@@ -95,6 +130,5 @@ export class UserComponent implements OnInit {
       });
 
     }
-    
   }
 }
