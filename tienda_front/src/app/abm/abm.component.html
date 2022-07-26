@@ -175,14 +175,14 @@
                     <ng-template #letra>
                         <label for="size"> Talle: </label> 
                         <select name="prenda" formControlName="talle" id="sub" required>
-                            <option value="xs" selected> XS </option>
-                            <option value="s"> S </option>
-                            <option value="m"> M </option>
-                            <option value="l"> L </option>
-                            <option value="xl"> XL </option>
-                            <option value="xxl"> XXL </option>
-                            <option value="xxxl"> XXXL </option>
-                            <option value="xxxxl"> XXXXL </option>
+                            <option value="XS"> XS </option>
+                            <option value="S"> S </option>
+                            <option value="M"> M </option>
+                            <option value="L"> L </option>
+                            <option value="XL"> XL </option>
+                            <option value="XXL"> XXL </option>
+                            <option value="XXXL"> XXXL </option>
+                            <option value="XXXXL"> XXXXL </option>
                         </select>
                     </ng-template>
     
@@ -192,10 +192,10 @@
                     </p>
                     <p> <label for="edad"> Edad: </label>
                         <select name="edad" formControlName="edad" id="edad" required>
-                            <option value="niño"> Niños </option>
-                            <option value="joven"> Jovenes </option>
-                            <option value="adulto"> Adultos </option>
-                            <option value="anciano"> Ancianos </option>
+                            <option value="niños"> niños </option>
+                            <option value="jovenes"> jovenes </option>
+                            <option value="adultos"> adultos </option>
+                            <option value="ancianos"> ancianos </option>
                         </select>
                     </p>
                     <p> <label for="brand"> Marca: </label>
@@ -203,7 +203,7 @@
                     <p> <label for="model"> Modelo: </label>
                         <input type="text" name="modelo" formControlName="modelo" id="model" maxlength="20" required> </p>
                     <p> <label for="code"> Codigo: </label> 
-                        <input type="text" name="codigo" formControlName="codigo" id="code" maxlength="7" required> </p>
+                        <input [readonly]="true" type="text" name="codigo" formControlName="codigo" id="code" maxlength="7" required> </p>
                     <p> <label for="color"> Color: </label> 
                         <input type="text" name="color" formControlName="color" id="color" maxlength="20" required> </p>
                     <p> <label for="stock"> Stock: </label> 
@@ -225,9 +225,9 @@
                     <p>
                         <label for="sub"> Subcategoria: </label>
                         <select name="tipo" formControlName="subcategoria" id="sub" required>
-                            <option value="Eau de Toilette" > Eau de Toilette </option>
-                            <option value="Colonias"> Colonias </option>
-                            <option value="Infantiles"> Infantiles </option>
+                            <option value="eau de toilette" > eau de toilette </option>
+                            <option value="colonias"> colonias </option>
+                            <option value="infantiles"> infantiles </option>
                         </select>
                     </p>
                     <p> <label for="volume"> Volumen: </label>
@@ -245,7 +245,7 @@
                     <p> <label for="model"> Modelo: </label> 
                         <input type="text"  name="modelo" formControlName="modelo" id="model" maxlength="20" required> </p>
                     <p> <label for="code"> Codigo: </label> 
-                        <input type="text"  name="codigo" formControlName="codigo" id="code" maxlength="4" required> </p>
+                        <input [readonly]="true" type="text" name="codigo" formControlName="codigo" id="code" maxlength="7" required> </p>
                     <p> <label for="stock"> Stock: </label> 
                         <input type="radio" name="stock" formControlName="stock" value="true" id="stock" required> Si 
                         <input type="radio" name="stock" formControlName="stock" value="false" id="stock"> No

@@ -102,7 +102,14 @@ export class UserComponent implements OnInit {
     else{               //login
       const usrname = this.form.get('username')?.value;
       const psw = this.form.get('password')?.value;
-      this.service.login(usrname,psw).subscribe((obj) => {
+      const popiConfig:MatDialogConfig = new MatDialogConfig();
+      const popiRef = this.popi.open(UserDialogComponent,popiConfig);
+      popiRef.componentInstance.positive = false;
+      popiConfig.disableClose = true;
+      popiConfig.width = '600px';
+      popiConfig.height = '400px';
+      this.service.login(usrname,psw).subscribe({
+        next: (obj) => {
         const usr:UserLogin = new UserLogin(obj.id,obj.username,obj.email,obj.roles[0],obj.token);
         this.service.setUsrLogged(new User(
           obj.username,
@@ -112,20 +119,15 @@ export class UserComponent implements OnInit {
           obj.id
         ));
          //imprimimos el aviso
-        const popiConfig:MatDialogConfig = new MatDialogConfig();
-        popiConfig.disableClose = true;
-        popiConfig.width = '600px';
-        popiConfig.height = '400px';
-
-        const popiRef = this.popi.open(UserDialogComponent,popiConfig);
-        popiRef.componentInstance.positive = false;
-        if(obj.id != undefined){
-          popiRef.componentInstance.log = true;
-        }else{
-          popiRef.componentInstance.log = false;
-        }
+        popiRef.componentInstance.log = true;
         popiRef.afterClosed().subscribe();
         this.favservice.restoreValues(this.service.getUsrLogged()!.id!).subscribe();
+        },
+        error: (objError) => {
+        //imprimimos el aviso
+        popiRef.componentInstance.log = false;
+        popiRef.afterClosed().subscribe();
+        }
       });
     }
   }

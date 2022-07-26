@@ -26,7 +26,7 @@ export class AbmComponent implements OnInit {
   modifyingDress:Dress|null = null;
   modifyingFragrance:Fragrance|null = null;
   //constantes
-  prendas:string[] = ['Remeras', 'Pantalones', 'Sweeters', 'Buzos', 'Camperas', 'Chalecos', 'Boxers', 'Zapatillas'];
+  prendas:string[] = ['remeras', 'pantalones', 'sweeters', 'buzos', 'camperas', 'chalecos', 'boxers', 'zapatillas'];
   //para el envío y recepción de productos con el backend
   dresses$:Observable<Dress[]> = of([]);
   fragrances$:Observable<Fragrance[]> = of([]);
@@ -151,6 +151,7 @@ export class AbmComponent implements OnInit {
     } else {
       stock = false;
     }
+    console.log(this.dform.get('subcategoria')?.value);
     if(!this.dform.valid)
       return;
     const updating = new Dress(
@@ -205,7 +206,6 @@ export class AbmComponent implements OnInit {
     this.fservice.store(storing).subscribe(() => {
       //HACER POPUP
       this.callPopi(true);
-
       this.fform.reset();
     });
   }
@@ -251,6 +251,8 @@ export class AbmComponent implements OnInit {
       this.modifyingCategory = "dress";
       this.modifyingDress = product as Dress;
       this.modifyingFragrance = null;
+
+      console.log(this.modifyingDress.subcategory);
       //seteo los valores del producto que se está modificando en el formulario
       this.dform.get('sexo')?.setValue(this.modifyingDress.sex);
       this.dform.get('edad')?.setValue(this.modifyingDress.age);
@@ -260,7 +262,10 @@ export class AbmComponent implements OnInit {
       this.dform.get('codigo')?.setValue(this.modifyingDress.code);
       this.dform.get('talle')?.setValue(this.modifyingDress.size);
       this.dform.get('color')?.setValue(this.modifyingDress.color);
-      this.dform.get('stock')?.setValue(this.modifyingDress.stock);
+      if(this.modifyingDress.stock)
+        this.dform.get('stock')?.setValue("true");
+      else 
+        this.dform.get('stock')?.setValue("false");
       this.dform.get('precio')?.setValue(this.modifyingDress.price);
     }
     else {
@@ -276,7 +281,10 @@ export class AbmComponent implements OnInit {
       this.fform.get('marca')?.setValue(this.modifyingFragrance.brand);
       this.fform.get('modelo')?.setValue(this.modifyingFragrance.model);
       this.fform.get('codigo')?.setValue(this.modifyingFragrance.code);
-      this.fform.get('stock')?.setValue(this.modifyingFragrance.stock);
+      if(this.modifyingFragrance.stock)
+        this.fform.get('stock')?.setValue("true");
+      else 
+        this.fform.get('stock')?.setValue("false");
       this.fform.get('precio')?.setValue(this.modifyingFragrance.price);
     }
   }
@@ -310,9 +318,9 @@ export class AbmComponent implements OnInit {
   }
 
   size(valor:string){
-    if(valor == "Zapatillas"){
+    console.log(valor);
+    if(valor == "zapatillas"){
       this.bit_size = true;
-      console.log(this.bit_size);
     }
     else{
       this.bit_size = false;

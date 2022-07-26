@@ -3,7 +3,8 @@
     <div style="height: 400px;">       <!-- para la imagen y las caracteristicas -->
         
         <div class="box">       <!-- para la imagen -->
-            <p>acá va la imagen</p>
+            <img class="box" *ngIf="checkId" src="{{(itemF$ | async)?.image}}" alt="imagen producto"/>
+            <img class="box" *ngIf="!checkId" src="{{(itemD$ | async)?.image}}" alt="imagen producto"/>
         </div>
 
         <div class="box" style="outline:solid 1px;">       <!-- para las caracteristicas -->
