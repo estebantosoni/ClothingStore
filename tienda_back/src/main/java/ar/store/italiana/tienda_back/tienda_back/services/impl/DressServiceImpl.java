@@ -40,6 +40,11 @@ public class DressServiceImpl implements DressService {
 	}
 
 	@Override
+	public Optional<Dress> getFromId(Long id) {
+		return drepo.findById(id);
+	}
+
+	@Override
 	public List<Dress> getFromSubcategory(String which){
 		return drepo.filterBySubcategory(which);
 	}

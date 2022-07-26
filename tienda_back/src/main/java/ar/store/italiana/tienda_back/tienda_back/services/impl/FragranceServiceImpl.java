@@ -30,6 +30,11 @@ public class FragranceServiceImpl implements FragranceService {
     }
 
     @Override
+    public Optional<Fragrance> getFromId(Long id) {
+        return frepo.findById(id);
+    }
+
+    @Override
     public List<Fragrance> getFromSubcategory(String which) {
         return frepo.findBySubcategoryAndEnabledTrue(which);
     }

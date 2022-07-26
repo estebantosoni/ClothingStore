@@ -1,4 +1,6 @@
-export class Dress{
+import { Product } from "./product";
+
+export class Dress implements Product{
     constructor(
         public sex:string,
         public age:string,
@@ -12,6 +14,7 @@ export class Dress{
         public price:number,
         public image:string,  //base 64
         public enabled:boolean,
-        public id?:number,
+        public isOnFavs:boolean,
+        public id?:number
     ){}
 }

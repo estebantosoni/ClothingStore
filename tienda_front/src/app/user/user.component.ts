@@ -6,6 +6,7 @@ import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 import { AuthenticationService } from '../services/authentication.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserLogin } from '../models/userLogin';
+import { FavoritoService } from '../services/favorito.service';
 
 @Component({
   selector: 'app-user',
@@ -22,7 +23,8 @@ export class UserComponent implements OnInit {
     private service: AuthenticationService,
     private builder: FormBuilder,
     private popi: MatDialog,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private favservice:FavoritoService
   )
   {
     this.form = this.builder.group({
@@ -64,7 +66,6 @@ export class UserComponent implements OnInit {
   get confirm_email(): AbstractControl {return this.form.controls['confirm_email'];}
 
   send(nro:number):void{
-    
     if(nro == 0){
       if(this.form.get('email')?.value !== this.form.get('confirm_email')?.value || this.form.get('password')?.value !== this.form.get('confirm_password')?.value ){
         this.error = 'El email y/o contraseña no coinciden.';
@@ -76,7 +77,6 @@ export class UserComponent implements OnInit {
     }
 
     if(this.id == '1'){      //registro
-
       const usrname = this.form.get('username')?.value;
       const mail = this.form.get('email')?.value;
       const psw = this.form.get('password')?.value;
@@ -97,22 +97,20 @@ export class UserComponent implements OnInit {
           popiRef.componentInstance.reg = false;
         }
         popiRef.afterClosed().subscribe();
-        
       });
     }
     else{               //login
       const usrname = this.form.get('username')?.value;
       const psw = this.form.get('password')?.value;
-      //const usr = new User(usrname,psw);                          //CREO QUE HABRIA QUE AGREGAR EL RESTO DE ATRIBUTOS
-      
       this.service.login(usrname,psw).subscribe((obj) => {
         const usr:UserLogin = new UserLogin(obj.id,obj.username,obj.email,obj.roles[0],obj.token);
-        this.service.usrLogged = new User(
+        this.service.setUsrLogged(new User(
           obj.username,
           "",
           obj.email,
-          obj.rol
-        )
+          obj.rol,
+          obj.id
+        ));
          //imprimimos el aviso
         const popiConfig:MatDialogConfig = new MatDialogConfig();
         popiConfig.disableClose = true;
@@ -127,8 +125,8 @@ export class UserComponent implements OnInit {
           popiRef.componentInstance.log = false;
         }
         popiRef.afterClosed().subscribe();
+        this.favservice.restoreValues(this.service.getUsrLogged()!.id!).subscribe();
       });
-
     }
   }
 }

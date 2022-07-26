@@ -11,6 +11,14 @@
                 
                  <ng-template #fBlock>                     <!-- fragrance -->
                     <div class="list">
+                        <div *ngIf="isUsrLogged" class="fav">
+                            <button (click)="addToFavs('fragrance')" [hidden]="item?.isOnFavs">
+                                Añadir a favoritos
+                            </button>
+                            <button (click)="removeFromFavs('fragrance')" [hidden]="!item?.isOnFavs">
+                                Quitar de favoritos
+                            </button>
+                        </div>
                         <h2> {{(itemF$ | async)?.brand}} </h2>
                         <h3> {{(itemF$ | async)?.model}} </h3>
                         <p style="font-size: 30px;"> ${{(itemF$ | async)?.price}} </p>
@@ -32,6 +40,14 @@
 
                 <ng-template #dBlock>                      <!-- dress -->     
                     <div class="list">
+                        <div *ngIf="isUsrLogged" class="fav">
+                            <button (click)="addToFavs('dress')" [hidden]="item?.isOnFavs">
+                                Añadir a favoritos
+                            </button>
+                            <button (click)="removeFromFavs('dress')" [hidden]="!item?.isOnFavs">
+                                Quitar de favoritos
+                            </button>
+                        </div>
                         <h2> {{(itemD$ | async)?.brand}} </h2>
                         <h3> {{(itemD$ | async)?.model}} </h3>
                         <p style="font-size: 30px;"> ${{(itemD$ | async)?.price}} </p>

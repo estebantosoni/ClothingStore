@@ -11,7 +11,7 @@ public interface DressRepository extends JpaRepository<Dress,Long>{
     String DEF_QUERY =
             "SELECT BRAND,MODEL,min(ID) id,min(code) code,min(image) image,min(enabled) enabled," +
                 "min(subcategory) subcategory,min(sex) sex,min(stock) stock,min(price) price," +
-                "min(age) age,min(sizes) sizes,min(color) color " +
+                "min(age) age,min(sizes) sizes,min(color) color,min(is_on_favs) is_on_favs " +
                 "FROM DRESS ",
             ENABLEDS =
             "WHERE enabled = TRUE ",

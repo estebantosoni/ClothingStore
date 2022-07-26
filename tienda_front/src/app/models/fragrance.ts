@@ -1,4 +1,6 @@
-export class Fragrance{
+import { Product } from "./product";
+
+export class Fragrance implements Product{
     constructor(
         public volumen:number,
         public subcategory:string|null,
@@ -12,6 +14,7 @@ export class Fragrance{
         public price:number,
         public image:string,    //base 64
         public enabled:boolean,
+        public isOnFavs:boolean,
         public id?:number
     ){}
 

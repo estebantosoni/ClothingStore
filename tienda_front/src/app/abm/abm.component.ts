@@ -131,7 +131,8 @@ export class AbmComponent implements OnInit {
       stock,
       this.dform.get('precio')?.value,
       this.imgAsSTR,
-      true
+      true,
+      false
     );
     this.dservice.store(storing).subscribe(() => {
     
@@ -165,6 +166,7 @@ export class AbmComponent implements OnInit {
       this.dform.get('precio')?.value,
       this.imgAsSTR,
       true,
+      false,
       id
     );
     this.dservice.update(updating).subscribe();
@@ -197,7 +199,8 @@ export class AbmComponent implements OnInit {
       stock,
       this.fform.get('precio')?.value,
       this.imgAsSTR,
-      true
+      true,
+      false
     );
     this.fservice.store(storing).subscribe(() => {
       //HACER POPUP
@@ -230,6 +233,7 @@ export class AbmComponent implements OnInit {
       this.fform.get('precio')?.value,
       this.imgAsSTR,
       true,
+      false,
       id
     );
     this.fservice.update(updating).subscribe();

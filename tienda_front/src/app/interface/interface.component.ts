@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { Product } from '../models/product';
 import { User } from '../models/user';
 import { AuthenticationService } from '../services/authentication.service';
+import { FavoritoService } from '../services/favorito.service';
 
 @Component({
   selector: 'app-interface',
@@ -11,34 +14,42 @@ import { AuthenticationService } from '../services/authentication.service';
 export class InterfaceComponent implements OnInit {
   
   public logged:boolean;
-  public usrLogged?:User;
+  public prodsFavs$:Observable<Product[]> = of([]);
   
-  constructor(private router: Router,private uservice:AuthenticationService) {
-    const isUsr = this.uservice.usrLogged;
-    if(isUsr){
+  constructor(
+    private router: Router,
+    private uservice:AuthenticationService,
+    private favservice:FavoritoService
+  ) {
+    if(this.uservice.getUsrLogged())
       this.logged = true;
-      this.usrLogged = isUsr;
-    }
     else 
       this.logged = false;
   }
 
-  ngOnInit(): void {}
+  ngOnInit():void{}
 
-  public goTo(where:string){
+  goTo(where:string){
     var array = where.split('/');
-    if(array[0]=='user'){
+    if(array[0]=='user')
       return this.router.navigate([`/${array[0]}/${array[1]}`]);
-    }else{
+    else
       return this.router.navigate([`/${where}`]);
-    }
-    
   }
 
-  quit(){
+  quit():void{
     //this.logged = false;
+    this.favservice.resetValues(this.uservice.getUsrLogged()!.id!).subscribe(() => {
+      window.location.reload();
+    });
     this.uservice.logout();
-    window.location.reload();
   }
 
+  viewFavs():void{
+    this.prodsFavs$ = this.favservice.getByUserID(this.uservice.getUsrLogged()!.id!);
+  }
+
+  get usrLogged():User|null{
+    return this.uservice.getUsrLogged();
+  }
 }

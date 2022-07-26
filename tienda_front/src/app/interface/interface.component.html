@@ -14,6 +14,12 @@
         <p class="welcome">hola {{usrLogged?.username}}
         <button (click)="goTo('abm')"> Adm. de productos </button>
         <button (click)="quit()"> Logout </button>
+          favoritos
+          <select (click)="viewFavs()">
+            <option *ngFor="let prod of prodsFavs$ | async" (click)="goTo('details/' + prod.code)">
+              {{prod.brand}} - {{prod.model}}
+            </option>
+          </select>
       </div>
     </ng-template>
   </div>

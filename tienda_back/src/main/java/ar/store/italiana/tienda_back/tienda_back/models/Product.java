@@ -18,4 +18,5 @@ public abstract class Product {
 	protected Float price;
 	@Column(length = 350000)
 	protected String image;
+	protected Boolean isOnFavs;
 }

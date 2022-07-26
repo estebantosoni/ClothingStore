@@ -43,8 +43,7 @@ import { MiniPopiComponent } from './mini-popi/mini-popi.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatDialogModule,
-    MatListModule
+    MatDialogModule
   ],
   providers: [                                    
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
