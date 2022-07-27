@@ -1,13 +1,11 @@
 package ar.store.italiana.tienda_back.tienda_back.controllers;
 
-import ar.store.italiana.tienda_back.tienda_back.models.Dress;
-import ar.store.italiana.tienda_back.tienda_back.models.Favorito;
-import ar.store.italiana.tienda_back.tienda_back.models.Fragrance;
-import ar.store.italiana.tienda_back.tienda_back.models.Product;
+import ar.store.italiana.tienda_back.tienda_back.models.*;
 import ar.store.italiana.tienda_back.tienda_back.services.DressService;
 import ar.store.italiana.tienda_back.tienda_back.services.FavoritoService;
 import ar.store.italiana.tienda_back.tienda_back.services.FragranceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 //import ar.store.italiana.tienda_back.tienda_back.models.User;
@@ -65,8 +63,12 @@ public class EntitiesController {
 		return dservice.getFromAge(edad);
 	}
 	@PostMapping("/dress/save")
-	public void saveDress(@RequestBody Dress which){
+	public ResponseEntity<?> saveDress(@RequestBody Dress which){
+		Dress dr = dservice.checkCode(which);
+		if(dr != null)		//significa que hay un dress con ese codigo
+			return ResponseEntity.badRequest().body(new MessageResponse("code used",dr.getId()));
 		dservice.save(which);
+		return ResponseEntity.ok().build();
 	}
 	@PutMapping("/dress/update")
 	public void updateDress(@RequestBody Dress which){
@@ -99,8 +101,12 @@ public class EntitiesController {
 		return fservice.getFromOriginCountry(pais);
 	}
 	@PostMapping("/fragrance/save")
-	public void saveFragrance(@RequestBody Fragrance which){
+	public ResponseEntity<?> saveFragrance(@RequestBody Fragrance which){
+		Fragrance fr = fservice.checkCode(which);
+		if(fr != null)		//significa que hay una fragancia con ese codigo
+			return ResponseEntity.badRequest().body(new MessageResponse("code used",fr.getId()));
 		fservice.save(which);
+		return ResponseEntity.ok().build();
 	}
 	@PutMapping("/fragrance/update")
 	public void updateFragrance(@RequestBody Fragrance which){

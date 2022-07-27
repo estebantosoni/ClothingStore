@@ -12,4 +12,6 @@ public interface FragranceRepository extends JpaRepository<Fragrance, Long>{
     List<Fragrance> findBySexAndEnabledTrue(String who);
     List<Fragrance> findByOriginCountryAndEnabledTrue(String what);
     Fragrance findByCode(String who);
+
+    boolean existsByCode(String code);
 }

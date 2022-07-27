@@ -15,4 +15,6 @@ public interface FragranceService {
     List<Fragrance> getFromOriginCountry(String what);
 
     void save(Fragrance which);
+
+    Fragrance checkCode(Fragrance which);
 }

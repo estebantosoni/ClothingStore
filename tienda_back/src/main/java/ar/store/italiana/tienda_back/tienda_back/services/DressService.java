@@ -16,4 +16,6 @@ public interface DressService {
     List<Dress> getFromAge(String who);
 
     void save(Dress which);
+
+    Dress checkCode(Dress which);
 }

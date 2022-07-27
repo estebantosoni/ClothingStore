@@ -1,5 +1,6 @@
 package ar.store.italiana.tienda_back.tienda_back.services.impl;
 
+import ar.store.italiana.tienda_back.tienda_back.models.Dress;
 import ar.store.italiana.tienda_back.tienda_back.models.Fragrance;
 import ar.store.italiana.tienda_back.tienda_back.repositories.FragranceRepository;
 import ar.store.italiana.tienda_back.tienda_back.services.FragranceService;
@@ -52,5 +53,14 @@ public class FragranceServiceImpl implements FragranceService {
     @Override
     public void save(Fragrance which) {
         frepo.save(which);
+    }
+
+    @Override
+    public Fragrance checkCode(Fragrance which) {
+        Fragrance ret = null;
+        String codeInCuestion = which.getCode();
+        if(frepo.existsByCode(codeInCuestion))
+            ret = frepo.findByCode(codeInCuestion);
+        return ret;
     }
 }

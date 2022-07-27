@@ -38,12 +38,12 @@ export class UserComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngOnInit():void {
     //REVISAR SI ESTO ES CORRECTO AGREGARLO ACÁ
     this.id = this.route.snapshot.paramMap.get('id');
   }
 
-  onPasswordChange() {
+  onPasswordChange():void{
     if (this.confirm_password.value == this.password.value) {
       this.confirm_password.setErrors(null);
     } else {
@@ -51,10 +51,10 @@ export class UserComponent implements OnInit {
     }
   }
   
-  get password(): AbstractControl {return this.form.controls['password'];}
-  get confirm_password(): AbstractControl {return this.form.controls['confirm_password'];}
+  get password():AbstractControl {return this.form.controls['password'];}
+  get confirm_password():AbstractControl {return this.form.controls['confirm_password'];}
 
-  onEmailChange() {
+  onEmailChange():void{
     if (this.confirm_email.value == this.email.value) {
       this.confirm_email.setErrors(null);
     } else {
@@ -62,8 +62,8 @@ export class UserComponent implements OnInit {
     }
   }
   
-  get email(): AbstractControl {return this.form.controls['email'];}
-  get confirm_email(): AbstractControl {return this.form.controls['confirm_email'];}
+  get email():AbstractControl {return this.form.controls['email'];}
+  get confirm_email():AbstractControl {return this.form.controls['confirm_email'];}
 
   send(nro:number):void{
     if(nro == 0){
@@ -102,31 +102,37 @@ export class UserComponent implements OnInit {
     else{               //login
       const usrname = this.form.get('username')?.value;
       const psw = this.form.get('password')?.value;
-      const popiConfig:MatDialogConfig = new MatDialogConfig();
-      const popiRef = this.popi.open(UserDialogComponent,popiConfig);
-      popiRef.componentInstance.positive = false;
-      popiConfig.disableClose = true;
-      popiConfig.width = '600px';
-      popiConfig.height = '400px';
       this.service.login(usrname,psw).subscribe({
         next: (obj) => {
-        const usr:UserLogin = new UserLogin(obj.id,obj.username,obj.email,obj.roles[0],obj.token);
-        this.service.setUsrLogged(new User(
-          obj.username,
-          "",
-          obj.email,
-          obj.rol,
-          obj.id
-        ));
-         //imprimimos el aviso
-        popiRef.componentInstance.log = true;
-        popiRef.afterClosed().subscribe();
-        this.favservice.restoreValues(this.service.getUsrLogged()!.id!).subscribe();
+          const popiConfig:MatDialogConfig = new MatDialogConfig();
+          const popiRef = this.popi.open(UserDialogComponent,popiConfig);
+          popiRef.componentInstance.positive = false;
+          popiConfig.disableClose = true;
+          popiConfig.width = '600px';
+          popiConfig.height = '400px';
+          const usr:UserLogin = new UserLogin(obj.id,obj.username,obj.email,obj.roles[0],obj.token);
+          this.service.setUsrLogged(new User(
+            obj.username,
+            "",
+            obj.email,
+            obj.rol,
+            obj.id
+          ));
+          //imprimimos el aviso
+          popiRef.componentInstance.log = true;
+          popiRef.afterClosed().subscribe();
+          this.favservice.restoreValues(this.service.getUsrLogged()!.id!).subscribe();
         },
         error: (objError) => {
-        //imprimimos el aviso
-        popiRef.componentInstance.log = false;
-        popiRef.afterClosed().subscribe();
+          const popiConfig:MatDialogConfig = new MatDialogConfig();
+          const popiRef = this.popi.open(UserDialogComponent,popiConfig);
+          popiRef.componentInstance.positive = false;
+          popiConfig.disableClose = true;
+          popiConfig.width = '600px';
+          popiConfig.height = '400px';
+          //imprimimos el aviso
+          popiRef.componentInstance.log = false;
+          popiRef.afterClosed().subscribe();
         }
       });
     }

@@ -96,18 +96,21 @@ export class AbmComponent implements OnInit {
     this.fragrances$ = this.fservice.getEverything();
   }
 
-  callPopi(status:boolean):void{
-
+  callPopi(status:boolean,error?:boolean,idOnCuestion?:number,category?:string):void{
     const popiConfig:MatDialogConfig = new MatDialogConfig();
     popiConfig.disableClose = true;
     popiConfig.width = '300px';
-    popiConfig.height = '300px';
+    popiConfig.height = '350px';
 
     const popiRef = this.popi.open(MiniPopiComponent,popiConfig);
     popiRef.componentInstance.block = status;
+    if(error){
+      popiRef.componentInstance.errorOnCode = error;
+      popiRef.componentInstance.idOnCuestion = idOnCuestion;
+      popiRef.componentInstance.category = category;
+    }
     
     popiRef.afterClosed().subscribe();
-
   }
 
   sendDress():void{
@@ -134,12 +137,17 @@ export class AbmComponent implements OnInit {
       true,
       false
     );
-    this.dservice.store(storing).subscribe(() => {
-    
-      //HACER POPUP
-    this.callPopi(true);
-    
-    this.dform.reset();
+    this.dservice.store(storing).subscribe({
+      next: (obj) => {
+        this.callPopi(true);
+        this.dform.reset();
+      },
+      error: (objError) => {
+        if(objError.error.message == "code used"){
+          this.callPopi(true,true,objError.error.id,"prenda");
+          this.dform.get('codigo')?.reset();
+        }
+      }
     });
   }
 
@@ -151,7 +159,6 @@ export class AbmComponent implements OnInit {
     } else {
       stock = false;
     }
-    console.log(this.dform.get('subcategoria')?.value);
     if(!this.dform.valid)
       return;
     const updating = new Dress(
@@ -171,10 +178,7 @@ export class AbmComponent implements OnInit {
       id
     );
     this.dservice.update(updating).subscribe();
-    
-    //POPUP
     this.callPopi(false);
-
     this.callDress();
     this.dform.reset();
   }
@@ -203,10 +207,17 @@ export class AbmComponent implements OnInit {
       true,
       false
     );
-    this.fservice.store(storing).subscribe(() => {
-      //HACER POPUP
-      this.callPopi(true);
-      this.fform.reset();
+    this.fservice.store(storing).subscribe({
+      next: (obj) => {
+        this.callPopi(true);
+        this.fform.reset();
+      },
+      error: (objError) => {
+        if(objError.error.message == "code used"){
+          this.callPopi(true,true,objError.error.id,"fragancia");
+          this.fform.get('codigo')?.reset();
+        }
+      }
     });
   }
 
@@ -237,10 +248,7 @@ export class AbmComponent implements OnInit {
       id
     );
     this.fservice.update(updating).subscribe();
-    
-    //POPUP
     this.callPopi(false);
-    
     this.callFragrance();
     this.fform.reset();
   }
@@ -252,7 +260,6 @@ export class AbmComponent implements OnInit {
       this.modifyingDress = product as Dress;
       this.modifyingFragrance = null;
 
-      console.log(this.modifyingDress.subcategory);
       //seteo los valores del producto que se está modificando en el formulario
       this.dform.get('sexo')?.setValue(this.modifyingDress.sex);
       this.dform.get('edad')?.setValue(this.modifyingDress.age);
@@ -318,7 +325,6 @@ export class AbmComponent implements OnInit {
   }
 
   size(valor:string){
-    console.log(valor);
     if(valor == "zapatillas"){
       this.bit_size = true;
     }

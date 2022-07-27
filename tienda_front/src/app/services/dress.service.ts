@@ -35,8 +35,8 @@ export class DressService {
     return this.backend.get<Dress[]>(`${this.url}/size/${who}`);
   }
 
-  store(which:Dress):Observable<void>{
-    return this.backend.post<void>(`${this.url}/save`,which);
+  store(which:Dress):Observable<any>{
+    return this.backend.post<any>(`${this.url}/save`,which);
   }
 
   update(which:Dress):Observable<void>{

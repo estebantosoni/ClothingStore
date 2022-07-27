@@ -5,13 +5,13 @@ import lombok.Data;
 @Data
 public class MessageResponse {
 	private String message;
-	private Long idNewUser;
+	private Long id;
 
 	public MessageResponse(String message){
 		this.message = message;
 	}
 	public MessageResponse(String message,Long id){
 		this.message = message;
-		this.idNewUser = id;
+		this.id = id;
 	}
 }

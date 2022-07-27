@@ -28,4 +28,6 @@ public interface DressRepository extends JpaRepository<Dress,Long>{
     List<Dress> filterByAge(String age);
     Dress findByCode(String code);
     List<Dress> findByBrandAndModel(String brand, String model);
+
+    boolean existsByCode(String code);
 }

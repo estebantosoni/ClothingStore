@@ -115,8 +115,9 @@ public class AuthController {
       });
     }
     user.setRoles(roles);
+
     userRepository.save(user);
-    return ResponseEntity.ok(new MessageResponse("User registered successfully!",user.getId()));
+    return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
   
   @PostMapping("/signout")

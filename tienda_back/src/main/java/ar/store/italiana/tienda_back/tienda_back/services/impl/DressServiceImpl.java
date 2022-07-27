@@ -63,4 +63,13 @@ public class DressServiceImpl implements DressService {
 	public void save(Dress which) {
 		drepo.save(which);
 	}
+
+	@Override
+	public Dress checkCode(Dress which) {
+		Dress ret = null;
+		String codeInCuestion = which.getCode();
+		if(drepo.existsByCode(codeInCuestion))
+			ret = drepo.findByCode(codeInCuestion);
+		return ret;
+	}
 }

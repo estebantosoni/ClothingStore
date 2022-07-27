@@ -1,23 +1,32 @@
 <ng-container *ngIf="block; then addp else modp"></ng-container>
 
 <ng-template #addp>
-    
-    <div>
-        <h1 mat-dialog-title>Producto añadido exitosamente</h1>
-        <div mat-dialog-actions>
-            <button mat-button mat-dialog-close>Ok</button>
+    <ng-container *ngIf="errorOnCode; then bad else ok"></ng-container>
+    <ng-template #bad>
+        <div>
+            <h1 mat-dialog-title>Error al crear el producto</h1>
+            <h2>Pruebe cambiando el codigo del producto a ingresar.</h2>
+            <h5>El codigo utilizado ya es perteneciente la {{category}} con id {{idOnCuestion}}.</h5>
+            <div mat-dialog-actions>
+                <button mat-button mat-dialog-close>Ok</button>
+            </div>
         </div>
-    </div>
-    
+    </ng-template>
+    <ng-template #ok>
+        <div>
+            <h1 mat-dialog-title>Producto añadido exitosamente</h1>
+            <div mat-dialog-actions>
+                <button mat-button mat-dialog-close>Ok</button>
+            </div>
+        </div>
+    </ng-template>
 </ng-template>
 
 <ng-template #modp>
-
     <div>
         <h1 mat-dialog-title>Producto modificado exitosamente</h1>
         <div mat-dialog-actions>
             <button mat-button mat-dialog-close>Ok</button>
         </div>
     </div>
-
 </ng-template>
