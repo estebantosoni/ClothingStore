@@ -2,8 +2,6 @@
 
 <ng-template #registro>
     <form [formGroup]="form" ngNativeValidate>
-        <!-- SE DEBERIAN AÑADIR CAMPOS ADICIONALES COMO "REPETIR EMAIL" O "REPETIR PASSWORD"-->
-            <!-- PERO HABRIA QUE ESTAR ATENTOS A COMO LO RESOLVEMOS EN FRONT Y BACK-->
         <p>Email: <input type="email" formControlName="email" (change)="onEmailChange()" required> </p>
         <p> Repetir email: <input type="email" formControlName="confirm_email" (change)="onEmailChange()" required/> </p>
         <p class="error"> <span *ngIf="confirm_email.hasError('mismatch')">Email do not match.</span> </p>

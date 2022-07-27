@@ -15,18 +15,23 @@ import { FraganceService } from '../services/fragrance.service';
   styleUrls: ['./abm.component.css']
 })
 export class AbmComponent implements OnInit {
+  
   //para seleccion de bloque
   bit:boolean|null = null;      //para los botones principales
   addbit:boolean|null = null;   //para añadir producto
   callbit:boolean|null = null;  //para llamar los productos
   bit_size:boolean = false;     //para elegir valor del talle segun la prenda
+  
   //para modificar productos
   iModify:boolean = false;
   modifyingCategory:string|null = null;
   modifyingDress:Dress|null = null;
   modifyingFragrance:Fragrance|null = null;
+  
   //constantes
   prendas:string[] = ['remeras', 'pantalones', 'sweeters', 'buzos', 'camperas', 'chalecos', 'boxers', 'zapatillas'];
+  zapas:string = 'zapatillas';
+
   //para el envío y recepción de productos con el backend
   dresses$:Observable<Dress[]> = of([]);
   fragrances$:Observable<Fragrance[]> = of([]);
@@ -82,7 +87,9 @@ export class AbmComponent implements OnInit {
   //para la funcion de llamar
   group2():void{this.bit = true;}
 
-  addDress():void{this.addbit = false;}
+  addDress():void{this.addbit = false; 
+    //this.dform.reset();
+  }
 
   addFragrance():void{this.addbit = true;}
 
@@ -325,7 +332,7 @@ export class AbmComponent implements OnInit {
   }
 
   size(valor:string){
-    if(valor == "zapatillas"){
+    if(valor === this.zapas){
       this.bit_size = true;
     }
     else{

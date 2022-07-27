@@ -83,20 +83,31 @@ export class UserComponent implements OnInit {
       const rol = this.form.get('rol')?.value;
       const usr = new User(usrname,psw,mail,rol);
       
-      this.service.register(usr.getUsername(),usr.getEmail(),usr.getPassword(),usr.getRol()).subscribe((obj) =>{
-        const popiConfig:MatDialogConfig = new MatDialogConfig();
-        popiConfig.disableClose = true;
-        popiConfig.width = '600px';
-        popiConfig.height = '400px';
+      this.service.register(usr.getUsername(),usr.getEmail(),usr.getPassword(),usr.getRol()).subscribe({
+        next: (obj) =>  {
+          const popiConfig:MatDialogConfig = new MatDialogConfig();
+            popiConfig.disableClose = true;
+            popiConfig.width = '600px';
+            popiConfig.height = '400px';
+          const popiRef = this.popi.open(UserDialogComponent,popiConfig);
+            popiRef.componentInstance.positive = true;
 
-        const popiRef = this.popi.open(UserDialogComponent,popiConfig);
-        popiRef.componentInstance.positive = true;
-        if(obj.message == "User registered successfully!"){
-          popiRef.componentInstance.reg = true;
-        }else{
+          if(obj.message == "User registered successfully!"){
+              popiRef.componentInstance.reg = true;
+            }
+            popiRef.afterClosed().subscribe();
+          },
+        error: (objError) => {
+          //imprimimos el aviso
+          const popiConfig:MatDialogConfig = new MatDialogConfig();
+          const popiRef = this.popi.open(UserDialogComponent,popiConfig);
+          popiRef.componentInstance.positive = true;
+          popiConfig.disableClose = true;
+          popiConfig.width = '600px';
+          popiConfig.height = '400px';
           popiRef.componentInstance.reg = false;
+          popiRef.afterClosed().subscribe();
         }
-        popiRef.afterClosed().subscribe();
       });
     }
     else{               //login

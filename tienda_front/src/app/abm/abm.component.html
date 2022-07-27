@@ -164,8 +164,7 @@
                         </select>
                     </p>
                     
-                    <ng-container *ngIf="bit_size==false then letra"></ng-container>
-                    <ng-container *ngIf="bit_size==true then nro"></ng-container>
+                    <ng-container *ngIf="dform.get('subcategoria')?.value == 'zapatillas' then nro else letra"></ng-container>
     
                     <ng-template #nro>
                         <label for="size"> Talle: </label> 
@@ -282,6 +281,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>SUBCATEGORÍA</th>
                         <th>SEXO</th>
                         <th>EDAD</th>
                         <th>MARCA</th>
@@ -298,6 +298,7 @@
                 <tbody>
                     <tr *ngFor="let item of dresses$ | async">
                         <td>{{item.id}}</td>
+                        <td>{{item.subcategory}}</td>
                         <td>{{item.sex}}</td>
                         <td>{{item.age}}</td>
                         <td>{{item.brand}}</td>
@@ -336,6 +337,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>SUBCATEGORÍA</th>
                         <th>VOLUMEN</th>
                         <th>AROMA</th>
                         <th>PAIS DE ORIGEN</th>
@@ -352,6 +354,7 @@
                 <tbody>
                     <tr *ngFor="let item of fragrances$ | async">
                         <td>{{item.id}}</td>
+                        <td>{{item.subcategory}}</td>
                         <td>{{item.volumen}}</td>
                         <td>{{item.aroma}}</td>
                         <td>{{item.originCountry}}</td>

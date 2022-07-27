@@ -17,7 +17,6 @@ import { HelpComponent } from './help/help.component';
 import { DetailsComponent } from './details/details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatListModule } from '@angular/material/list';
 import { UserDialogComponent } from './user-dialog/user-dialog.component';
 import { AbmComponent } from './abm/abm.component';
 import { MiniPopiComponent } from './mini-popi/mini-popi.component';
@@ -43,7 +42,7 @@ import { MiniPopiComponent } from './mini-popi/mini-popi.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [                                    
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
