@@ -54,11 +54,8 @@ export class DetailsComponent implements OnInit {
 
   checkStock():void {}
 
-  get isUsrLogged():boolean{
-    if(this.servU.getUsrLogged())
-      return true;
-    else
-      return false;
+  get usrLogged():User|null{
+    return this.servU.getUsrLogged();
   }
   
   addToFavs(category:string):void {

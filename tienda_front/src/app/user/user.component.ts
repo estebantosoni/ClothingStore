@@ -121,7 +121,7 @@ export class UserComponent implements OnInit {
           popiConfig.disableClose = true;
           popiConfig.width = '600px';
           popiConfig.height = '400px';
-          const usr:UserLogin = new UserLogin(obj.id,obj.username,obj.email,obj.roles[0],obj.token);
+          const usr:UserLogin = new UserLogin(obj.id,obj.username,obj.email,obj.rol,obj.token);
           this.service.setUsrLogged(new User(
             obj.username,
             "",

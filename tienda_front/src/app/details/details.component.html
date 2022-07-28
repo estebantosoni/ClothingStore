@@ -12,7 +12,7 @@
                 
                  <ng-template #fBlock>                     <!-- fragrance -->
                     <div class="list">
-                        <div *ngIf="isUsrLogged" class="fav">
+                        <div *ngIf="usrLogged != null && usrLogged.rol == 'USER'" class="fav">
                             <button (click)="addToFavs('fragrance')" [hidden]="item?.isOnFavs">
                                 Añadir a favoritos
                             </button>
@@ -41,7 +41,7 @@
 
                 <ng-template #dBlock>                      <!-- dress -->     
                     <div class="list">
-                        <div *ngIf="isUsrLogged" class="fav">
+                        <div *ngIf="usrLogged != null && usrLogged.rol == 'USER'" class="fav">
                             <button (click)="addToFavs('dress')" [hidden]="item?.isOnFavs">
                                 Añadir a favoritos
                             </button>

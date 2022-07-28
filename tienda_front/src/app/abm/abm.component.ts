@@ -21,6 +21,7 @@ export class AbmComponent implements OnInit {
   addbit:boolean|null = null;   //para añadir producto
   callbit:boolean|null = null;  //para llamar los productos
   bit_size:boolean = false;     //para elegir valor del talle segun la prenda
+  bit_temp:boolean = false;
   
   //para modificar productos
   iModify:boolean = false;
@@ -77,12 +78,17 @@ export class AbmComponent implements OnInit {
 
   ngOnInit():void {}
 
-  public goTo(where:string){
+  goTo(where:string){
     return this.router.navigate([`/${where}`]);
   }
 
   //para la funcion de añadir
-  group1():void{this.bit = false;}
+  group1():void{
+    if(this.bit_temp)
+      return;
+    else
+      this.bit = false;
+  }
   
   //para la funcion de llamar
   group2():void{this.bit = true;}
@@ -188,6 +194,7 @@ export class AbmComponent implements OnInit {
     this.callPopi(false);
     this.callDress();
     this.dform.reset();
+    this.bit_temp = false;
   }
 
   sendFragrance():void{
@@ -258,9 +265,11 @@ export class AbmComponent implements OnInit {
     this.callPopi(false);
     this.callFragrance();
     this.fform.reset();
+    this.bit_temp = false;
   }
   
   configModify(product:Dress|Fragrance,category:string):void{
+    this.bit_temp = true;
     this.iModify = true;
     if(category == "dress"){
       this.modifyingCategory = "dress";
