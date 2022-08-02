@@ -57,6 +57,15 @@ export class DetailsComponent implements OnInit {
   get usrLogged():User|null{
     return this.servU.getUsrLogged();
   }
+
+  doNecessary(event:any,category:string):void{
+    if(event.target.checked){
+      this.addToFavs(category);
+    }
+    else{
+      this.removeFromFavs(category);
+    }
+  }
   
   addToFavs(category:string):void {
     this.item!.isOnFavs = true;

@@ -11,26 +11,38 @@ import { DressService } from '../services/dress.service';
 })
 export class DressComponent implements OnInit {
 
+  catSelected:string = "";
   dresses$:Observable<Dress[]> = of([]);
 
   constructor(
     private service:DressService,
     private router: Router
-    ) {
-    this.dresses$ = this.service.getAll();
+    ) {  
+    this.seeAll();
   }
 
   ngOnInit():void{}
 
-  seeSub(subcategory:string){
-    this.dresses$ = this.service.getFromSub(subcategory);
+  seeAll():void{
+    this.dresses$ = this.service.getAll();
+    this.catSelected = "";
   }
+
+  seeSub(subcategory:string):void{
+    this.dresses$ = this.service.getFromSub(subcategory);
+    this.catSelected = subcategory;
+  }
+
   seeSex(sex:string):void{
     this.dresses$ = this.service.getFromSex(sex);
+    this.catSelected = sex;
   }
+
   seeAge(age:string):void{
     this.dresses$ = this.service.getFromAge(age);
+    this.catSelected = age;
   }
+
   goTo(where:string,code:string){
     return this.router.navigate([`/${where}/${code}`]);
   }

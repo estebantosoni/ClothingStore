@@ -1,30 +1,55 @@
-<div>
-    <div class="subcategorias">
-        <!-- ver si las ponemos estáticas acá o las traemos de la DB -->
-        <ul>Tipos
-            <li (click)="seeSub('eau de toilette')">eau de toilette</li>
-            <li (click)="seeSub('colonias')">colonias</li>
-            <li (click)="seeSub('infantiles')">infantiles</li>
-        </ul>
-        <ul>Sexo
-            <li (click)="seeSex('hombre')">hombre</li>
-            <li (click)="seeSex('mujer')">mujer</li>
-        </ul>
-        <ul>País de origen
-            <li (click)="seeOriginCountry('Argentina')">Argentina</li>
-            <li (click)="seeOriginCountry('Polonia')">Polonia</li>
-            <li (click)="seeOriginCountry('Chile')">Chile</li>
-            <li (click)="seeOriginCountry('Francia')">Francia</li>
-        </ul>
+<body>
+    <div>
+        <div class="subcategorias">
+            <ul>
+                <button [ngClass]="{'def':catSelected != '','sel':catSelected == ''}"
+                        (click)="seeAll()">Mostrar todos los productos
+                </button>
+                <h2>Tipos</h2>
+                <button [ngClass]="{'def':catSelected != 'eau de toilette','sel':catSelected == 'eau de toilette'}"
+                        (click)="seeSub('eau de toilette')">eau de toilette
+                </button>
+                <button [ngClass]="{'def':catSelected != 'colonias','sel':catSelected == 'colonias'}"
+                        (click)="seeSub('colonias')">colonias
+                </button>
+                <button [ngClass]="{'def':catSelected != 'infantiles','sel':catSelected == 'infantiles'}"
+                        (click)="seeSub('infantiles')">infantiles
+                </button>
+            </ul>
+            <ul>
+                <h2>Sexo</h2>
+                <button [ngClass]="{'def':catSelected != 'hombre','sel':catSelected == 'hombre'}"
+                        (click)="seeSex('hombre')">hombre
+                </button>
+                <button [ngClass]="{'def':catSelected != 'mujer','sel':catSelected == 'mujer'}"
+                        (click)="seeSex('mujer')">mujer
+                </button>
+            </ul>
+            <ul>
+                <h2>País de origen</h2>
+                <button [ngClass]="{'def':catSelected != 'Argentina','sel':catSelected == 'Argentina'}"
+                        (click)="seeOriginCountry('Argentina')">Argentina
+                </button>
+                <button [ngClass]="{'def':catSelected != 'Polonia','sel':catSelected == 'Polonia'}"
+                        (click)="seeOriginCountry('Polonia')">Polonia
+                </button>
+                <button [ngClass]="{'def':catSelected != 'Chile','sel':catSelected == 'Chile'}"
+                        (click)="seeOriginCountry('Chile')">Chile
+                </button>
+                <button [ngClass]="{'def':catSelected != 'Francia','sel':catSelected == 'Francia'}"
+                        (click)="seeOriginCountry('Francia')">Francia
+                </button>
+            </ul>
+        </div>
+        <div class="productos">
+            <button *ngFor="let item of fragrances$ | async" class="item" (click)="goTo('details',item.code)">
+                <img src={{item?.image}} alt="imagen_producto" width="100" height="100"/>
+                <p>volumen <span class="carac">{{item?.volumen}}</span></p>
+                <p>tipo <span class="carac">{{item?.subcategory}}</span></p>
+                <p>aroma <span class="carac">{{item?.aroma}}</span></p>
+                <p>país <span class="carac">{{item?.originCountry}}</span></p>
+                <p>marca <span class="carac">{{item?.brand}}</span></p>
+            </button>
+        </div>
     </div>
-    <div class="productos">
-        <button *ngFor="let item of fragrances$ | async" class="item" (click)="goTo('details',item.code)">
-            <!-- <img src="item?.image" alt="product_image" width="200px" height="170px"/> -->
-            <p>volumen: {{item?.volumen}}</p>
-            <p>tipo: {{item?.subcategory}}</p>
-            <p>aroma: {{item?.aroma}}</p>
-            <p>país: {{item?.originCountry}}</p>
-            <h6><img src={{item?.image}} alt="imagen_producto" width="100" height="100"/></h6>
-        </button>
-    </div>
-</div>
+</body>

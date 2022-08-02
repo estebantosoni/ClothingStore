@@ -1,83 +1,107 @@
-<div>       <!-- pantalla completa -->
-
-    <div style="height: 400px;">       <!-- para la imagen y las caracteristicas -->
-        
-        <div class="box">       <!-- para la imagen -->
-            <img class="box" *ngIf="checkId" src="{{(itemF$ | async)?.image}}" alt="imagen producto"/>
-            <img class="box" *ngIf="!checkId" src="{{(itemD$ | async)?.image}}" alt="imagen producto"/>
+<div>
+    <div style="height: 400px;">
+        <div class="image-box">
+            <img *ngIf="checkId" src="{{(itemF$ | async)?.image}}" alt="imagen producto" width="100%" height="100%"/>
+            <img *ngIf="!checkId" src="{{(itemD$ | async)?.image}}" alt="imagen producto" width="100%" height="100%"/>
         </div>
-
-        <div class="box" style="outline:solid 1px;">       <!-- para las caracteristicas -->
-            <div *ngIf="checkId == true; then fBlock else dBlock"> </div>
-                
-                 <ng-template #fBlock>                     <!-- fragrance -->
-                    <div class="list">
-                        <div *ngIf="usrLogged != null && usrLogged.rol == 'USER'" class="fav">
-                            <button (click)="addToFavs('fragrance')" [hidden]="item?.isOnFavs">
-                                Añadir a favoritos
-                            </button>
-                            <button (click)="removeFromFavs('fragrance')" [hidden]="!item?.isOnFavs">
-                                Quitar de favoritos
-                            </button>
+        <div class="info">       <!-- para las caracteristicas -->
+            <ng-container *ngIf="checkId == true; then fBlock else dBlock"></ng-container>
+            <ng-template #fBlock>
+                <div class="list">
+                    <h1> {{(itemF$ | async)?.brand}} {{(itemF$ | async)?.model}}</h1>
+                    <ng-container *ngIf="(itemF$ | async)?.stock; then hay else nohay"></ng-container>
+                    <ng-template #hay>
+                        <div class="stock-favs">
+                            <div class="stock">
+                                <h2 style="background-color: #B0FC6D;margin-left: 25%;">
+                                    ¡Hay stock!
+                                </h2>
+                            </div>
+                            <div *ngIf="usrLogged != null && usrLogged.rol == 'USER'" class="favs">
+                                <input type="checkbox" checked="checked" id="favorite" name="favorite-checkbox" value="favorite-button" (change)="doNecessary($event,'fragrance')" [checked]="item?.isOnFavs">
+                                    <label for="favorite" class="container">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                        <div class="action">
+                                            <span class="option-1">
+                                                Añadir a favoritos
+                                            </span>
+                                            <span class="option-2">
+                                                Añadido a favoritos
+                                            </span>
+                                        </div>
+                                    </label>
+                            </div>
                         </div>
-                        <h2> {{(itemF$ | async)?.brand}} </h2>
-                        <h3> {{(itemF$ | async)?.model}} </h3>
-                        <p style="font-size: 30px;"> ${{(itemF$ | async)?.price}} </p>
-                        <div *ngIf="(itemF$ | async)?.stock; then t else f"> </div>
-                            <ng-template #t>
-                                ¡Hay stock! :)
-                            </ng-template>
-                            <ng-template #f>
-                                No hay stock... :(
-                            </ng-template>
-                        <p>Volumen de la unidad: <b>{{ (itemF$ | async)?.volumen  }}ml</b> </p>
-                        <p>Categoria: {{ (itemF$ | async)?.subcategory  }}</p>
-                        <p>Sexo: {{(itemF$ | async)?.sex}} </p>
-                        <p>Aroma: {{ (itemF$ | async)?.aroma  }}</p>
-                        <p>País: {{ (itemF$ | async)?.originCountry }}</p>
-                    </div>
-                    
-                </ng-template>
-
-                <ng-template #dBlock>                      <!-- dress -->     
-                    <div class="list">
-                        <div *ngIf="usrLogged != null && usrLogged.rol == 'USER'" class="fav">
-                            <button (click)="addToFavs('dress')" [hidden]="item?.isOnFavs">
-                                Añadir a favoritos
-                            </button>
-                            <button (click)="removeFromFavs('dress')" [hidden]="!item?.isOnFavs">
-                                Quitar de favoritos
-                            </button>
+                    </ng-template>
+                    <ng-template #nohay>
+                        <h2 style="background-color: #FF8F8C;">
+                            No hay stock.
+                        </h2>
+                    </ng-template>
+                    <h2 style="font-size: 35px;color: #F05C00;">
+                        ${{(itemF$ | async)?.price}}
+                    </h2>
+                    <h2>Volumen de la unidad <span class="carac">{{(itemF$ | async)?.volumen}} ml</span></h2>
+                    <h2>Categoria <span class="carac">{{ (itemF$ | async)?.subcategory  }}</span></h2>
+                    <h2>Sexo <span class="carac">{{(itemF$ | async)?.sex}}</span></h2>
+                    <h2>Aroma <span class="carac">{{(itemF$ | async)?.aroma}}</span></h2>
+                    <h2>País <span class="carac">{{(itemF$ | async)?.originCountry}}</span></h2>
+                </div>
+            </ng-template>
+            <ng-template #dBlock>
+                <div class="list">
+                    <h1> {{(itemD$ | async)?.brand}} {{(itemD$ | async)?.model}}</h1>
+                    <ng-container *ngIf="(itemD$ | async)?.stock; then hay else nohay"></ng-container>
+                    <ng-template #hay>
+                        <div class="stock-favs">
+                            <div class="stock">
+                                <h2 style="background-color: #B0FC6D;margin-left: 25%;">
+                                    ¡Hay stock!
+                                </h2>
+                            </div>
+                            <div *ngIf="usrLogged != null && usrLogged.rol == 'USER'" class="favs">
+                                <input type="checkbox" checked="checked" id="favorite" name="favorite-checkbox" value="favorite-button" (change)="doNecessary($event,'dress')" [checked]="item?.isOnFavs">
+                                    <label for="favorite" class="container">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                        <div class="action">
+                                            <span class="option-1">
+                                                Añadir a favoritos
+                                            </span>
+                                            <span class="option-2">
+                                                Añadido a favoritos
+                                            </span>
+                                        </div>
+                                    </label>
+                            </div>
                         </div>
-                        <h2> {{(itemD$ | async)?.brand}} </h2>
-                        <h3> {{(itemD$ | async)?.model}} </h3>
-                        <p style="font-size: 30px;"> ${{(itemD$ | async)?.price}} </p>
-                        <div *ngIf="(itemD$ | async)?.stock; then t else f"> </div>
-                            <ng-template #t>
-                                ¡Hay stock! :)
-                            </ng-template>
-                            <ng-template #f>
-                                No hay stock... :(
-                            </ng-template>
-                        <p>Categoria: {{ (itemD$ | async)?.subcategory  }}</p>
-                        <p>Sexo: {{(itemD$ | async)?.sex}} </p>
-                        <p>Edad: {{ (itemD$ | async)?.age}}</p>
-                        <div>
-                            <form name="size" method="" action="">
-                                Talle disponibles: 
-                                <select name="size-list">
-                                    <option *ngFor="let item of talle$ | async" [disabled]="item.stock == false">
+                    </ng-template>
+                    <ng-template #nohay>
+                        <h2 style="background-color: #FF8F8C;">
+                            No hay stock.
+                        </h2>
+                    </ng-template>
+                    <h2 style="font-size: 35px;color: #F05C00;">
+                        ${{(itemD$ | async)?.price}}
+                    </h2>
+                    <h2>Categoria <span class="carac">{{(itemD$ | async)?.subcategory}}</span></h2>
+                    <h2>Sexo <span class="carac">{{(itemD$ | async)?.sex}} </span></h2>
+                    <h2>Edad <span class="carac">{{(itemD$ | async)?.age}}</span></h2>
+                    <div>
+                        <form name="size" method="" action="">
+                            <span class="resalt">Talles disponibles</span>
+                            <mat-form-field color="warn" style="color: #F05C00;margin-left: 20px;" appearance="fill">
+                                <mat-label><span class="carac">Seleccione</span></mat-label>
+                                <mat-select style="color: #F05C00;" name="size-list">
+                                    <mat-option class="sizes" *ngFor="let item of talle$ | async" [disabled]="!item.stock">
                                         {{item?.size}}
-                                    </option>
-                                </select>
-                            </form>
-                        </div>
-                        <p>Color: {{ (itemD$ | async)?.color }}</p>      
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </form>
                     </div>
-                </ng-template>
-
+                    <h2>Color <span class="carac">{{(itemD$ | async)?.color}}</span></h2>
+                </div>
+            </ng-template>
         </div>
-
     </div>
-
 </div>

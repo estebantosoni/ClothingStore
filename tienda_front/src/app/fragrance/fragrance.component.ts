@@ -10,25 +10,35 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./fragrance.component.css']
 })
 export class FragranceComponent implements OnInit {
+  
+  catSelected:string = "";
   fragrances$:Observable<Fragrance[]> = of([]);
 
   constructor(
     private service:FraganceService,
     private router: Router,
     ) {
-    this.fragrances$ = this.service.getAll();
+    this.seeAll();
   }
 
   ngOnInit():void{}
   
+  seeAll():void{
+    this.fragrances$ = this.service.getAll();
+    this.catSelected = "";
+  }
+
   seeSub(subcategory:string){
     this.fragrances$ = this.service.getFromSub(subcategory);
+    this.catSelected = subcategory;
   }
   seeSex(sex:string):void{
     this.fragrances$ = this.service.getFromSex(sex);
+    this.catSelected = sex;
   }
   seeOriginCountry(country:string):void{
     this.fragrances$ = this.service.getFromCountry(country);
+    this.catSelected = country;
   }
 
   goTo(where: string,code:string){

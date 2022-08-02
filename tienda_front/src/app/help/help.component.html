@@ -1,8 +1,31 @@
-<h1>Medios de pago</h1>
-<h3>Los pagos se realizan únicamente en el local de forma presencial.</h3>
-<ul>
-    <li>Todas las tarjetas, crédito y débito.</li>
-    <li>Transferencia bancaria.</li>
-    <li>MercadoPago.</li>    
-    <li>Billetera Santa Fe.</li>
-</ul>
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+<ng-container *ngIf="where == 'buy'; then buy else how"></ng-container>
+
+<ng-template #buy>
+    <h1>Medios de pago</h1>
+    <h3>Los pagos se realizan únicamente en el local de forma presencial.</h3>
+    <ul>
+        <li>Todas las tarjetas, crédito y débito.</li>
+        <li>Transferencia bancaria.</li>
+        <li>MercadoPago.</li>    
+        <li>Billetera Santa Fe.</li>
+    </ul>
+</ng-template>
+
+<ng-template #how>
+    <h1>Como operar con la página</h1>
+    <p>
+        Entrando al apartado <a routerLink="/dress">indumentaria</a> o 
+        <a routerLink="/fragrance">fragrancias</a> puede ver los productos que tenemos 
+        actualmente en el local con sus respectivas características y stock disponible.
+    </p>
+    <p>
+        Si lo desea, puede crearse un usuario en la parte de <a routerLink="/user/1">
+        sign up</a> para posteriormente agregar los productos que le guste a una lista de
+        favoritos.
+    </p>
+    <h2 style="margin-top: 70px;font-style: italic;font-size: 20px;">
+        Asistiendo a nuestro local va a tener la posibilidad de adquirir todos o aquellos
+        productos que usted desee de su lista de favoritos.
+    </h2>
+</ng-template>

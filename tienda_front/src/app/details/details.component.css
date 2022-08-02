@@ -1,8 +1,130 @@
-.box{
-	float: left;
-	height: 400px;
-    width: 400px;
-    margin: 5px;
+h1{
+    padding: 15px 25px;
+    border-radius: 15px;
+    color: #212121;
+    background-color: #F05C00;
+    z-index: 1;
+    position: relative;
+    font-weight: 500;
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+h2, .resalt{
+    padding: 10px 25px;
+    border-radius: 15px;
+    color: #212121;
+    background-color: #E1E9F3;
+    z-index: 1;
+    position: relative;
+    font-weight: 1000;
+    font-size: 17px;
+    width:fit-content;
+}
+
+label{
+    background-color: white;
+    font-weight: 1000;
+    font-size: 17px;
+    margin-left: 15%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 25px 10px 10px;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 15px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    color: black;
+    width: fit-content;
+}
+   
+input{
+    display: none;
+}
+   
+input:checked + label svg{
+    fill: hsl(0deg 100% 50%);
+    stroke: hsl(0deg 100% 50%);
+    animation: heartButton 1s;
+}
+   
+@keyframes heartButton{
+    0% {
+     transform: scale(1);
+    }
+   
+    25% {
+     transform: scale(1.3);
+    }
+   
+    50% {
+     transform: scale(1);
+    }
+   
+    75% {
+     transform: scale(1.3);
+    }
+   
+    100% {
+     transform: scale(1);
+    }
+}
+   
+input + label .action{
+    position: relative;
+    overflow: hidden;
+    display: grid;
+}
+
+.action{
+    height: 20px;
+}
+
+.option1, .option2{
+    margin-top: 2px;
+    text-align: center;
+}
+   
+input + label .action span{
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    transition: all .5s;
+}
+   
+input + label .action span.option-1{
+    transform: translate(0px,20%);
+    opacity: 1;
+}
+   
+input:checked + label .action span.option-1{
+    transform: translate(0px,-100%);
+    opacity: 0;
+}
+   
+input + label .action span.option-2{
+    transform: translate(0px,100%);
+    opacity: 0;
+}
+   
+input:checked + label .action span.option-2{
+    transform: translate(0px,20%);
+    opacity: 1;
+}
+   
+.image-box{
+    width: 50%;
+	height: 150%;
+    float: left;
+}
+
+.info{
+    float: right;
+    width: 45%;
+    margin-top: 1%;
 }
 
 .list{
@@ -10,6 +132,35 @@
     line-height: 10px;
 }
 
-.fav{
-    float: right;
+.stock-favs{
+    width: 100%;
+    height: 70px;
+}
+
+.stock{
+    width: 50%;
+    float: inline-start;
+}
+
+.favs{
+    width: 50%;
+    float: inline-end;
+}
+
+.favs-btn{
+    margin-left: 15%;
+    margin-top: 15px;
+}
+
+.carac{
+    font-size: 17px;
+    color: #F05C00;
+}
+
+.sizes{
+    background-color:#F08754;
+}
+
+.sizes:hover{
+    background-color: #7A7FF5;
 }

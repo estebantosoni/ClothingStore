@@ -22,7 +22,7 @@ public interface DressRepository extends JpaRepository<Dress,Long>{
     List<Dress> filterByBrandsAndModels();
     @Query(value = DEF_QUERY + ENABLEDS + "AND subcategory = ?1 "  + GROUP_BY,nativeQuery = true)
     List<Dress> filterBySubcategory(String subcategory);
-    @Query(value = DEF_QUERY + "WHERE sex = ?1 " + GROUP_BY,nativeQuery = true)
+    @Query(value = DEF_QUERY + ENABLEDS + "AND sex = ?1 " + GROUP_BY,nativeQuery = true)
     List<Dress> filterBySex(String sex);
     @Query(value = DEF_QUERY + ENABLEDS + "AND age = ?1 " + GROUP_BY,nativeQuery = true)
     List<Dress> filterByAge(String age);

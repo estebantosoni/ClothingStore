@@ -39,7 +39,6 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit():void {
-    //REVISAR SI ESTO ES CORRECTO AGREGARLO ACÁ
     this.id = this.route.snapshot.paramMap.get('id');
   }
 

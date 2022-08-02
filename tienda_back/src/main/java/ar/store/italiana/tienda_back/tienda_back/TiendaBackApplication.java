@@ -16,17 +16,18 @@ public class TiendaBackApplication {
 	@Autowired
 	UserRepository urepo;
 
-	@PostConstruct
-	public void addFirstsUsers(){
-		User u1 = new User("admin","admin@example.com",encoder.encode("adminadmin"));
-		User u2 = new User("estipy","estipy@example.com",encoder.encode("esteban123"));
-		User u3 = new User("tiki","tiki@example.com",encoder.encode("tiki12345"));
-		urepo.save(u1);
-		urepo.save(u2);
-		urepo.save(u3);
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(TiendaBackApplication.class, args);
+	}
+
+	@PostConstruct
+	public void addFirstsUsers(){
+		User [] defUsers = new User[4];
+		defUsers[0] = new User("admin","admin@example.com",encoder.encode("adminadmin"));
+		defUsers[1] = new User("estipy","estipy@example.com",encoder.encode("esteban123"));
+		defUsers[2] = new User("tiki","tiki@example.com",encoder.encode("tiki12345"));
+		defUsers[3] = new User("juan","juansito@example.com",encoder.encode("juanchopancho"));
+		for(User user:defUsers)
+			urepo.save(user);
 	}
 }

@@ -21,8 +21,10 @@ export class InterfaceComponent implements OnInit {
     private uservice:AuthenticationService,
     private favservice:FavoritoService
   ) {
-    if(this.uservice.getUsrLogged())
+    if(this.uservice.getUsrLogged()){
       this.logged = true;
+      this.viewFavs();
+    }
     else 
       this.logged = false;
   }
@@ -38,7 +40,6 @@ export class InterfaceComponent implements OnInit {
   }
 
   quit():void{
-    //this.logged = false;
     this.favservice.resetValues(this.uservice.getUsrLogged()!.id!).subscribe(() => {
       window.location.reload();
     });

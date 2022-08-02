@@ -19,7 +19,7 @@ const routes: Routes = [
   {path: 'details/:id',             component: DetailsComponent},
   {path: 'abm',                     component: AbmComponent,canActivate:[AuthGuard]},
   {path: 'us',                      component: UsComponent},
-  {path: 'help',                    component: HelpComponent},
+  {path: 'help/:where',             component: HelpComponent},
   {path: '', redirectTo: '/interface', pathMatch: 'full'},
   {path: '**',                      component: PageNotFoundComponent}
 ];
