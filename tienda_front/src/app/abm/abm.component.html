@@ -1,261 +1,667 @@
 
-<div class="space"></div>
+<mat-toolbar>
+    <span>Alta, baja y modificaciones de productos</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="icon" (click)="goTo('interface')" aria-label="Example icon-button with home icon">
+        <mat-icon>home</mat-icon>
+    </button>
+</mat-toolbar>
 
-<div class="box">
-    <div class="box-button">
-        <a (click)="goTo('interface')" class="button"> Ir a pagina principal </a>
-        <a (click)="group1()" class="button"> Añadir producto </a>
-        <a (click)="group2()" class="button"> Mostrar productos </a>
-    </div>
+<mat-tab-group animationDuration="0ms">     <!-- puedo usar md-tab tmb pero tengo que descargarlo con npm-->
     
-</div>
+    <mat-tab></mat-tab>
 
-<div class="space"></div>
+    <mat-tab [disabled]="bit_temp == true" label="Añadir Producto">
 
-<ng-container *ngIf="bit==null then nothing"></ng-container>
-<ng-container *ngIf="bit==false then block1"></ng-container>   <!-- me dirijo a la parte de añadir producto -->
-<ng-container *ngIf="bit==true then block2"></ng-container>   <!-- me dirijo a la parte de llamar a los productos -->
-
-<ng-template #nothing></ng-template>
-
-<ng-template #block1>
-    
-    <div class="details">
-        <h2> Seleccione la categoria del producto a añadir </h2>
-    </div>
-
-    <!-- Al seleccionar alguno de los dos, debemos deshabilitarlo, y si elegimos el otro, lo volvemos a activar, y asi-->
-    <div style="text-align: center;">
-        <button (click)="addDress()" [disabled]="addbit==false" style="margin-right: 10px;"> Indumentaria </button>
-        <button (click)="addFragrance()" [disabled]="addbit==true"> Fragrancia </button>
-    </div>
-
-    <ng-container *ngIf="addbit==null then nothing2"></ng-container>
-    <ng-container *ngIf="addbit==false then add_dress"></ng-container>
-    <ng-container *ngIf="addbit==true then add_frag"></ng-container>
-
-    <ng-template #nothing2></ng-template>
-
-    <ng-template #add_dress>
-        <!-- creo el form para dress-->
-        <form [formGroup]="dform" ngNativeValidate>  <!--method="GET">     get envia la info en la URL y post en el body del http (revisar cual usar) -->
-            <fieldset>
-                <legend> Agregue los datos en los campos y pulse 'Guardar' </legend>
-                <p>
-                    <label for="sub"> Subcategoria: </label>
-                    <select name="prenda" #p (change)="size(p.value)" formControlName="subcategoria" id="sub" required >
-                        <option *ngFor="let prenda of prendas" [value]="prenda"> {{prenda}} </option>
-                    </select>
-                </p>
+        <mat-tab-group [selectedIndex]="0" animationDuration="0ms">
+            
+            <mat-tab></mat-tab>
+            
+            <mat-tab label="Indumentaria">
                 
-                <ng-container *ngIf="bit_size==false then letra"></ng-container>
-                <ng-container *ngIf="bit_size==true then nro"></ng-container>
+                <div class="space"></div>
 
-                <ng-template #nro>
-                    <label for="size"> Talle: </label> 
-                    <input type="number" name="talle" formControlName="talle" id="size" min="10" max="50" required>
-                </ng-template>
+                <div class="details">
+                    <h3> Rellene cada campo y haga click en el botón "Guardar".</h3>
+                </div>
 
-                <ng-template #letra>
-                    <label for="size"> Talle: </label> 
-                    <select name="prenda" formControlName="talle" id="sub" required>
-                        <option value="xs" selected> XS </option>
-                        <option value="s"> S </option>
-                        <option value="m"> M </option>
-                        <option value="l"> L </option>
-                        <option value="xl"> XL </option>
-                        <option value="xxl"> XXL </option>
-                        <option value="xxxl"> XXXL </option>
-                        <option value="xxxxl"> XXXXL </option>
-                    </select>
-                </ng-template>
+                <form class="form" [formGroup]="dform" ngNativeValidate>
+                    
+                    <mat-form-field appearance="fill">
+                        <mat-label for="sub">Subcategoria</mat-label>
+                        <mat-select name="prenda" #p (valueChange)="size(p.value)" formControlName="subcategoria" id="sub" required>
+                            <mat-option *ngFor="let prenda of prendas" [value]="prenda">
+                                {{prenda}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
 
-                <p> <label for="sexo"> Sexo: </label>
-                    <input type="radio" name="sexo" formControlName="sexo" value="hombre" id="sexo" required> Masculino 
-                    <input type="radio" name="sexo" formControlName="sexo" value="mujer" id="sexo"> Femenino 
-                </p>
-                <p> <label for="edad"> Edad: </label>
-                    <select name="edad" formControlName="edad" id="edad" required>
-                        <option value="niño"> Niños </option>
-                        <option value="joven"> Jovenes </option>
-                        <option value="adulto"> Adultos </option>
-                        <option value="anciano"> Ancianos </option>
-                    </select>
-                </p>
-                <p> <label for="brand"> Marca: </label>
-                    <input type="text" name="marca" formControlName="marca" id="brand" maxlength="20" required> </p>
-                <p> <label for="model"> Modelo: </label>
-                    <input type="text" name="modelo" formControlName="modelo" id="model" maxlength="20" required> </p>
-                <p> <label for="code"> Codigo: </label> 
-                    <input type="text" name="codigo" formControlName="codigo" id="code" maxlength="7" required> </p>
-                <p> <label for="color"> Color: </label> 
-                    <input type="text" name="color" formControlName="color" id="color" maxlength="20" required> </p>
-                <p> <label for="stock"> Stock: </label> 
-                    <input type="radio" name="stock" formControlName="stock" value="true" id="stock" required> Si 
-                    <input type="radio" name="stock" formControlName="stock" value="false" id="stock"> No </p>
-                <p> <label for="price"> Precio: $</label> 
-                    <input style="width: 100px;" type="number" name="precio" formControlName="precio" id="price"  required> </p>
-                <p> <label for="image"> Imagen: </label> 
-                    <input type="file" name="imagen" (change)="encodeAsBase64($event)" id="image" required></p>
-                <p> <input (click)="sendDress()" type="submit" value="Guardar" style="margin-right: 5px;"> <input type="reset" value="Limpiar"> </p>
-            </fieldset>
-        </form>
-    </ng-template>
+                    <p></p>
+                    
+                    <ng-container *ngIf="bit_size==false; then letra else nro"></ng-container>
 
-    <ng-template #add_frag>
-        <!-- creo el form para fragrance -->
-        <form [formGroup]="fform" ngNativeValidate>
-            <fieldset>
-                <legend> Agregue los datos en los campos y pulse 'Guardar' </legend>
-                <p>
-                    <label for="sub"> Subcategoria: </label>
-                    <select name="tipo" formControlName="subcategoria" id="sub" required>
-                        <option value="Eau de Toilette"> Eau de Toilette </option>
-                        <option value="Colonias"> Colonias </option>
-                        <option value="Infantiles"> Infantiles </option>
-                    </select>
-                </p>
-                <p> <label for="volume"> Volumen: </label>
-                    <input style="width: 60px;" type="number" name="volumen" id="volume" maxlength="4" formControlName="volumen" required>ml </p>
-                <p> <label for="smell"> Aroma: </label>
-                    <input type="text" name="aroma" formControlName="aroma" id="smell" maxlength="30" placeholder="Breve descripcion" required> </p>
-                <p> <label for="country"> Pais de origen: </label> 
-                    <input type="text" name="pais" formControlName="pais" id="volume" maxlength="30" required> </p>
-                <p> <label for="sexo"> Sexo: </label> 
-                    <input type="radio" name="sexo" formControlName="sexo" value="hombre" id="sexo" required> Masculino 
-                    <input type="radio" name="sexo" formControlName="sexo" value="mujer" id="sexo" > Femenino
-                </p>
-                <p> <label for="brand"> Marca: </label> 
-                    <input type="text" name="marca" formControlName="marca" id="brand" maxlength="20" required> </p>
-                <p> <label for="model"> Modelo: </label> 
-                    <input type="text" name="modelo" formControlName="modelo" id="model" maxlength="20" required> </p>
-                <p> <label for="code"> Codigo: </label> 
-                    <input type="text" name="codigo" formControlName="codigo" id="code" maxlength="4" required> </p>
-                <p> <label for="stock"> Stock:</label> 
-                        <input type="radio" name="stock" formControlName="stock" value="true" id="stock" required> Si 
-                        <input type="radio" name="stock" formControlName="stock" value="false" id="stock"> No
-                    </p>
-                <p> <label for="price"> Precio: $</label> 
-                    <input style="width: 100px;" type="number" name="precio" formControlName="precio" id="price" required> </p>
-                <p> <label for="image"> Imagen: </label>
-                    <input type="file" name="imagen" id="image" (change)="encodeAsBase64($event)" required></p>
-                <p> <input (click)="sendFragrance()" type="submit" value="Guardar" style="margin-right: 5px;"> <input type="reset" value="Limpiar"> </p>
-            </fieldset>
-        </form>
-    </ng-template>
+                        <ng-template #nro>
+                            <mat-form-field appearance="fill">
+                                <mat-label for="size">Talle</mat-label>
+                                <input matInput name="tamaño" type="number" formControlName="talle" id="size" min="10" max="50" placeholder="Ej. 40" required>
+                            </mat-form-field>
+                        </ng-template>
 
-</ng-template>
+                        <ng-template #letra>
+                        <mat-form-field appearance="fill">
+                            <mat-label for="size">Talle</mat-label>
+                            <mat-select matNativeControl name="tamaño" formControlName="talle" id="size" required>
+                                <mat-option *ngFor="let talla of talles" [value]="talla">
+                                    {{talla}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        </ng-template>
+
+                        <div class="space-mats">
+                        <mat-label class="space-radio">Sexo:</mat-label>
+                        <mat-radio-group aria-label="Select an option" formControlName="sexo" required>
+                            <mat-radio-button name="sexo" value="hombre">Masculino</mat-radio-button>
+                            <mat-radio-button name="sexo" value="mujer">Femenino</mat-radio-button>
+                        </mat-radio-group>
+                        </div>
+                        
+                        <p></p>
+                        <mat-form-field appearance="fill">
+                            <mat-label for="edad">Edad</mat-label>
+                            <mat-select name="edad" formControlName="edad" id="edad" required>
+                                <mat-option *ngFor="let edad of edades" [value]="edad">
+                                    {{edad}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        
+                        <p></p>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Marca</mat-label>
+                            <input matInput placeholder="Ej. Adidas" name="marca" formControlName="marca" id="brand" maxlength="20" required>
+                        </mat-form-field>
+
+                        <p></p>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Modelo</mat-label>
+                            <input matInput placeholder="Ej. Terrex" name="modelo" formControlName="modelo" id="model" maxlength="20" required>
+                        </mat-form-field>
+
+                        <p></p>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Codigo</mat-label>
+                            <input matInput placeholder="Ej. D123456" name="codigo" formControlName="codigo" id="code" maxlength="7" required>
+                        </mat-form-field>
+
+                        <p></p>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Color</mat-label>
+                            <input matInput placeholder="Ej. Rojo" name="color" formControlName="color" id="color" pattern="[A-Za-z]+" maxlength="20" required>
+                        </mat-form-field>
+
+                        <p></p>
+                        <div class="space-mats">
+                        <mat-label class="space-radio">Stock:</mat-label>
+                        <mat-radio-group aria-label="Select an option" formControlName="stock" required>
+                            <mat-radio-button value="true">Si</mat-radio-button>
+                            <mat-radio-button value="false">No</mat-radio-button>
+                        </mat-radio-group>
+                        </div>
+                        
+                        <p></p>
+                        <mat-form-field appearance="fill">                            
+                            <mat-label>Precio</mat-label>
+                            <input matInput type="number" placeholder="Ej. 1000" name="precio" formControlName="precio" id="price" min="0" required>
+                        </mat-form-field>
+
+                        <div class="space-mats">
+                        <label for="image"> Imagen: </label> 
+                        <input type="file" name="imagen" (change)="encodeAsBase64($event)" id="image" required>
+                        </div>
+
+                        <p></p>
+                        <button mat-raised-button color="primary" type="submit" (click)="sendDress()" style="margin-right: 5px;">Guardar</button>
+                        <button mat-raised-button color="warn" type="reset">Limpiar</button>
+                        
+                </form>
+            
+            </mat-tab>
+            <mat-tab label="Fragrancia">
+                
+                <div class="space"></div>
+
+                    <div class="details">
+                        <h3> Rellene cada campo y haga click en el botón "Guardar".</h3>
+                    </div>
+
+                <form [formGroup]="fform" class="form" ngNativeValidate>
+                
+                    <mat-form-field appearance="fill">
+                        <mat-label for="sub">Subcategoria</mat-label>
+                        <mat-select name="tipo" formControlName="subcategoria" id="sub" required>
+                            <mat-option *ngFor="let perfume of perfumes" [value]="perfume">
+                                {{perfume}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                        <p></p>
+                        <mat-form-field appearance="fill">                            
+                            <mat-label>Volumen</mat-label>
+                            <input matInput type="number" placeholder="Ej. 125" name="volumen" formControlName="volumen" id="volume" maxlength="4" min="0" required>
+                        </mat-form-field>ml
+
+                        <p></p>
+                        <mat-form-field style="width: 300px;" appearance="fill">
+                            <mat-label>Aroma</mat-label>
+                            <input matInput name="aroma" #message maxlength="50" placeholder="Ej. Este perfume huele a rosas..." formControlName="aroma" required>
+                            <mat-hint align="end">{{message.value.length}} / 50</mat-hint>
+                        </mat-form-field>
+
+                        <p></p>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Pais de origen</mat-label>
+                            <input matInput placeholder="Ej. Argentina" name="pais" formControlName="pais" maxlength="30" required>
+                        </mat-form-field>
+
+                        <div class="space-mats">
+                            <mat-label class="space-radio">Sexo:</mat-label>
+                            <mat-radio-group aria-label="Select an option" formControlName="sexo" required>
+                                <mat-radio-button name="sexo" value="hombre">Masculino</mat-radio-button>
+                                <mat-radio-button name="sexo" value="mujer">Femenino</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <p></p>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Marca</mat-label>
+                            <input matInput placeholder="Ej. Kevin" name="marca" formControlName="marca" maxlength="20" required>
+                        </mat-form-field>
+
+                        <p></p>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Modelo</mat-label>
+                            <input matInput placeholder="Ej. Black" name="modelo" formControlName="modelo" maxlength="20" required>
+                        </mat-form-field>
+
+                        <p></p>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Codigo</mat-label>
+                            <input matInput placeholder="Ej. F123" name="codigo" formControlName="codigo" maxlength="4" required>
+                        </mat-form-field>
+
+                        <div class="space-mats">
+                            <mat-label class="space-radio">Stock:</mat-label>
+                            <mat-radio-group aria-label="Select an option" formControlName="stock" required>
+                                <mat-radio-button value="true">Si</mat-radio-button>
+                                <mat-radio-button value="false">No</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
+                        <p></p>
+                        <mat-form-field appearance="fill">                            
+                            <mat-label>Precio</mat-label>
+                            <input matInput type="number" placeholder="Ej. 1000" name="precio" formControlName="precio" id="price" min="0" required>
+                        </mat-form-field>
+                        
+                        <div class="space-mats">
+                            <label for="image"> Imagen: </label> 
+                            <input type="file" name="imagen" (change)="encodeAsBase64($event)" id="image" required>
+                        </div>
+
+                        <p></p>
+                        <button mat-raised-button color="primary" type="submit" (click)="sendFragrance()" style="margin-right: 5px;">Guardar</button>
+                        <button mat-raised-button color="warn" type="reset">Limpiar</button>
+
+                </form>
+            
+            </mat-tab>
+        </mat-tab-group>
+
+    </mat-tab>
+    
+    <mat-tab label="Mostrar producto">
+        
+            <mat-tab-group [selectedIndex]="0" (selectedTabChange)="call($event)" animationDuration="0ms">
+                
+                <mat-tab></mat-tab>
+
+                <mat-tab [disabled]="bit_temp == true" label="Indumentaria">
+
+                    <div class="space"></div>
+    
+                    <ng-container *ngIf="iModify; then mod_dress else see_dress"></ng-container>
+
+                    <ng-template #see_dress>
+                    
+                        <table mat-table [dataSource]="dresses$" class="mat-elevation-z8">
+
+                            <ng-container matColumnDef="ID">
+                              <th mat-header-cell *matHeaderCellDef> ID </th>
+                              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                            </ng-container>
+                        
+                            
+                            <ng-container matColumnDef="SUBCATEGORIA">
+                              <th mat-header-cell *matHeaderCellDef> SUBCATEGORIA </th>
+                              <td mat-cell *matCellDef="let element"> {{element.subcategory}} </td>
+                            </ng-container>
+                        
+                            <ng-container matColumnDef="SEXO">
+                              <th mat-header-cell *matHeaderCellDef> SEXO </th>
+                              <td mat-cell *matCellDef="let element"> {{element.sex}} </td>
+                            </ng-container>
+                        
+                            <ng-container matColumnDef="EDAD">
+                              <th mat-header-cell *matHeaderCellDef> EDAD </th>
+                              <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+                            </ng-container>
+                        
+                            <ng-container matColumnDef="MARCA">
+                                <th mat-header-cell *matHeaderCellDef> MARCA </th>
+                                <td mat-cell *matCellDef="let element"> {{element.brand}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="MODELO">
+                                <th mat-header-cell *matHeaderCellDef> MODELO </th>
+                                <td mat-cell *matCellDef="let element"> {{element.model}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="CODIGO">
+                                <th mat-header-cell *matHeaderCellDef> CODIGO </th>
+                                <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="TALLE">
+                                <th mat-header-cell *matHeaderCellDef> TALLE </th>
+                                <td mat-cell *matCellDef="let element"> {{element.size}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="COLOR">
+                                <th mat-header-cell *matHeaderCellDef> COLOR </th>
+                                <td mat-cell *matCellDef="let element"> {{element.color}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="STOCK">
+                                <th mat-header-cell *matHeaderCellDef> STOCK </th>
+                                <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="PRECIO">
+                                <th mat-header-cell *matHeaderCellDef> PRECIO </th>
+                                <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="IMAGEN">
+                                <th mat-header-cell *matHeaderCellDef> IMAGEN </th>
+                                <td mat-cell *matCellDef="let element"> <img class="photo_preview" src="{{element.image}}" alt="imagen prenda"/> </td>
+                            </ng-container>
+                            
+                            <!-- PARA LA CONFIGURACION -->
+                            <ng-container matColumnDef="Configuracion">
+                                <th mat-header-cell *matHeaderCellDef> Configuracion </th>
+                                <td *matCellDef="let element"> 
+                                    
+                                    <button mat-raised-button (click)="configModify(element,'dress')" style="background-color: rgb(255, 166, 0); margin-right: 10px;">
+                                        Modificar
+                                    </button>
+                                    <ng-container *ngIf="element.enabled then enabled else disabled"></ng-container>
+                                    <ng-template #enabled>
+                                        <button mat-raised-button (click)="enableDisableDress(element)" style="background-color: red;">
+                                            Deshabilitar
+                                        </button>
+                                    </ng-template>
+                                    <ng-template #disabled>
+                                        <button mat-raised-button (click)="enableDisableDress(element)" style="background-color: green;">
+                                            Habilitar
+                                        </button>
+                                    </ng-template>
+
+                                </td>
+                            </ng-container>
+                            
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsDress"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsDress;"></tr>
+                            
+                        </table>
+                    
+                    </ng-template>
+
+                    <ng-template #mod_dress>
+
+                        <div class="space"></div>
+
+                        <div class="details">
+                            <h3> Modifique los datos en los campos y pulse 'Guardar cambios'</h3>
+                        </div>
+
+                        <form [formGroup]="dform" class="form" ngNativeValidate>  <!--method="GET">     get envia la info en la URL y post en el body del http (revisar cual usar) -->
+                            
+                            <mat-form-field appearance="fill">
+                                <mat-label for="sub">Subcategoria</mat-label>
+                                <mat-select name="prenda" #p (valueChange)="size(p.value)" formControlName="subcategoria" id="sub" required>
+                                    <mat-option *ngFor="let prenda of prendas" [value]="prenda">
+                                        {{prenda}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+        
+                            <p></p>
+                            
+                            <ng-container *ngIf="bit_size==false; then letra else nro"></ng-container>
+        
+                                <ng-template #nro>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label for="size">Talle</mat-label>
+                                        <input name="tamaño" matInput type="number" formControlName="talle" id="size" min="10" max="50" placeholder="Ej. 40" required>
+                                    </mat-form-field>
+                                </ng-template>
+        
+                                <ng-template #letra>
+                                <mat-form-field appearance="fill">
+                                    <mat-label for="size">Talle</mat-label>
+                                    <mat-select name="tamaño" matNativeControl formControlName="talle" id="size" required>
+                                        <mat-option *ngFor="let talla of talles" [value]="talla">
+                                            {{talla}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                </ng-template>
+        
+                                <div class="space-mats">
+                                <mat-label class="space-radio">Sexo:</mat-label>
+                                <mat-radio-group aria-label="Select an option" formControlName="sexo" required>
+                                    <mat-radio-button name="sexo" value="hombre">Masculino</mat-radio-button>
+                                    <mat-radio-button name="sexo" value="mujer">Femenino</mat-radio-button>
+                                </mat-radio-group>
+                                </div>
+                                
+                                <p></p>
+                                <mat-form-field appearance="fill">
+                                    <mat-label for="edad">Edad</mat-label>
+                                    <mat-select name="edad" formControlName="edad" id="edad" required>
+                                        <mat-option *ngFor="let edad of edades" [value]="edad">
+                                            {{edad}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                
+                                <p></p>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Marca</mat-label>
+                                    <input matInput placeholder="Ej. Adidas" name="marca" formControlName="marca" id="brand" maxlength="20" required>
+                                </mat-form-field>
+        
+                                <p></p>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Modelo</mat-label>
+                                    <input matInput placeholder="Ej. Terrex" name="modelo" formControlName="modelo" id="model" maxlength="20" required>
+                                </mat-form-field>
+        
+                                <p></p>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Codigo</mat-label>
+                                    <input matInput [readonly]="true" placeholder="Ej. D123456" name="codigo" formControlName="codigo" id="code" maxlength="7" required>
+                                </mat-form-field>
+        
+                                <p></p>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Color</mat-label>
+                                    <input matInput placeholder="Ej. Rojo" name="color" formControlName="color" id="color" pattern="[A-Za-z]+" maxlength="20" required>
+                                </mat-form-field>
+        
+                                <p></p>
+                                <div class="space-mats">
+                                <mat-label class="space-radio">Stock:</mat-label>
+                                <mat-radio-group aria-label="Select an option" formControlName="stock" required>
+                                    <mat-radio-button value="true">Si</mat-radio-button>
+                                    <mat-radio-button value="false">No</mat-radio-button>
+                                </mat-radio-group>
+                                </div>
+                                
+                                <p></p>
+                                <mat-form-field appearance="fill">                            
+                                    <mat-label>Precio</mat-label>
+                                    <input matInput type="number" placeholder="Ej. 1000" name="precio" formControlName="precio" id="price" min="0" required>
+                                </mat-form-field>
+        
+                                <div class="space-mats">
+                                <label for="image"> Imagen: </label> 
+                                <input type="file" name="imagen" (change)="encodeAsBase64($event)" id="image" required>
+                                </div>
+                                
+                                <p></p>
+                                <button mat-raised-button color="accent" type="submit" (click)="updateDress(modifyingDress!.id)">Guardar cambios</button>
+                                
+                        </form>
+
+                    </ng-template>
+
+                </mat-tab>
+                
+                <mat-tab [disabled]="bit_temp == true" label="Fragrancia">
+                    
+                    <div class="space"></div>
+                    
+                    <ng-container *ngIf="iModify; then mod_frag else see_frag"></ng-container>
+
+                    <ng-template #see_frag>
+                        
+                        <table mat-table [dataSource]="fragrances$" class="mat-elevation-z8">
+
+                            <ng-container matColumnDef="ID">
+                              <th mat-header-cell *matHeaderCellDef> ID </th>
+                              <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                            </ng-container>
+                        
+                            
+                            <ng-container matColumnDef="SUBCATEGORIA">
+                              <th mat-header-cell *matHeaderCellDef> SUBCATEGORIA </th>
+                              <td mat-cell *matCellDef="let element"> {{element.subcategory}} </td>
+                            </ng-container>
+                        
+                            <ng-container matColumnDef="SEXO">
+                              <th mat-header-cell *matHeaderCellDef> SEXO </th>
+                              <td mat-cell *matCellDef="let element"> {{element.sex}} </td>
+                            </ng-container>
+                        
+                            <ng-container matColumnDef="EDAD">
+                              <th mat-header-cell *matHeaderCellDef> EDAD </th>
+                              <td mat-cell *matCellDef="let element"> {{element.age}} </td>
+                            </ng-container>
+                        
+                            <ng-container matColumnDef="MARCA">
+                                <th mat-header-cell *matHeaderCellDef> MARCA </th>
+                                <td mat-cell *matCellDef="let element"> {{element.brand}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="MODELO">
+                                <th mat-header-cell *matHeaderCellDef> MODELO </th>
+                                <td mat-cell *matCellDef="let element"> {{element.model}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="CODIGO">
+                                <th mat-header-cell *matHeaderCellDef> CODIGO </th>
+                                <td mat-cell *matCellDef="let element"> {{element.code}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="VOLUMEN">
+                                <th mat-header-cell *matHeaderCellDef> VOLUMEN </th>
+                                <td mat-cell *matCellDef="let element"> {{element.volumen}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="AROMA">
+                                <th mat-header-cell *matHeaderCellDef> AROMA </th>
+                                <td mat-cell *matCellDef="let element"> {{element.aroma}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="PAIS DE ORIGEN">
+                                <th mat-header-cell *matHeaderCellDef> PAIS DE ORIGEN </th>
+                                <td mat-cell *matCellDef="let element"> {{element.originCountry}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="COLOR">
+                                <th mat-header-cell *matHeaderCellDef> COLOR </th>
+                                <td mat-cell *matCellDef="let element"> {{element.color}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="STOCK">
+                                <th mat-header-cell *matHeaderCellDef> STOCK </th>
+                                <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="PRECIO">
+                                <th mat-header-cell *matHeaderCellDef> PRECIO </th>
+                                <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+                            </ng-container>
+                            
+                            <ng-container matColumnDef="IMAGEN">
+                                <th mat-header-cell *matHeaderCellDef> IMAGEN </th>
+                                <td mat-cell *matCellDef="let element"> <img class="photo_preview" src="{{element.image}}" alt="imagen prenda"/> </td>
+                            </ng-container>
+                            
+                            <!-- PARA LA CONFIGURACION -->
+                            <ng-container matColumnDef="Configuracion">
+                                <th mat-header-cell *matHeaderCellDef> Configuracion </th>
+                                <td *matCellDef="let element"> 
+                                    
+                                    <button mat-raised-button (click)="configModify(element,'fragrance')" style="background-color: rgb(255, 166, 0); margin-right: 10px;">
+                                        Modificar
+                                    </button>
+                                    <ng-container *ngIf="element.enabled then enabled else disabled"></ng-container>
+                                    <ng-template #enabled>
+                                        <button mat-raised-button (click)="enableDisableFragrance(element)" style="background-color: red;">
+                                            Deshabilitar
+                                        </button>
+                                    </ng-template>
+                                    <ng-template #disabled>
+                                        <button mat-raised-button (click)="enableDisableFragrance(element)" style="background-color: green;">
+                                            Habilitar
+                                        </button>
+                                    </ng-template>
+
+                                </td>
+                            </ng-container>
+                            
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsFragrance"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsFragrance;"></tr>
+                            
+                        </table>
+
+                    </ng-template>
+
+                    <ng-template #mod_frag>
+
+                    <div class="space"></div>
+
+                    <div class="details">
+                        <h3> Modifique los datos en los campos y pulse 'Guardar cambios'</h3>
+                    </div>
+
+                        <form [formGroup]="fform" class="form" ngNativeValidate>
+                            
+                            <mat-form-field appearance="fill">
+                                <mat-label for="sub">Subcategoria</mat-label>
+                                <mat-select name="tipo" formControlName="subcategoria" id="sub" required>
+                                    <mat-option *ngFor="let perfume of perfumes" [value]="perfume">
+                                        {{perfume}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+        
+                                <p></p>
+                                <mat-form-field appearance="fill">                            
+                                    <mat-label>Volumen</mat-label>
+                                    <input matInput type="number" placeholder="Ej. 125" name="volumen" formControlName="volumen" id="volume" maxlength="4" min="0" required>
+                                </mat-form-field>ml
+        
+                                <p></p>
+                                <mat-form-field style="width: 300px;" appearance="fill">
+                                    <mat-label>Aroma</mat-label>
+                                    <input matInput name="aroma" #message maxlength="50" placeholder="Ej. Este perfume huele a rosas..." formControlName="aroma" required>
+                                    <mat-hint align="end">{{message.value.length}} / 50</mat-hint>
+                                </mat-form-field>
+        
+                                <p></p>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Pais de origen</mat-label>
+                                    <input matInput placeholder="Ej. Argentina" name="pais" formControlName="pais" maxlength="30" required>
+                                </mat-form-field>
+        
+                                <div class="space-mats">
+                                    <mat-label class="space-radio">Sexo:</mat-label>
+                                    <mat-radio-group aria-label="Select an option" formControlName="sexo" required>
+                                        <mat-radio-button name="sexo" value="hombre">Masculino</mat-radio-button>
+                                        <mat-radio-button name="sexo" value="mujer">Femenino</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+        
+                                <p></p>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Marca</mat-label>
+                                    <input matInput placeholder="Ej. Kevin" name="marca" formControlName="marca" maxlength="20" required>
+                                </mat-form-field>
+        
+                                <p></p>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Modelo</mat-label>
+                                    <input matInput placeholder="Ej. Black" name="modelo" formControlName="modelo" maxlength="20" required>
+                                </mat-form-field>
+        
+                                <p></p>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Codigo</mat-label>
+                                    <input matInput [readonly]="true" placeholder="Ej. F123" name="codigo" formControlName="codigo" maxlength="4" required>
+                                </mat-form-field>
+        
+                                <div class="space-mats">
+                                    <mat-label class="space-radio">Stock:</mat-label>
+                                    <mat-radio-group aria-label="Select an option" formControlName="stock" required>
+                                        <mat-radio-button value="true">Si</mat-radio-button>
+                                        <mat-radio-button value="false">No</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+        
+                                <p></p>
+                                <mat-form-field appearance="fill">                            
+                                    <mat-label>Precio</mat-label>
+                                    <input matInput type="number" placeholder="Ej. 1000" name="precio" formControlName="precio" id="price" min="0" required>
+                                </mat-form-field>
+                                
+                                <div class="space-mats">
+                                    <label for="image"> Imagen: </label> 
+                                    <input type="file" name="imagen" (change)="encodeAsBase64($event)" id="image" required>
+                                </div>
+        
+                                <p></p>
+                                <button mat-raised-button color="accent" type="submit" (click)="updateFragrance(modifyingFragrance!.id)">Guardar cambios</button>
+                            
+                        </form>
+
+                    </ng-template>
+
+                </mat-tab>
+            </mat-tab-group>
+
+    </mat-tab>
+
+</mat-tab-group>
 
 
-<ng-template #block2>
-    <ng-container *ngIf="iModify; then modify else seeDetails"></ng-container>
+
+
+<!--
 
     <ng-template #modify>
         <ng-container *ngIf="modifyingCategory == 'dress';then modify_dress else modify_fragrance"></ng-container>
     
         <ng-template #modify_dress>
-            <form [formGroup]="dform" ngNativeValidate>  <!--method="GET">     get envia la info en la URL y post en el body del http (revisar cual usar) -->
-                <fieldset>
-                    <legend> Modifique los datos en los campos y pulse 'Guardar cambios' </legend>
-                    <p>
-                        <label for="sub"> Subcategoria: </label>
-                        <select name="prenda" #p (change)="size(p.value)" formControlName="subcategoria" id="sub" required >
-                            <option *ngFor="let prenda of prendas" [value]="prenda"> {{prenda}} </option>
-                        </select>
-                    </p>
-                    
-                    <ng-container *ngIf="dform.get('subcategoria')?.value == 'zapatillas' then nro else letra"></ng-container>
-    
-                    <ng-template #nro>
-                        <label for="size"> Talle: </label> 
-                        <input type="number" name="talle" formControlName="talle" id="size" min="10" max="50" required>
-                    </ng-template>
-    
-                    <ng-template #letra>
-                        <label for="size"> Talle: </label> 
-                        <select name="prenda" formControlName="talle" id="sub" required>
-                            <option value="XS"> XS </option>
-                            <option value="S"> S </option>
-                            <option value="M"> M </option>
-                            <option value="L"> L </option>
-                            <option value="XL"> XL </option>
-                            <option value="XXL"> XXL </option>
-                            <option value="XXXL"> XXXL </option>
-                            <option value="XXXXL"> XXXXL </option>
-                        </select>
-                    </ng-template>
-    
-                    <p> <label for="sexo"> Sexo: </label>
-                        <input type="radio" name="sexo" formControlName="sexo" value="hombre" id="sexo" required> Masculino 
-                        <input type="radio" name="sexo" formControlName="sexo" value="mujer" id="sexo"> Femenino 
-                    </p>
-                    <p> <label for="edad"> Edad: </label>
-                        <select name="edad" formControlName="edad" id="edad" required>
-                            <option value="niños"> niños </option>
-                            <option value="jovenes"> jovenes </option>
-                            <option value="adultos"> adultos </option>
-                            <option value="ancianos"> ancianos </option>
-                        </select>
-                    </p>
-                    <p> <label for="brand"> Marca: </label>
-                        <input type="text" name="marca" formControlName="marca" id="brand" maxlength="20" required> </p>
-                    <p> <label for="model"> Modelo: </label>
-                        <input type="text" name="modelo" formControlName="modelo" id="model" maxlength="20" required> </p>
-                    <p> <label for="code"> Codigo: </label> 
-                        <input [readonly]="true" type="text" name="codigo" formControlName="codigo" id="code" maxlength="7" required> </p>
-                    <p> <label for="color"> Color: </label> 
-                        <input type="text" name="color" formControlName="color" id="color" maxlength="20" required> </p>
-                    <p> <label for="stock"> Stock: </label> 
-                        <input type="radio" name="stock" formControlName="stock" value="true" id="stock" required> Si 
-                        <input type="radio" name="stock" formControlName="stock" value="false" id="stock"> No </p>
-                    <p> <label for="price"> Precio: $</label> 
-                        <input style="width: 100px;" type="number" name="precio" formControlName="precio" id="price"  required> </p>
-                    <p> <label for="image"> Imagen: </label> 
-                        <input type="file" name="imagen" (change)="encodeAsBase64($event)" id="image" required></p>
-                    <p> <input (click)="updateDress(modifyingDress!.id)" type="submit" value="Guardar cambios" style="margin-right: 5px;"> <input type="reset" value="Limpiar"> </p>
-                </fieldset>
-            </form>
+            
         </ng-template>
         
         <ng-template #modify_fragrance>
-            <form [formGroup]="fform" ngNativeValidate>
-                <fieldset>
-                    <legend> Modifique los datos en los campos y pulse 'Guardar cambios' </legend>
-                    <p>
-                        <label for="sub"> Subcategoria: </label>
-                        <select name="tipo" formControlName="subcategoria" id="sub" required>
-                            <option value="eau de toilette" > eau de toilette </option>
-                            <option value="colonias"> colonias </option>
-                            <option value="infantiles"> infantiles </option>
-                        </select>
-                    </p>
-                    <p> <label for="volume"> Volumen: </label>
-                        <input style="width: 60px;" type="number" name="volumen" id="volume" maxlength="4" formControlName="volumen" required>ml </p>
-                    <p> <label for="smell"> Aroma: </label>
-                        <input type="text" [value]="modifyingFragrance!.aroma" name="aroma" formControlName="aroma" id="smell" maxlength="30" placeholder="Breve descripcion" required> </p>
-                    <p> <label for="country"> Pais de origen: </label> 
-                        <input type="text" name="pais" formControlName="pais" id="volume" maxlength="30" required> </p>
-                    <p> <label for="sexo"> Sexo: </label> 
-                        <input type="radio" name="sexo" formControlName="sexo" value="hombre" id="sexo" required> Masculino 
-                        <input type="radio" name="sexo" formControlName="sexo" value="mujer" id="sexo" > Femenino
-                    </p>
-                    <p> <label for="brand"> Marca: </label> 
-                        <input type="text" name="marca" formControlName="marca" id="brand" maxlength="20" required> </p>
-                    <p> <label for="model"> Modelo: </label> 
-                        <input type="text"  name="modelo" formControlName="modelo" id="model" maxlength="20" required> </p>
-                    <p> <label for="code"> Codigo: </label> 
-                        <input [readonly]="true" type="text" name="codigo" formControlName="codigo" id="code" maxlength="7" required> </p>
-                    <p> <label for="stock"> Stock: </label> 
-                        <input type="radio" name="stock" formControlName="stock" value="true" id="stock" required> Si 
-                        <input type="radio" name="stock" formControlName="stock" value="false" id="stock"> No
-                    </p>
-                    <p> <label for="price"> Precio: $</label> 
-                        <input style="width: 100px;"  type="number" name="precio" formControlName="precio" id="price" required> </p>
-                    <p> <label for="image"> Imagen: </label>
-                        <input type="file" name="imagen" id="image" (change)="encodeAsBase64($event)" required></p>
-                    <p> <input (click)="updateFragrance(modifyingFragrance!.id)" type="submit" style="margin-left: 5px;margin-right: 5px;" value="Guardar cambios"/> <input type="reset" value="Limpiar"> </p>                    
-                </fieldset>
-            </form>
+            
         </ng-template>
 
     </ng-template>
@@ -277,114 +683,12 @@
         <ng-template #nothing3></ng-template>
 
         <ng-template #call_dress>
-            <table class="center">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>SUBCATEGORÍA</th>
-                        <th>SEXO</th>
-                        <th>EDAD</th>
-                        <th>MARCA</th>
-                        <th>MODELO</th>
-                        <th>CODIGO UNICO</th>
-                        <th>TALLE</th>
-                        <th>COLOR</th>
-                        <th>STOCK</th>
-                        <th>PRECIO</th>
-                        <th>IMAGEN</th>
-                        <th>Opciones de configuración</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of dresses$ | async">
-                        <td>{{item.id}}</td>
-                        <td>{{item.subcategory}}</td>
-                        <td>{{item.sex}}</td>
-                        <td>{{item.age}}</td>
-                        <td>{{item.brand}}</td>
-                        <td>{{item.model}}</td>
-                        <td>{{item.code}}</td>
-                        <td>{{item.size}}</td>
-                        <td>{{item.color}}</td>
-                        <td>{{item.stock}}</td>
-                        <td>{{item.price}}</td>
-                        <td>
-                            <img class="photo_preview" src="{{item.image}}" alt="imagen prenda"/>
-                        </td>
-                        <td>
-                            <button (click)="configModify(item,'dress')" style="background-color: yellow; margin-right: 10px;">
-                                Modificar
-                            </button>
-                            <ng-container *ngIf="item.enabled then enabled else disabled"></ng-container>
-                            <ng-template #enabled>
-                                <button (click)="enableDisableDress(item)" style="background-color: red;">
-                                    Deshabilitar
-                                </button>
-                            </ng-template>
-                            <ng-template #disabled>
-                                <button (click)="enableDisableDress(item)" style="background-color: green;">
-                                    Habilitar
-                                </button>
-                            </ng-template>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            
         </ng-template>
 
         <ng-template #call_frag>
-            <table class="center">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>SUBCATEGORÍA</th>
-                        <th>VOLUMEN</th>
-                        <th>AROMA</th>
-                        <th>PAIS DE ORIGEN</th>
-                        <th>SEXO</th>
-                        <th>MARCA</th>
-                        <th>MODELO</th>
-                        <th>CODIGO</th>
-                        <th>STOCK</th>
-                        <th>PRECIO</th>
-                        <th>IMAGEN</th>
-                        <th>Opciones de configuración</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of fragrances$ | async">
-                        <td>{{item.id}}</td>
-                        <td>{{item.subcategory}}</td>
-                        <td>{{item.volumen}}</td>
-                        <td>{{item.aroma}}</td>
-                        <td>{{item.originCountry}}</td>
-                        <td>{{item.sex}}</td>
-                        <td>{{item.brand}}</td>
-                        <td>{{item.model}}</td>
-                        <td>{{item.code}}</td>
-                        <td>{{item.stock}}</td>
-                        <td>{{item.price}}</td>
-                        <td>
-                            <img class="photo_preview" src="{{item.image}}" alt="imagen prenda"/>
-                        </td>
-                        <td>
-                            <button type="button" (click)="configModify(item,'fragrance')" style="background-color: yellow; margin-right: 10px;">
-                                Modificar
-                            </button>
-                            <ng-container *ngIf="item.enabled then enabled else disabled"></ng-container>
-                            <ng-template #enabled>
-                                <button (click)="enableDisableFragrance(item)" style="background-color: red;">
-                                    Deshabilitar
-                                </button>
-                            </ng-template>
-                            <ng-template #disabled>
-                                <button (click)="enableDisableFragrance(item)" style="background-color: green;">
-                                    Habilitar
-                                </button>
-                            </ng-template></td>
-                    </tr>
-                </tbody>
-            </table>
+            
         </ng-template>
+
     </ng-template>
-</ng-template>
+-->

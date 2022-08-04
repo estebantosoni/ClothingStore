@@ -1,7 +1,16 @@
-.yes{
-    background-color: rgb(0, 236, 0);
+
+::ng-deep .mat-dialog-container {
+    background: #4f5052;
+    color: #fff;
 }
 
+.yes{
+    color: rgb(0, 236, 0);
+}
 .no{
-    background-color: red;
+    color: orangered;
+}
+
+.login{
+    margin-right: 15px;
 }

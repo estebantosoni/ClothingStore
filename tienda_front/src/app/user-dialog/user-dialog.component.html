@@ -2,22 +2,20 @@
 
 <ng-template #register>     <!-- si positive es true -->
 
-  <div *ngIf="reg" class="yes">
-    <h1 mat-dialog-title>Te registraste exitosamente</h1>
+  <div *ngIf="reg">
+    <h1 mat-dialog-title class="yes">Te registraste exitosamente!</h1>
+    <div mat-dialog-content> Cierre el cuadro de dialogo y proceda a loguearse. </div>
     <div mat-dialog-actions>
-      <a mat-button mat-dialog-close routerLink="/user/2">
-        presione aquí para loguearse</a>
+        <button mat-button routerLink="/user/2" mat-dialog-close> Cerrar </button>
     </div>
   </div>
   
-  <div *ngIf="!reg" class="no">
-    <h1 mat-dialog-title>Registro fallido</h1>
+  <div *ngIf="!reg">
+    <h1 mat-dialog-title class="no" >Registro fallido</h1>
     <div mat-dialog-content> El email y/o nombre de usuario ya se encuentra en uso, pruebe con otro. </div>
     <div mat-dialog-actions>
-      <p>puede <a routerLink="/user/1" mat-dialog-close>
-        intentar nuevamente</a> o 
-      <a routerLink="/interface" mat-dialog-close>
-        redirigirse a la pantalla principal</a></p>
+      <button mat-button routerLink="/user/1" mat-dialog-close> Intentar nuevamente </button>
+      <button mat-button routerLink="/interface" mat-dialog-close> Ir a la página principal </button>
     </div>
   </div>
 
@@ -25,22 +23,21 @@
 
 <ng-template #login>        <!-- si positive es false -->
 
-  <div *ngIf="log" class="yes">
-    <h1 mat-dialog-title>Te logueaste pa</h1>
+  <div *ngIf="log">
+    <h1 mat-dialog-title class="yes">Ingreso exitoso!</h1>
+    <div mat-dialog-content> Cierre el cuadro de dialogo para volver a la pantalla principal. </div>
     <div mat-dialog-actions>
-      <a mat-button mat-dialog-close routerLink="/interface">
-        presione aquí para volver a la pantalla principal</a>
+      <button mat-button routerLink="/interface" mat-dialog-close> Cerrar </button>
     </div>
   </div>
   
-  <div *ngIf="!log" class="no">
-    <h1 mat-dialog-title>No te logueaste una mierda pa</h1>
-    <div mat-dialog-actions>
-      <p>puede <a routerLink="/user/2" mat-dialog-close>
-        intentar nuevamente</a> o 
-      <a routerLink="/interface" mat-dialog-close>
-        redirigirse a la pantalla principal</a></p>
-    </div>
+  <div *ngIf="!log">
+    <h1 mat-dialog-title class="no">Ingreso fallido</h1>
+    <mat-dialog-content> El nombre de usuario y/o la contraseña son incorrectos. </mat-dialog-content>
+    <mat-dialog-actions align="center">
+      <button mat-button class="login" routerLink="/user/2" mat-dialog-close> Intentar nuevamente </button>
+      <button mat-button routerLink="/interface" mat-dialog-close> Ir a la página principal </button>
+    </mat-dialog-actions>
   </div>
 
 </ng-template>

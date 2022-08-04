@@ -1,3 +1,4 @@
+
 a { 
     cursor: pointer;
 }
@@ -6,3 +7,4 @@ html, body {
     background-color: #E1E9F3;
 }
 body {margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
+.mat-form-field-required-marker { color: aqua }

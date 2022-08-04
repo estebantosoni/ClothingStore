@@ -1,28 +1,131 @@
 <ng-container *ngIf="id=='1'; then registro else login"></ng-container>
 
 <ng-template #registro>
-    <form [formGroup]="form" ngNativeValidate>
-        <p>Email: <input type="email" formControlName="email" (change)="onEmailChange()" required> </p>
-        <p> Repetir email: <input type="email" formControlName="confirm_email" (change)="onEmailChange()" required/> </p>
-        <p class="error"> <span *ngIf="confirm_email.hasError('mismatch')">Email do not match.</span> </p>
-        
-        <p>Nombre de usuario: <input type="text" formControlName="username" required/></p>
-        
-        <p> Contraseña: <input type="password" formControlName="password" (change)="onPasswordChange()" minlength="7" required/> </p>
-        <p> Repetir contraseña: <input type="password" formControlName="confirm_password" (change)="onPasswordChange()" minlength="7" required /> </p>
-        <p class="error"> <span *ngIf="confirm_password.hasError('mismatch')">Password do not match.</span> </p>
 
-        <p><button mat_button (click)="send(0)">sign in</button></p>
-        <p class="error"> {{ error.toUpperCase() }} </p>
+<div>
+    <div class="box-color">
+        <form [formGroup]="form" class="centered" ngNativeValidate>
+            
+            <ng-container *ngIf="continue==false; then mail"></ng-container>
 
-    </form>
+            <ng-template #mail>
+            
+            <h1 class="welcome" > ¡Bienvenido! Por favor, ingresá los datos a continuacion para crear tu cuenta. </h1>
+
+            <mat-form-field class="outline2" appearance="outline">
+                <mat-label class="text">Email (Ej. usuario@ejemplo.com)</mat-label>
+                <input type="email" class="text_color" matInput formControlName="email" (change)="onEmailChange()" required>    <!--tal vez no hace falta el requerido-->
+                <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+                    Por favor, ingrese un email válido
+                </mat-error>
+                <mat-error *ngIf="email.hasError('required')">
+                    El email es <strong>requerido</strong>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="outline2" appearance="outline">
+                <mat-label class="text">Repita el email</mat-label>
+                <input type="email" class="text_color" matInput formControlName="confirm_email" (change)="onEmailChange()" required>    <!--tal vez no hace falta el requerido-->
+                <mat-error *ngIf="confirm_email.hasError('email') && !confirm_email.hasError('required')">
+                    Por favor, ingrese un email válido
+                </mat-error>
+                <mat-error *ngIf="email.hasError('required')">
+                    La confirmacion del email es <strong>requerida</strong>
+                </mat-error>
+                <mat-error *ngIf="confirm_email.hasError('mismatch')">
+                    La confirmacion del email debe ser <strong>igual</strong> al ingresado previamente
+                </mat-error>
+            </mat-form-field>
+            
+            <button class="continue" mat-stroked-button (click)="check()"> Continuar </button>
+            
+            </ng-template>
+
+
+            <ng-container *ngIf="continue == true; then register"></ng-container>
+            
+            <ng-template #register>
+                <div>
+                <mat-form-field class="outline2" appearance="outline">
+                    <mat-label class="text">Nombre de usuario</mat-label>
+                    <input type="text" class="text_color" matInput formControlName="username" minlength="3" required>    <!--tal vez no hace falta el requerido-->
+                    <mat-error *ngIf="username.hasError('required')">
+                        El nombre de usuario es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                </div>
+
+                <div>
+                <mat-form-field class="outline2" appearance="outline">
+                    <mat-label class="text">Contraseña</mat-label>
+                    <input type="password" class="text_color" matInput formControlName="password" (change)="onPasswordChange()" minlength="7" required>    <!--tal vez no hace falta el requerido-->
+                    <mat-error *ngIf="password.hasError('required')">
+                        La contraseña es <strong>requerida</strong>
+                    </mat-error>
+                </mat-form-field>
+                </div>
+
+                <div>
+                <mat-form-field class="outline2" appearance="outline">
+                    <mat-label class="text">Repita la contraseña</mat-label>
+                    <input type="password" class="text_color" matInput formControlName="confirm_password" (change)="onPasswordChange()" minlength="7" required>    <!--tal vez no hace falta el requerido-->
+                    <mat-error *ngIf="confirm_password.hasError('required')">
+                        El confirmacion de la contraseña es <strong>requerida</strong>
+                    </mat-error>
+                    <mat-error *ngIf="confirm_email.hasError('mismatch')">
+                        La confirmacion de la contraseña debe ser <strong>igual</strong> a la ingresada previamente
+                    </mat-error>
+                </mat-form-field>
+                </div>
+
+                <button mat-stroked-button class="return" (click)="continue = false" > Volver </button>
+                <button class="signup" mat-stroked-button (click)="send(0)"> Registrarse </button>
+            
+            </ng-template>
+        
+        </form>
+    </div>
+</div>
+
 </ng-template>
 
+
 <ng-template #login>
-    <form [formGroup]="form" ngNativeValidate>
-        <p>Usuario: <input type="text" formControlName="username" required/></p>
-        <p>Password: <input type="password" formControlName="password" required></p>
-        <p><button mat_button (click)="send(-1)">sign in</button></p>
-    </form>
+    
+    <div>
+        <div class="box-color">
+            <form [formGroup]="form" class="centered" ngNativeValidate>
+
+                <h1 class="welcome"> ¡Hola! Por favor, ingresá los datos para acceder a tu cuenta. </h1>
+
+                <p></p>
+
+                <div>
+                    <mat-form-field class="outline" appearance="outline">
+                        <mat-label class="text">Nombre de usuario</mat-label>
+                        <input matInput type="text" formControlName="username" required>
+                    </mat-form-field>
+                </div>
+                
+                <p></p>
+                
+                <div>
+                    <mat-form-field class="outline"appearance="outline">
+                        <mat-label class="text">Contraseña</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]= "'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+
+                <p></p>
+
+                <button class="sign" mat-stroked-button (click)="send(-1)"> Ingresar </button>
+
+            </form>
+        </div>
+    </div>
+
 </ng-template>
 

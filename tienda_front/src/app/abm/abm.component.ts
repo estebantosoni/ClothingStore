@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { MiniPopiComponent } from '../mini-popi/mini-popi.component';
@@ -14,8 +15,9 @@ import { FraganceService } from '../services/fragrance.service';
   templateUrl: './abm.component.html',
   styleUrls: ['./abm.component.css']
 })
+
 export class AbmComponent implements OnInit {
-  
+
   //para seleccion de bloque
   bit:boolean|null = null;      //para los botones principales
   addbit:boolean|null = null;   //para añadir producto
@@ -31,6 +33,10 @@ export class AbmComponent implements OnInit {
   
   //constantes
   prendas:string[] = ['remeras', 'pantalones', 'sweeters', 'buzos', 'camperas', 'chalecos', 'boxers', 'zapatillas'];
+  talles: string[] = ['XS','S','M','L','XL','XXL','XXXL','XXXXL'];
+  edades: string[] = ['niños','jovenes','adultos','ancianos'];
+  perfumes: string[] = ['eau de Toilette','colonias', 'infantiles'];
+  
   zapas:string = 'zapatillas';
 
   //para el envío y recepción de productos con el backend
@@ -39,6 +45,15 @@ export class AbmComponent implements OnInit {
   dform:FormGroup;
   fform:FormGroup;
   imgAsSTR:string;
+
+  
+  displayedColumnsDress: string[] = ['ID', 'SUBCATEGORIA', 'SEXO', 'EDAD','MARCA',
+                                'MODELO','CODIGO','TALLE','COLOR','STOCK',
+                                'PRECIO','IMAGEN','Configuracion'];
+  displayedColumnsFragrance: string[] = ['ID','SUBCATEGORIA','SEXO','MARCA',
+                                'MODELO','CODIGO','VOLUMEN','AROMA','PAIS DE ORIGEN',
+                                'STOCK','PRECIO','IMAGEN','Configuracion'];
+
 
   constructor(
     private router:Router,
@@ -83,6 +98,7 @@ export class AbmComponent implements OnInit {
   }
 
   //para la funcion de añadir
+  /*
   group1():void{
     if(this.bit_temp)
       return;
@@ -92,12 +108,22 @@ export class AbmComponent implements OnInit {
   
   //para la funcion de llamar
   group2():void{this.bit = true;}
+  */
 
   addDress():void{this.addbit = false; 
     //this.dform.reset();
   }
 
   addFragrance():void{this.addbit = true;}
+
+  call(i:any):void{
+    if(i.index == 1){
+      this.callDress();
+    }
+    else if(i.index == 2){
+      this.callFragrance();
+    }
+  }
 
   callDress():void{
     this.callbit = false;
@@ -112,8 +138,8 @@ export class AbmComponent implements OnInit {
   callPopi(status:boolean,error?:boolean,idOnCuestion?:number,category?:string):void{
     const popiConfig:MatDialogConfig = new MatDialogConfig();
     popiConfig.disableClose = true;
-    popiConfig.width = '300px';
-    popiConfig.height = '350px';
+    //popiConfig.width = '300px';
+    //popiConfig.height = '350px';
 
     const popiRef = this.popi.open(MiniPopiComponent,popiConfig);
     popiRef.componentInstance.block = status;
@@ -133,8 +159,11 @@ export class AbmComponent implements OnInit {
     } else {
       stock = false;
     }
-    if(!this.dform.valid)
+    if(!this.dform.valid){
+      console.log(this.dform.get('sexo')?.valid);
+      console.log(this.dform.get('stock')?.valid);
       return;
+    }
     const storing = new Dress(
       this.dform.get('sexo')?.value,
       this.dform.get('edad')?.value,
@@ -153,11 +182,13 @@ export class AbmComponent implements OnInit {
     this.dservice.store(storing).subscribe({
       next: (obj) => {
         this.callPopi(true);
+        console.log('holanda');
         this.dform.reset();
       },
       error: (objError) => {
         if(objError.error.message == "code used"){
           this.callPopi(true,true,objError.error.id,"prenda");
+          console.log('holoroso');
           this.dform.get('codigo')?.reset();
         }
       }
@@ -194,6 +225,7 @@ export class AbmComponent implements OnInit {
     this.callPopi(false);
     this.callDress();
     this.dform.reset();
+    
     this.bit_temp = false;
   }
 
@@ -265,11 +297,13 @@ export class AbmComponent implements OnInit {
     this.callPopi(false);
     this.callFragrance();
     this.fform.reset();
+    
     this.bit_temp = false;
   }
   
   configModify(product:Dress|Fragrance,category:string):void{
     this.bit_temp = true;
+    
     this.iModify = true;
     if(category == "dress"){
       this.modifyingCategory = "dress";
