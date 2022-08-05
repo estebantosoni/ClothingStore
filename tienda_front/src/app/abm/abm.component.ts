@@ -35,7 +35,7 @@ export class AbmComponent implements OnInit {
   prendas:string[] = ['remeras', 'pantalones', 'sweeters', 'buzos', 'camperas', 'chalecos', 'boxers', 'zapatillas'];
   talles: string[] = ['XS','S','M','L','XL','XXL','XXXL','XXXXL'];
   edades: string[] = ['niños','jovenes','adultos','ancianos'];
-  perfumes: string[] = ['eau de Toilette','colonias', 'infantiles'];
+  perfumes: string[] = ['eau de toilette','colonias', 'infantiles'];
   
   zapas:string = 'zapatillas';
 
@@ -149,7 +149,9 @@ export class AbmComponent implements OnInit {
       popiRef.componentInstance.category = category;
     }
     
-    popiRef.afterClosed().subscribe();
+    popiRef.afterClosed().subscribe(() => {
+      window.location.reload();
+    });
   }
 
   sendDress():void{

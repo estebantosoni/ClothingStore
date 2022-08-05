@@ -141,46 +141,12 @@ input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     background-color: white;
 }
 
-
-
-
-
-.box{
-    height: 50px;
-    background-color: darkgrey;
-    text-align: left;
-}
-
-.box-button{
-    top: 50%;
-    -ms-transform: translateY(60%);
-    transform: translateY(60%);
-}
-
-.button{
-    text-decoration: none;
-    font-family: 'Trebuchet MS';
-    margin: 15px;
-    float:left;
-}
-
+/* OTROS */
 .details{
     text-align: left;
     margin-left: 25px;
 }
 
-.center{
-    margin-left: auto;              /*los dos margin son para centrar la tabla*/
-    margin-right: auto;
-    text-align: left;               /*los titulos se tiran a la izquierda*/
-    border-collapse: separate;      /*los dos border son para crear espacio entre filas y columnas*/
-    border-spacing: 20px 5px;
-}
-/*
-tr{
-    border-bottom: 1px solid black;
-}
-*/
 .photo_preview{
     width: auto;
     max-width: 80px;

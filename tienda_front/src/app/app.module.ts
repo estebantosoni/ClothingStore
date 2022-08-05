@@ -65,11 +65,6 @@ import {MatTableModule} from '@angular/material/table';
   providers: [                                    
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    /*{ 
-      provide: NG_VALUE_ACCESSOR,
-      multi: true,
-      useExisting: forwardRef(() => AbmComponent),
-    }*/
   ],
   bootstrap: [AppComponent]
 })

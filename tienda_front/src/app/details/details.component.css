@@ -119,6 +119,8 @@ input:checked + label .action span.option-2{
     width: 50%;
 	height: 150%;
     float: left;
+    margin-top:20px;
+    margin-left: 20px;
 }
 
 .info{
@@ -130,6 +132,7 @@ input:checked + label .action span.option-2{
 .list{
     margin: 10px;
     line-height: 10px;
+    margin-right: 20px;
 }
 
 .stock-favs{

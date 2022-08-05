@@ -1,68 +1,70 @@
 <body>
-    <div class="subcategorias">
-        <ul>
-            <button [ngClass]="{'def':catSelected != '','sel':catSelected == ''}"
-                    (click)="seeAll()">Mostrar todos los productos
-            </button>
-            <h2>Prendas</h2>
-            <button [ngClass]="{'def':catSelected != 'remeras','sel':catSelected == 'remeras'}"
-                    (click)="seeSub('remeras')">remeras
-            </button>
-            <button [ngClass]="{'def':catSelected != 'pantalones','sel':catSelected == 'pantalones'}"  
-                    (click)="seeSub('pantalones')">pantalones
-            </button>
-            <button [ngClass]="{'def':catSelected != 'sweeters','sel':catSelected == 'sweeters'}"  
-                    (click)="seeSub('sweeters')">sweeters
-            </button>
-            <button [ngClass]="{'def':catSelected != 'buzos','sel':catSelected == 'buzos'}"  
-                    (click)="seeSub('buzos')">buzos
-            </button>
-            <button [ngClass]="{'def':catSelected != 'camperas','sel':catSelected == 'camperas'}"  
-                    (click)="seeSub('camperas')">camperas
-            </button>
-            <button [ngClass]="{'def':catSelected != 'chalecos','sel':catSelected == 'chalecos'}"  
-                    (click)="seeSub('chalecos')">chalecos
-            </button>
-            <button [ngClass]="{'def':catSelected != 'boxers','sel':catSelected == 'boxers'}"  
-                    (click)="seeSub('boxers')">boxers
-            </button>
-            <button [ngClass]="{'def':catSelected != 'zapatillas','sel':catSelected == 'zapatillas'}"  
-                    (click)="seeSub('zapatillas')">zapatillas
-            </button>
-        </ul>
-        <ul>
-            <h2>Sexo</h2>
-            <button [ngClass]="{'def':catSelected != 'hombre','sel':catSelected == 'hombre'}"  
-                    (click)="seeSex('hombre')">hombre
-            </button>
-            <button [ngClass]="{'def':catSelected != 'mujer','sel':catSelected == 'mujer'}"  
-                    (click)="seeSex('mujer')">mujer
-            </button>
-        </ul>
-        <ul>
-            <h2>Edad</h2>
-            <button [ngClass]="{'def':catSelected != 'niños','sel':catSelected == 'niños'}"  
-                    (click)="seeAge('niños')">niños
-            </button>
-            <button [ngClass]="{'def':catSelected != 'jovenes','sel':catSelected == 'jovenes'}"  
-                    (click)="seeAge('jovenes')">jovenes
-            </button>
-            <button [ngClass]="{'def':catSelected != 'adultos','sel':catSelected == 'adultos'}"  
-                    (click)="seeAge('adultos')">adultos
-            </button>
-            <button [ngClass]="{'def':catSelected != 'ancianos','sel':catSelected == 'ancianos'}"  
-                    (click)="seeAge('ancianos')">ancianos
-            </button>
-        </ul>
-    </div>
-    <div class="productos">
-        <button *ngFor="let item of dresses$ | async" class="item" (click)="goTo('details',item.code)">
-            <img src={{item?.image}} alt="imagen_producto" width="100" height="100"/>
-            <p>sexo <span class="carac">{{item?.sex}}</span></p>
-            <p>subcategoria <span class="carac">{{item?.subcategory }}</span></p>
-            <p>edad <span class="carac">{{item?.age}}</span></p>
-            <p>marca <span class="carac">{{item?.brand}}</span></p>
-            <p>modelo <span class="carac">{{item?.model}}</span></p>
-        </button>
+    <div style="margin-top: 10px;">
+        <div class="subcategorias">
+                <ul>
+                <button [ngClass]="{'def':catSelected != '','sel':catSelected == ''}"
+                        (click)="seeAll()">Mostrar todos los productos
+                </button>
+                <h2>Prendas</h2>
+                <button [ngClass]="{'def':catSelected != 'remeras','sel':catSelected == 'remeras'}"
+                        (click)="seeSub('remeras')">remeras
+                </button>
+                <button [ngClass]="{'def':catSelected != 'pantalones','sel':catSelected == 'pantalones'}"  
+                        (click)="seeSub('pantalones')">pantalones
+                </button>
+                <button [ngClass]="{'def':catSelected != 'sweeters','sel':catSelected == 'sweeters'}"  
+                        (click)="seeSub('sweeters')">sweeters
+                </button>
+                <button [ngClass]="{'def':catSelected != 'buzos','sel':catSelected == 'buzos'}"  
+                        (click)="seeSub('buzos')">buzos
+                </button>
+                <button [ngClass]="{'def':catSelected != 'camperas','sel':catSelected == 'camperas'}"  
+                        (click)="seeSub('camperas')">camperas
+                </button>
+                <button [ngClass]="{'def':catSelected != 'chalecos','sel':catSelected == 'chalecos'}"  
+                        (click)="seeSub('chalecos')">chalecos
+                </button>
+                <button [ngClass]="{'def':catSelected != 'boxers','sel':catSelected == 'boxers'}"  
+                        (click)="seeSub('boxers')">boxers
+                </button>
+                <button [ngClass]="{'def':catSelected != 'zapatillas','sel':catSelected == 'zapatillas'}"  
+                        (click)="seeSub('zapatillas')">zapatillas
+                </button>
+                </ul>
+                <ul>
+                <h2>Sexo</h2>
+                <button [ngClass]="{'def':catSelected != 'hombre','sel':catSelected == 'hombre'}"  
+                        (click)="seeSex('hombre')">hombre
+                </button>
+                <button [ngClass]="{'def':catSelected != 'mujer','sel':catSelected == 'mujer'}"  
+                        (click)="seeSex('mujer')">mujer
+                </button>
+                </ul>
+                <ul>
+                <h2>Edad</h2>
+                <button [ngClass]="{'def':catSelected != 'niños','sel':catSelected == 'niños'}"  
+                        (click)="seeAge('niños')">niños
+                </button>
+                <button [ngClass]="{'def':catSelected != 'jovenes','sel':catSelected == 'jovenes'}"  
+                        (click)="seeAge('jovenes')">jovenes
+                </button>
+                <button [ngClass]="{'def':catSelected != 'adultos','sel':catSelected == 'adultos'}"  
+                        (click)="seeAge('adultos')">adultos
+                </button>
+                <button [ngClass]="{'def':catSelected != 'ancianos','sel':catSelected == 'ancianos'}"  
+                        (click)="seeAge('ancianos')">ancianos
+                </button>
+                </ul>
+        </div>
+        <div class="productos">
+                <button *ngFor="let item of dresses$ | async" class="item" (click)="goTo('details',item.code)">
+                <img src={{item?.image}} alt="imagen_producto" width="100" height="100"/>
+                <p>sexo <span class="carac">{{item?.sex}}</span></p>
+                <p>subcategoria <span class="carac">{{item?.subcategory }}</span></p>
+                <p>edad <span class="carac">{{item?.age}}</span></p>
+                <p>marca <span class="carac">{{item?.brand}}</span></p>
+                <p>modelo <span class="carac">{{item?.model}}</span></p>
+                </button>
+        </div>
     </div>
 </body>

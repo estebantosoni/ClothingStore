@@ -20,31 +20,48 @@ Los Angular route guards se adjuntan a las rutas en la configuración del enruta
 */
 
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanLoad, Route, UrlSegment, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { AuthenticationService } from '../services/authentication.service';                  //NO OLVIDARSE DE CREAR ESA CARPETA
 
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate{
     constructor(
          private router: Router,
          private authenticationService: AuthenticationService
      ) { }
 
-     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):boolean{
-         const currentUser = this.authenticationService.currentUserValue;
-         if(currentUser) {
-            if(currentUser.rol == "ADMIN") 
-                return true;
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):boolean{
+        const ruta:string = route.url.toString();
+        const currentUser = this.authenticationService.currentUserValue;
+        let ret:boolean;
+        if(currentUser) {
+            if(currentUser.rol == "ADMIN"){
+                const component:string[] = ruta.split(',');
+                if(component[0] == 'user'){
+                    this.router.navigate(['/interface']);
+                    ret = false;
+                }
+                else
+                    ret = true;
+            }
+            else if(currentUser.rol == "USER"){
+                this.router.navigate(['/interface']);
+                ret = false;
+            }
             else{
                 this.router.navigate(['/interface']);
-                return false;
+                ret = false;
             }
-         }
-         else{
+            return ret;
+        }
+        else if(ruta == 'abm'){
             // not logged in so redirect to login page with the return url
             this.router.navigate(['/user/2'], { queryParams: { returnUrl: state.url } });
             return false;
-         }
-     }
+        }
+        else
+            return true;
+    }
 }

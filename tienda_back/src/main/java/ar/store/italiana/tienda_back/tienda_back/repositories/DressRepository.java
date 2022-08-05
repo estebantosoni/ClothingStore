@@ -9,14 +9,14 @@ import java.util.List;
 
 public interface DressRepository extends JpaRepository<Dress,Long>{
     String DEF_QUERY =
-            "SELECT BRAND,MODEL,min(ID) id,min(code) code,min(image) image,min(enabled) enabled," +
+            "SELECT brand,model,min(ID) id,min(code) code,min(image) image,min(enabled) enabled," +
                 "min(subcategory) subcategory,min(sex) sex,min(stock) stock,min(price) price," +
                 "min(age) age,min(sizes) sizes,min(color) color,min(is_on_favs) is_on_favs " +
-                "FROM DRESS ",
+                "FROM dress ",
             ENABLEDS =
             "WHERE enabled = TRUE ",
             GROUP_BY =
-            "GROUP BY BRAND,MODEL";
+            "GROUP BY brand,model";
     List<Dress> findAll();
     @Query(value =  DEF_QUERY + ENABLEDS + GROUP_BY ,nativeQuery = true)
     List<Dress> filterByBrandsAndModels();
