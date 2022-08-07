@@ -1,4 +1,4 @@
-import { forwardRef, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -62,9 +62,9 @@ import {MatTableModule} from '@angular/material/table';
     MatRadioModule,
     MatTableModule
   ],
-  providers: [                                    
-    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  providers: [ /*                              
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },*/
   ],
   bootstrap: [AppComponent]
 })

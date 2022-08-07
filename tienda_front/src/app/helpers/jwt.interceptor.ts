@@ -1,8 +1,13 @@
 /*
 
+LINK DE AYUDA: https://medium.com/@insomniocode/angular-autenticaci처n-usando-interceptors-a26c167270f4
+
 El interceptor JWT intercepta las solicitudes http de la aplicaci처n para agregar un token
     de autenticaci처n JWT al encabezado de autorizaci처n si el usuario inici처 sesi처n y
     la solicitud es para la URL de API de la aplicaci처n (environment.apiUrl).
+
+En otras palabras, un interceptor inspecciona/modifica las peticiones (tanto lo que va al servidor
+    como lo que vuelve del servidor)
 
 Se implementa usando la clase HttpInterceptor incluida en HttpClientModule,
     al extender la clase HttpInterceptor puede crear un interceptor personalizado
@@ -14,11 +19,11 @@ Los interceptores Http se agregan a la canalizaci처n de solicitudes en la secci�
 */
 
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { AuthenticationService } from '../services/authentication.service';              //CREAR CARPETA SERVICE
+import { AuthenticationService } from '../services/authentication.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -29,7 +34,7 @@ export class JwtInterceptor implements HttpInterceptor {
         // add auth header with jwt if user is logged in and request is to the api url
         const currentUser = this.authenticationService.currentUserValue;
         const isLoggedIn = currentUser && currentUser.getToken();
-        const isApiUrl = request.url.startsWith(environment.backurl);       //CAMBIAR A BACKURL
+        const isApiUrl = request.url.startsWith(environment.backurl);
         if (isLoggedIn && isApiUrl) {
             request = request.clone({
                 setHeaders: {
@@ -39,6 +44,23 @@ export class JwtInterceptor implements HttpInterceptor {
         }
 
         return next.handle(request);
+
+        /*Otra cosa que podemos hacer es redirigir al usuario a la pagina de login
+            cuando el token haya expirado o no tenga un token valido
+        Si detectamos un status 401, hacemos una redireccion, y para eso ampliamos
+            el handle que se retorna previamente
+        */
+
+        /*
+        return next.handle(request).pipe(
+            catchError((err: HttpErrorResponse) => {
+                if(err.status === 401){
+                    this.router.navigateByUrl('/user/1');   //agregar 'private router: Router' en el constructor
+                }
+                return throwError(err);
+            })
+        );
+        */
     }
 
 

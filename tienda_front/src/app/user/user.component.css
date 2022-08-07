@@ -53,14 +53,6 @@
     margin-left: 8px;
 }
 
-/*ESTO ES PARA COLOREAR EL BACKGROUND DE LAS CAJAS*/
-.back{
-    background-color: rgb(255, 255, 255);
-    width: 236px;
-    height: 50px;
-    border: 1px solid ;
-}
-
 .outline {
     color: #000000;
     width: 236px;
@@ -68,9 +60,6 @@
 }
 
 /*ESTO ES PARA APPAREANCE=FILL*/
-.full{
-    width: 100%;
-}
 
 .text{
     color: rgb(29, 29, 29);
@@ -106,10 +95,6 @@
     background-color: #0066ff;
     color: rgb(255, 255, 255);
     right: -40px;
-}
-
-.error{
-    color: red;
 }
 
 .centered {

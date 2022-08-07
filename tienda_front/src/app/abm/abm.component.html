@@ -22,14 +22,15 @@
                 <div class="space"></div>
 
                 <div class="details">
-                    <h3> Rellene cada campo y haga click en el botón "Guardar".</h3>
+                    <h3> Rellene cada campo y haga click en el botón "Guardar". Asegúrese de completar cada campo de forma válida.</h3>
                 </div>
 
                 <form class="form" [formGroup]="dform" ngNativeValidate>
                     
+                    <fieldset class="fieldset">
                     <mat-form-field appearance="fill">
-                        <mat-label for="sub">Subcategoria</mat-label>
-                        <mat-select name="prenda" #p (valueChange)="size(p.value)" formControlName="subcategoria" id="sub" required>
+                        <mat-label>Subcategoria</mat-label>
+                        <mat-select name="prenda" #p (valueChange)="size(p.value)" formControlName="subcategoria" required>
                             <mat-option *ngFor="let prenda of prendas" [value]="prenda">
                                 {{prenda}}
                             </mat-option>
@@ -42,15 +43,15 @@
 
                         <ng-template #nro>
                             <mat-form-field appearance="fill">
-                                <mat-label for="size">Talle</mat-label>
-                                <input matInput name="tamaño" type="number" formControlName="talle" id="size" min="10" max="50" placeholder="Ej. 40" required>
+                                <mat-label>Talle</mat-label>
+                                <input matInput name="tamaño" type="number" formControlName="talle" min="10" max="50" placeholder="Ej. 40" required>
                             </mat-form-field>
                         </ng-template>
 
                         <ng-template #letra>
                         <mat-form-field appearance="fill">
-                            <mat-label for="size">Talle</mat-label>
-                            <mat-select matNativeControl name="tamaño" formControlName="talle" id="size" required>
+                            <mat-label>Talle</mat-label>
+                            <mat-select matNativeControl name="tamaño" formControlName="talle" required>
                                 <mat-option *ngFor="let talla of talles" [value]="talla">
                                     {{talla}}
                                 </mat-option>
@@ -68,8 +69,8 @@
                         
                         <p></p>
                         <mat-form-field appearance="fill">
-                            <mat-label for="edad">Edad</mat-label>
-                            <mat-select name="edad" formControlName="edad" id="edad" required>
+                            <mat-label>Edad</mat-label>
+                            <mat-select name="edad" formControlName="edad" required>
                                 <mat-option *ngFor="let edad of edades" [value]="edad">
                                     {{edad}}
                                 </mat-option>
@@ -79,25 +80,25 @@
                         <p></p>
                         <mat-form-field appearance="fill">
                             <mat-label>Marca</mat-label>
-                            <input matInput placeholder="Ej. Adidas" name="marca" formControlName="marca" id="brand" maxlength="20" required>
+                            <input matInput placeholder="Ej. Adidas" name="marca" formControlName="marca" maxlength="20" required>
                         </mat-form-field>
 
                         <p></p>
                         <mat-form-field appearance="fill">
                             <mat-label>Modelo</mat-label>
-                            <input matInput placeholder="Ej. Terrex" name="modelo" formControlName="modelo" id="model" maxlength="20" required>
+                            <input matInput placeholder="Ej. Terrex" name="modelo" formControlName="modelo" maxlength="20" required>
                         </mat-form-field>
 
                         <p></p>
                         <mat-form-field appearance="fill">
                             <mat-label>Codigo</mat-label>
-                            <input matInput placeholder="Ej. D123456" name="codigo" formControlName="codigo" id="code" maxlength="7" required>
+                            <input matInput placeholder="Ej. D123456" name="codigo" formControlName="codigo" maxlength="7" required>
                         </mat-form-field>
 
                         <p></p>
                         <mat-form-field appearance="fill">
                             <mat-label>Color</mat-label>
-                            <input matInput placeholder="Ej. Rojo" name="color" formControlName="color" id="color" pattern="[A-Za-z]+" maxlength="20" required>
+                            <input matInput placeholder="Ej. Rojo" name="color" formControlName="color" pattern="[A-Za-z]+" maxlength="20" required>
                         </mat-form-field>
 
                         <p></p>
@@ -112,18 +113,18 @@
                         <p></p>
                         <mat-form-field appearance="fill">                            
                             <mat-label>Precio</mat-label>
-                            <input matInput type="number" placeholder="Ej. 1000" name="precio" formControlName="precio" id="price" min="0" required>
+                            <input matInput type="number" placeholder="Ej. 1000" name="precio" formControlName="precio" min="0" required>
                         </mat-form-field>
 
                         <div class="space-mats">
-                        <label for="image"> Imagen: </label> 
-                        <input type="file" name="imagen" (change)="encodeAsBase64($event)" id="image" required>
+                        <label> Imagen: </label> 
+                        <input type="file" name="imagen" (change)="encodeAsBase64($event)" required>
                         </div>
 
                         <p></p>
                         <button mat-raised-button color="primary" type="submit" (click)="sendDress()" style="margin-right: 5px;">Guardar</button>
                         <button mat-raised-button color="warn" type="reset">Limpiar</button>
-                        
+                    </fieldset>    
                 </form>
             
             </mat-tab>
@@ -132,14 +133,15 @@
                 <div class="space"></div>
 
                     <div class="details">
-                        <h3> Rellene cada campo y haga click en el botón "Guardar".</h3>
+                        <h3> Rellene cada campo y haga click en el botón "Guardar". Asegúrese de completar cada campo de forma válida.</h3>
                     </div>
 
                 <form [formGroup]="fform" class="form" ngNativeValidate>
-                
+                    
+                    <fieldset class="fieldset">
                     <mat-form-field appearance="fill">
-                        <mat-label for="sub">Subcategoria</mat-label>
-                        <mat-select name="tipo" formControlName="subcategoria" id="sub" required>
+                        <mat-label>Subcategoria</mat-label>
+                        <mat-select name="tipo" formControlName="subcategoria" required>
                             <mat-option *ngFor="let perfume of perfumes" [value]="perfume">
                                 {{perfume}}
                             </mat-option>
@@ -149,7 +151,7 @@
                         <p></p>
                         <mat-form-field appearance="fill">                            
                             <mat-label>Volumen</mat-label>
-                            <input matInput type="number" placeholder="Ej. 125" name="volumen" formControlName="volumen" id="volume" maxlength="4" min="0" required>
+                            <input matInput type="number" placeholder="Ej. 125" name="volumen" formControlName="volumen" maxlength="4" min="0" required>
                         </mat-form-field>ml
 
                         <p></p>
@@ -202,18 +204,18 @@
                         <p></p>
                         <mat-form-field appearance="fill">                            
                             <mat-label>Precio</mat-label>
-                            <input matInput type="number" placeholder="Ej. 1000" name="precio" formControlName="precio" id="price" min="0" required>
+                            <input matInput type="number" placeholder="Ej. 1000" name="precio" formControlName="precio" min="0" required>
                         </mat-form-field>
                         
                         <div class="space-mats">
-                            <label for="image"> Imagen: </label> 
-                            <input type="file" name="imagen" (change)="encodeAsBase64($event)" id="image" required>
+                            <label> Imagen: </label> 
+                            <input type="file" name="imagen" (change)="encodeAsBase64($event)" required>
                         </div>
 
                         <p></p>
                         <button mat-raised-button color="primary" type="submit" (click)="sendFragrance()" style="margin-right: 5px;">Guardar</button>
                         <button mat-raised-button color="warn" type="reset">Limpiar</button>
-
+                    </fieldset>
                 </form>
             
             </mat-tab>
@@ -339,8 +341,8 @@
                         <form [formGroup]="dform" class="form" ngNativeValidate>  <!--method="GET">     get envia la info en la URL y post en el body del http (revisar cual usar) -->
                             
                             <mat-form-field appearance="fill">
-                                <mat-label for="sub">Subcategoria</mat-label>
-                                <mat-select name="prenda" #p (valueChange)="size(p.value)" formControlName="subcategoria" id="sub" required>
+                                <mat-label>Subcategoria</mat-label>
+                                <mat-select name="prenda" #p (valueChange)="size(p.value)" formControlName="subcategoria" required>
                                     <mat-option *ngFor="let prenda of prendas" [value]="prenda">
                                         {{prenda}}
                                     </mat-option>
@@ -353,15 +355,15 @@
         
                                 <ng-template #nro>
                                     <mat-form-field appearance="fill">
-                                        <mat-label for="size">Talle</mat-label>
-                                        <input name="tamaño" matInput type="number" formControlName="talle" id="size" min="10" max="50" placeholder="Ej. 40" required>
+                                        <mat-label>Talle</mat-label>
+                                        <input name="tamaño" matInput type="number" formControlName="talle" min="10" max="50" placeholder="Ej. 40" required>
                                     </mat-form-field>
                                 </ng-template>
         
                                 <ng-template #letra>
                                 <mat-form-field appearance="fill">
-                                    <mat-label for="size">Talle</mat-label>
-                                    <mat-select name="tamaño" matNativeControl formControlName="talle" id="size" required>
+                                    <mat-label>Talle</mat-label>
+                                    <mat-select name="tamaño" matNativeControl formControlName="talle" required>
                                         <mat-option *ngFor="let talla of talles" [value]="talla">
                                             {{talla}}
                                         </mat-option>
@@ -379,8 +381,8 @@
                                 
                                 <p></p>
                                 <mat-form-field appearance="fill">
-                                    <mat-label for="edad">Edad</mat-label>
-                                    <mat-select name="edad" formControlName="edad" id="edad" required>
+                                    <mat-label>Edad</mat-label>
+                                    <mat-select name="edad" formControlName="edad" required>
                                         <mat-option *ngFor="let edad of edades" [value]="edad">
                                             {{edad}}
                                         </mat-option>
@@ -390,25 +392,25 @@
                                 <p></p>
                                 <mat-form-field appearance="fill">
                                     <mat-label>Marca</mat-label>
-                                    <input matInput placeholder="Ej. Adidas" name="marca" formControlName="marca" id="brand" maxlength="20" required>
+                                    <input matInput placeholder="Ej. Adidas" name="marca" formControlName="marca" maxlength="20" required>
                                 </mat-form-field>
         
                                 <p></p>
                                 <mat-form-field appearance="fill">
                                     <mat-label>Modelo</mat-label>
-                                    <input matInput placeholder="Ej. Terrex" name="modelo" formControlName="modelo" id="model" maxlength="20" required>
+                                    <input matInput placeholder="Ej. Terrex" name="modelo" formControlName="modelo" maxlength="20" required>
                                 </mat-form-field>
         
                                 <p></p>
                                 <mat-form-field appearance="fill">
                                     <mat-label>Codigo</mat-label>
-                                    <input matInput [readonly]="true" placeholder="Ej. D123456" name="codigo" formControlName="codigo" id="code" maxlength="7" required>
+                                    <input matInput [readonly]="true" placeholder="Ej. D123456" name="codigo" formControlName="codigo" maxlength="7" required>
                                 </mat-form-field>
         
                                 <p></p>
                                 <mat-form-field appearance="fill">
                                     <mat-label>Color</mat-label>
-                                    <input matInput placeholder="Ej. Rojo" name="color" formControlName="color" id="color" pattern="[A-Za-z]+" maxlength="20" required>
+                                    <input matInput placeholder="Ej. Rojo" name="color" formControlName="color" pattern="[A-Za-z]+" maxlength="20" required>
                                 </mat-form-field>
         
                                 <p></p>
@@ -423,12 +425,12 @@
                                 <p></p>
                                 <mat-form-field appearance="fill">                            
                                     <mat-label>Precio</mat-label>
-                                    <input matInput type="number" placeholder="Ej. 1000" name="precio" formControlName="precio" id="price" min="0" required>
+                                    <input matInput type="number" placeholder="Ej. 1000" name="precio" formControlName="precio" min="0" required>
                                 </mat-form-field>
         
                                 <div class="space-mats">
-                                <label for="image"> Imagen: </label> 
-                                <input type="file" name="imagen" (change)="encodeAsBase64($event)" id="image" required>
+                                <label> Imagen: </label> 
+                                <input type="file" name="imagen" (change)="encodeAsBase64($event)" required>
                                 </div>
                                 
                                 <p></p>
@@ -562,8 +564,8 @@
                         <form [formGroup]="fform" class="form" ngNativeValidate>
                             
                             <mat-form-field appearance="fill">
-                                <mat-label for="sub">Subcategoria</mat-label>
-                                <mat-select name="tipo" formControlName="subcategoria" id="sub" required>
+                                <mat-label>Subcategoria</mat-label>
+                                <mat-select name="tipo" formControlName="subcategoria" required>
                                     <mat-option *ngFor="let perfume of perfumes" [value]="perfume">
                                         {{perfume}}
                                     </mat-option>
@@ -573,7 +575,7 @@
                                 <p></p>
                                 <mat-form-field appearance="fill">                            
                                     <mat-label>Volumen</mat-label>
-                                    <input matInput type="number" placeholder="Ej. 125" name="volumen" formControlName="volumen" id="volume" maxlength="4" min="0" required>
+                                    <input matInput type="number" placeholder="Ej. 125" name="volumen" formControlName="volumen" maxlength="4" min="0" required>
                                 </mat-form-field>ml
         
                                 <p></p>
@@ -626,12 +628,12 @@
                                 <p></p>
                                 <mat-form-field appearance="fill">                            
                                     <mat-label>Precio</mat-label>
-                                    <input matInput type="number" placeholder="Ej. 1000" name="precio" formControlName="precio" id="price" min="0" required>
+                                    <input matInput type="number" placeholder="Ej. 1000" name="precio" formControlName="precio" min="0" required>
                                 </mat-form-field>
                                 
                                 <div class="space-mats">
-                                    <label for="image"> Imagen: </label> 
-                                    <input type="file" name="imagen" (change)="encodeAsBase64($event)" id="image" required>
+                                    <label> Imagen: </label> 
+                                    <input type="file" name="imagen" (change)="encodeAsBase64($event)" required>
                                 </div>
         
                                 <p></p>

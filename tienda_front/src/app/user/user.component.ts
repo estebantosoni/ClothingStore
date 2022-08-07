@@ -4,7 +4,7 @@ import { User } from '../models/user';
 import { MatDialog, MatDialogConfig, _MatDialogBase } from '@angular/material/dialog'
 import { UserDialogComponent } from '../user-dialog/user-dialog.component';
 import { AuthenticationService } from '../services/authentication.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { UserLogin } from '../models/userLogin';
 import { FavoritoService } from '../services/favorito.service';
 
@@ -41,7 +41,10 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit():void {
-    this.id = this.route.snapshot.paramMap.get('id');
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.id = params.get('id');
+    });
+    
   }
   
   get password():AbstractControl {return this.form.controls['password'];}
