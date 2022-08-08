@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: 'user/:id',                component: UserComponent,canActivate:[AuthGuard]},
   {path: 'dress',                   component: DressComponent},
   {path: 'fragrance',               component: FragranceComponent},
-  {path: 'details/:id',             component: DetailsComponent},
+  {path: 'details/:category/:code', component: DetailsComponent},
   {path: 'abm',                     component: AbmComponent,canActivate:[AuthGuard]},
   {path: 'us',                      component: UsComponent},
   {path: 'help/:where',             component: HelpComponent},

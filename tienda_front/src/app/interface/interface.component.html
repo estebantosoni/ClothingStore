@@ -6,13 +6,13 @@
           style="float: left; border-radius: 20px;"/>
     <div *ngIf="usrLogged == null">
       <button mat-flat-button (click)="goTo('user/1')" class="login">
-        Sign up
+        Crear cuenta
       </button>
     </div>
     <div *ngIf="!logged; then notLoggedBlock else loggedBlock"></div>
     <ng-template #notLoggedBlock>
       <button mat-flat-button (click)="goTo('user/2')" class="login">
-        Log in
+        Iniciar sesión
       </button>
     </ng-template>
     <ng-template #loggedBlock>
@@ -20,7 +20,7 @@
         HOLA, {{usrLogged?.username?.toUpperCase()}}
       </h4>
       <button class="loggedin" mat-flat-button (click)="quit()" style="background-color: #AB4100;">
-        Logout
+        Cerrar sesión
       </button>
       <button class="loggedin" mat-flat-button *ngIf="usrLogged?.rol == 'ADMIN'" (click)="goTo('abm')">
         Adm. de productos
@@ -29,10 +29,16 @@
         <mat-form-field color="warn" class="favs" appearance="fill">
           <mat-label>Favoritos</mat-label>
           <mat-select>
-            <mat-option class="favs-option" *ngFor="let prod of prodsFavs$ | async" (click)="goTo('details/' + prod.code)">
-              {{prod.brand}} - {{prod.model}}
+            <mat-option class="favs-option" *ngFor="let dress of dressesFavs$ | async" (click)="goTo('details/dress/' + dress.code)">
+              {{dress.brand}} - {{dress.model}}
             </mat-option>
-            <mat-option style="background-color: #47342F;color: rgb(167, 167, 167);" *ngIf="(prodsFavs$ | async)?.length == 0" [disabled]="true">
+            <mat-option class="favs-option" *ngFor="let fragrance of fragrancesFavs$ | async" (click)="goTo('details/fragrance/' + fragrance.code)">
+              {{fragrance.brand}} - {{fragrance.model}}
+            </mat-option>
+            <mat-option 
+              style="background-color: #47342F;color: rgb(167, 167, 167);" 
+              *ngIf="(dressesFavs$ | async)?.length == 0 && (fragrancesFavs$ | async)?.length == 0" 
+              [disabled]="true">
               vacío
             </mat-option>
           </mat-select>

@@ -31,7 +31,7 @@ export class DressService {
   getFromAge(which:string):Observable<Dress[]>{
     return this.backend.get<Dress[]>(`${this.url}/age/${which}`);
   }
-  getFromSize(who:string):Observable<Dress[]>{
+  getSizeFromCode(who:string):Observable<Dress[]>{
     return this.backend.get<Dress[]>(`${this.url}/size/${who}`);
   }
 

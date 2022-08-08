@@ -9,14 +9,14 @@ import java.util.List;
 
 public interface DressRepository extends JpaRepository<Dress,Long>{
     String DEF_QUERY =
-            "SELECT brand,model,min(ID) id,min(code) code,min(image) image,min(enabled) enabled," +
+            "SELECT brand,model,color,min(ID) id,min(code) code,min(image) image,min(enabled) enabled," +
                 "min(subcategory) subcategory,min(sex) sex,min(stock) stock,min(price) price," +
-                "min(age) age,min(sizes) sizes,min(color) color,min(is_on_favs) is_on_favs " +
+                "min(age) age,min(sizes) sizes,min(is_on_favs) is_on_favs " +
                 "FROM dress ",
             ENABLEDS =
             "WHERE enabled = TRUE ",
             GROUP_BY =
-            "GROUP BY brand,model";
+            "GROUP BY brand,model,color";
     List<Dress> findAll();
     @Query(value =  DEF_QUERY + ENABLEDS + GROUP_BY ,nativeQuery = true)
     List<Dress> filterByBrandsAndModels();
@@ -27,7 +27,7 @@ public interface DressRepository extends JpaRepository<Dress,Long>{
     @Query(value = DEF_QUERY + ENABLEDS + "AND age = ?1 " + GROUP_BY,nativeQuery = true)
     List<Dress> filterByAge(String age);
     Dress findByCode(String code);
-    List<Dress> findByBrandAndModel(String brand, String model);
+    List<Dress> findByBrandAndModelAndColor(String brand,String model,String color);
 
     boolean existsByCode(String code);
 }

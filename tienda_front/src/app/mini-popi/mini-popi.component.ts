@@ -9,6 +9,7 @@ export class MiniPopiComponent implements OnInit {
 
   public block?:boolean;  //  true es para añadir / false es para modificar
   public errorOnCode?:boolean;
+  public errorOnABM?:boolean;
   public idOnCuestion?:number;
   public category?:string;
 

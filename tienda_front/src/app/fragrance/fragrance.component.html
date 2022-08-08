@@ -30,20 +30,23 @@
                 <button [ngClass]="{'def':catSelected != 'Argentina','sel':catSelected == 'Argentina'}"
                         (click)="seeOriginCountry('Argentina')">Argentina
                 </button>
-                <button [ngClass]="{'def':catSelected != 'Polonia','sel':catSelected == 'Polonia'}"
-                        (click)="seeOriginCountry('Polonia')">Polonia
+                <button [ngClass]="{'def':catSelected != 'Alemania','sel':catSelected == 'Alemania'}"
+                        (click)="seeOriginCountry('Alemania')">Alemania
                 </button>
-                <button [ngClass]="{'def':catSelected != 'Chile','sel':catSelected == 'Chile'}"
-                        (click)="seeOriginCountry('Chile')">Chile
+                <button [ngClass]="{'def':catSelected != 'España','sel':catSelected == 'España'}"
+                        (click)="seeOriginCountry('España')">España
                 </button>
                 <button [ngClass]="{'def':catSelected != 'Francia','sel':catSelected == 'Francia'}"
                         (click)="seeOriginCountry('Francia')">Francia
+                </button>
+                <button [ngClass]="{'def':catSelected != 'Estados Unidos','sel':catSelected == 'Estados Unidos'}"
+                        (click)="seeOriginCountry('Estados Unidos')">Estados Unidos
                 </button>
             </ul>
         </div>
         <div class="productos">
             <button *ngFor="let item of fragrances$ | async" class="item" (click)="goTo('details',item.code)">
-                <img src={{item?.image}} alt="imagen_producto" width="100" height="100"/>
+                <img src={{item?.image}} alt="imagen_producto" width="100" height="auto"/>
                 <p>volumen <span class="carac">{{item?.volumen}}</span></p>
                 <p>tipo <span class="carac">{{item?.subcategory}}</span></p>
                 <p>aroma <span class="carac">{{item?.aroma}}</span></p>

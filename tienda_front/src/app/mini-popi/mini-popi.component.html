@@ -1,8 +1,8 @@
 <ng-container *ngIf="block; then addp else modp"></ng-container>
 
 <ng-template #addp>
-    <ng-container *ngIf="errorOnCode; then bad else ok"></ng-container>
-    <ng-template #bad>
+    <ng-container *ngIf="errorOnCode; then codeError else ok"></ng-container>
+    <ng-template #codeError>
         <div>
             <h1 mat-dialog-title class="failure">Error al crear el producto</h1>
             <div mat-dialog-content>
@@ -10,7 +10,7 @@
                 <p>El codigo utilizado ya pertenece a {{category}} con ID {{idOnCuestion}}.</p>
             </div>
             <div mat-dialog-actions>
-                <button mat-button mat-dialog-close>Ok</button>
+                <button mat-button mat-dialog-close color="warn">Ok</button>
             </div>
         </div>
     </ng-template>
@@ -25,10 +25,18 @@
 </ng-template>
 
 <ng-template #modp>
-    <div>
+    <ng-container *ngIf="errorOnABM; then abmError else ok"></ng-container>
+    <ng-template #abmError>
+        <h1 mat-dialog-title class="failure">Error en la modificacion del producto</h1>
+        <h3>Verifique que todos los campos estén completos.</h3>
+        <div mat-dialog-actions>
+            <button mat-button mat-dialog-close color="warn"> Reintentar </button>
+        </div>
+    </ng-template>
+    <ng-template #ok>
         <h1 mat-dialog-title class="success">Producto modificado exitosamente</h1>
         <div mat-dialog-actions>
             <button mat-button mat-dialog-close> Ok </button>
         </div>
-    </div>
+    </ng-template>
 </ng-template>

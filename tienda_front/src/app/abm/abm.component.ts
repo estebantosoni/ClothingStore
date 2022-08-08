@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup,Validators }from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -18,7 +18,6 @@ import { FraganceService } from '../services/fragrance.service';
 export class AbmComponent implements OnInit {
 
   //para seleccion de bloque
-  bit:boolean|null = null;      //para los botones principales
   addbit:boolean|null = null;   //para añadir producto
   callbit:boolean|null = null;  //para llamar los productos
   bit_size:boolean = false;     //para elegir valor del talle segun la prenda
@@ -47,11 +46,11 @@ export class AbmComponent implements OnInit {
 
   
   displayedColumnsDress: string[] = ['ID', 'SUBCATEGORIA', 'SEXO', 'EDAD','MARCA',
-                                'MODELO','CODIGO','TALLE','COLOR','STOCK',
-                                'PRECIO','IMAGEN','Configuracion'];
+                                     'MODELO','CODIGO','TALLE','COLOR','STOCK',
+                                     'PRECIO','IMAGEN','Configuracion'];
   displayedColumnsFragrance: string[] = ['ID','SUBCATEGORIA','SEXO','MARCA',
-                                'MODELO','CODIGO','VOLUMEN','AROMA','PAIS DE ORIGEN',
-                                'STOCK','PRECIO','IMAGEN','Configuracion'];
+                                         'MODELO','CODIGO','VOLUMEN','AROMA','PAIS DE ORIGEN',
+                                         'STOCK','PRECIO','IMAGEN','Configuracion'];
 
 
   constructor(
@@ -63,30 +62,30 @@ export class AbmComponent implements OnInit {
   ) {
     this.imgAsSTR = "";
     this.dform = this.builder.group({
-      sexo:['',[ Validators.required ]],
-      edad:['',[ Validators.required ]],
-      subcategoria:['',[ Validators.required ]],
-      marca:['',[ Validators.required ]],
-      modelo:['',[ Validators.required ]],
-      codigo:['',[ Validators.required ]],
-      talle:['',[ Validators.required ]],
-      color:['',[ Validators.required ]],
-      stock:['',[ Validators.required ]],
-      precio:['',[ Validators.required ]],
-      //imagen:['',[ Validators.required ]]
+      sexo:['',[Validators.required]],
+      edad:['',[Validators.required]],
+      subcategoria:['',[Validators.required]],
+      marca:['',[Validators.required]],
+      modelo:['',[Validators.required]],
+      codigo:['',[Validators.required]],
+      talle:['',[Validators.required]],
+      color:['',[Validators.required]],
+      stock:['',[Validators.required]],
+      precio:['',[Validators.required]],
+      imagen:['',[Validators.required]]
     });
     this.fform = this.builder.group({
-      volumen:['',[ Validators.required ]],
-      subcategoria:['',[ Validators.required ]],
-      aroma:['',[ Validators.required ]],
-      pais:['',[ Validators.required ]],
-      sexo:['',[ Validators.required ]],
-      marca:['',[ Validators.required ]],
-      modelo:['',[ Validators.required ]],
-      codigo:['',[ Validators.required ]],
-      stock:['',[ Validators.required ]],
-      precio:['',[ Validators.required ]],
-      //imagen:['',[ Validators.required ]]
+      volumen:['',[Validators.required]],
+      subcategoria:['',[Validators.required]],
+      aroma:['',[Validators.required]],
+      pais:['',[Validators.required]],
+      sexo:['',[Validators.required]],
+      marca:['',[Validators.required]],
+      modelo:['',[Validators.required]],
+      codigo:['',[Validators.required]],
+      stock:['',[Validators.required]],
+      precio:['',[Validators.required]],
+      imagen:['',[Validators.required]]
     });
   }
 
@@ -96,21 +95,8 @@ export class AbmComponent implements OnInit {
     return this.router.navigate([`/${where}`]);
   }
 
-  //para la funcion de añadir
-  /*
-  group1():void{
-    if(this.bit_temp)
-      return;
-    else
-      this.bit = false;
-  }
-  
-  //para la funcion de llamar
-  group2():void{this.bit = true;}
-  */
-
-  addDress():void{this.addbit = false; 
-    //this.dform.reset();
+  addDress():void{
+    this.addbit = false; 
   }
 
   addFragrance():void{this.addbit = true;}
@@ -137,15 +123,19 @@ export class AbmComponent implements OnInit {
   callPopi(status:boolean,error?:boolean,idOnCuestion?:number,category?:string):void{
     const popiConfig:MatDialogConfig = new MatDialogConfig();
     popiConfig.disableClose = true;
-    //popiConfig.width = '300px';
-    //popiConfig.height = '350px';
 
     const popiRef = this.popi.open(MiniPopiComponent,popiConfig);
     popiRef.componentInstance.block = status;
     if(error){
-      popiRef.componentInstance.errorOnCode = error;
-      popiRef.componentInstance.idOnCuestion = idOnCuestion;
-      popiRef.componentInstance.category = category;
+      if(idOnCuestion){       //error por código repetido
+        popiRef.componentInstance.errorOnCode = error;
+        popiRef.componentInstance.idOnCuestion = idOnCuestion;
+        popiRef.componentInstance.category = category;
+      }
+      else {                  //error por abm de producto fallido
+        popiRef.componentInstance.errorOnABM = true;
+        return;
+      }
     }
     
     popiRef.afterClosed().subscribe(() => {
@@ -161,8 +151,6 @@ export class AbmComponent implements OnInit {
       stock = false;
     }
     if(!this.dform.valid){
-      console.log(this.dform.get('sexo')?.valid);
-      console.log(this.dform.get('stock')?.valid);
       return;
     }
     const storing = new Dress(
@@ -176,7 +164,7 @@ export class AbmComponent implements OnInit {
       this.dform.get('color')?.value,
       stock,
       this.dform.get('precio')?.value,
-      this.imgAsSTR,
+      this.dform.get('imagen')?.value,
       true,
       false
     );
@@ -204,8 +192,10 @@ export class AbmComponent implements OnInit {
     } else {
       stock = false;
     }
-    if(!this.dform.valid)
+    if(!this.dform.valid){
+      this.callPopi(false,true);
       return;
+    }
     const updating = new Dress(
       this.dform.get('sexo')?.value,
       this.dform.get('edad')?.value,
@@ -217,7 +207,7 @@ export class AbmComponent implements OnInit {
       this.dform.get('color')?.value,
       stock,
       this.dform.get('precio')?.value,
-      this.imgAsSTR,
+      this.dform.get('imagen')?.value,
       true,
       false,
       id
@@ -250,7 +240,7 @@ export class AbmComponent implements OnInit {
       this.fform.get('codigo')?.value,
       stock,
       this.fform.get('precio')?.value,
-      this.imgAsSTR,
+      this.fform.get('imagen')?.value,
       true,
       false
     );
@@ -276,8 +266,23 @@ export class AbmComponent implements OnInit {
     } else {
       stock = false;
     }
-    if(!this.fform.valid)
+    if(!this.fform.valid){
+      console.log(
+        this.fform.get('volumen')?.valid,
+        this.fform.get('subcategoria')?.valid, 
+        this.fform.get('aroma')?.valid, 
+        this.fform.get('pais')?.valid, 
+        this.fform.get('sexo')?.valid, 
+        this.fform.get('marca')?.valid, 
+        this.fform.get('modelo')?.valid, 
+        this.fform.get('codigo')?.valid, 
+        this.fform.get('stock')?.valid, 
+        this.fform.get('precio')?.valid, 
+        this.fform.get('imagen')?.valid
+      );
+      this.callPopi(false,true);
       return;
+    }
     const updating = new Fragrance(
       this.fform.get('volumen')?.value,
       this.fform.get('subcategoria')?.value,
@@ -289,7 +294,7 @@ export class AbmComponent implements OnInit {
       this.fform.get('codigo')?.value,
       stock,
       this.fform.get('precio')?.value,
-      this.imgAsSTR,
+      this.fform.get('imagen')?.value,
       true,
       false,
       id
@@ -325,6 +330,7 @@ export class AbmComponent implements OnInit {
       else 
         this.dform.get('stock')?.setValue("false");
       this.dform.get('precio')?.setValue(this.modifyingDress.price);
+      this.dform.get('imagen')?.setValue(this.modifyingDress.image);
     }
     else {
       this.modifyingCategory = "fragrance";
@@ -344,20 +350,21 @@ export class AbmComponent implements OnInit {
       else 
         this.fform.get('stock')?.setValue("false");
       this.fform.get('precio')?.setValue(this.modifyingFragrance.price);
+      this.fform.get('imagen')?.setValue(this.modifyingFragrance.image);
     }
   }
 
-  enableDisableDress(updating:Dress){
+  enableDisableDress(updating:Dress):void{
     updating.enabled = !updating.enabled;
     this.dservice.update(updating).subscribe();
   }
 
-  enableDisableFragrance(updating:Fragrance){
+  enableDisableFragrance(updating:Fragrance):void{
     updating.enabled = !updating.enabled;
     this.fservice.update(updating).subscribe();
   }
 
-  encodeAsBase64(event:any):void{
+  encodeAsBase64(event:any,category:string):void{
     const MAXSZ:number = 235000;
     var file = event.target.files[0];
     var reader:FileReader = new FileReader();
@@ -367,15 +374,17 @@ export class AbmComponent implements OnInit {
         return;
       }
       const res = reader.result;
-      if(typeof res === 'string')
-        this.imgAsSTR = res;
-      else
-        this.imgAsSTR = "";
+      if(typeof res === 'string'){
+        if(category == "dress")
+          this.dform.get('imagen')?.setValue(res);
+        else if(category == "fragrance")
+          this.fform.get('imagen')?.setValue(res);
+      }
     };
     reader.readAsDataURL(file);
   }
 
-  size(valor:string){
+  size(valor:string):void{
     if(valor === this.zapas){
       this.bit_size = true;
     }

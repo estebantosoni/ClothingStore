@@ -44,6 +44,6 @@ export class DressComponent implements OnInit {
   }
 
   goTo(where:string,code:string){
-    return this.router.navigate([`/${where}/${code}`]);
+    return this.router.navigate([`/${where}/dress/${code}`]);
   }
 }

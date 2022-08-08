@@ -58,12 +58,12 @@
         </div>
         <div class="productos">
                 <button *ngFor="let item of dresses$ | async" class="item" (click)="goTo('details',item.code)">
-                <img src={{item?.image}} alt="imagen_producto" width="100" height="100"/>
-                <p>sexo <span class="carac">{{item?.sex}}</span></p>
-                <p>subcategoria <span class="carac">{{item?.subcategory }}</span></p>
-                <p>edad <span class="carac">{{item?.age}}</span></p>
-                <p>marca <span class="carac">{{item?.brand}}</span></p>
-                <p>modelo <span class="carac">{{item?.model}}</span></p>
+                    <img src={{item?.image}} alt="imagen_producto" width="100" height="auto"/>
+                    <p>sexo <span class="carac">{{item?.sex}}</span></p>
+                    <p>subcategoria <span class="carac">{{item?.subcategory }}</span></p>
+                    <p>edad <span class="carac">{{item?.age}}</span></p>
+                    <p>marca <span class="carac">{{item?.brand}}</span></p>
+                    <p>modelo <span class="carac">{{item?.model}}</span></p>
                 </button>
         </div>
     </div>

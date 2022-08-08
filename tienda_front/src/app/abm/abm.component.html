@@ -28,7 +28,7 @@
                 <form class="form" [formGroup]="dform" ngNativeValidate>
                     
                     <fieldset class="fieldset">
-                    <mat-form-field appearance="fill">
+                    <mat-form-field color="warn" appearance="fill">
                         <mat-label>Subcategoria</mat-label>
                         <mat-select name="prenda" #p (valueChange)="size(p.value)" formControlName="subcategoria" required>
                             <mat-option *ngFor="let prenda of prendas" [value]="prenda">
@@ -42,14 +42,14 @@
                     <ng-container *ngIf="bit_size==false; then letra else nro"></ng-container>
 
                         <ng-template #nro>
-                            <mat-form-field appearance="fill">
+                            <mat-form-field color="warn" appearance="fill">
                                 <mat-label>Talle</mat-label>
                                 <input matInput name="tamaño" type="number" formControlName="talle" min="10" max="50" placeholder="Ej. 40" required>
                             </mat-form-field>
                         </ng-template>
 
                         <ng-template #letra>
-                        <mat-form-field appearance="fill">
+                        <mat-form-field color="warn" appearance="fill">
                             <mat-label>Talle</mat-label>
                             <mat-select matNativeControl name="tamaño" formControlName="talle" required>
                                 <mat-option *ngFor="let talla of talles" [value]="talla">
@@ -68,7 +68,7 @@
                         </div>
                         
                         <p></p>
-                        <mat-form-field appearance="fill">
+                        <mat-form-field color="warn" appearance="fill">
                             <mat-label>Edad</mat-label>
                             <mat-select name="edad" formControlName="edad" required>
                                 <mat-option *ngFor="let edad of edades" [value]="edad">
@@ -78,25 +78,25 @@
                         </mat-form-field>
                         
                         <p></p>
-                        <mat-form-field appearance="fill">
+                        <mat-form-field color="warn" appearance="fill">
                             <mat-label>Marca</mat-label>
                             <input matInput placeholder="Ej. Adidas" name="marca" formControlName="marca" maxlength="20" required>
                         </mat-form-field>
 
                         <p></p>
-                        <mat-form-field appearance="fill">
+                        <mat-form-field color="warn" appearance="fill">
                             <mat-label>Modelo</mat-label>
                             <input matInput placeholder="Ej. Terrex" name="modelo" formControlName="modelo" maxlength="20" required>
                         </mat-form-field>
 
                         <p></p>
-                        <mat-form-field appearance="fill">
+                        <mat-form-field color="warn" appearance="fill">
                             <mat-label>Codigo</mat-label>
-                            <input matInput placeholder="Ej. D123456" name="codigo" formControlName="codigo" maxlength="7" required>
+                            <input matInput placeholder="Ej. D123456" name="codigo" formControlName="codigo" maxlength="10" required>
                         </mat-form-field>
 
                         <p></p>
-                        <mat-form-field appearance="fill">
+                        <mat-form-field color="warn" appearance="fill">
                             <mat-label>Color</mat-label>
                             <input matInput placeholder="Ej. Rojo" name="color" formControlName="color" pattern="[A-Za-z]+" maxlength="20" required>
                         </mat-form-field>
@@ -111,14 +111,14 @@
                         </div>
                         
                         <p></p>
-                        <mat-form-field appearance="fill">                            
+                        <mat-form-field color="warn" appearance="fill">                            
                             <mat-label>Precio</mat-label>
                             <input matInput type="number" placeholder="Ej. 1000" name="precio" formControlName="precio" min="0" required>
                         </mat-form-field>
 
                         <div class="space-mats">
                         <label> Imagen: </label> 
-                        <input type="file" name="imagen" (change)="encodeAsBase64($event)" required>
+                        <input type="file" name="imagen" (change)="encodeAsBase64($event,'dress')" required>
                         </div>
 
                         <p></p>
@@ -139,7 +139,7 @@
                 <form [formGroup]="fform" class="form" ngNativeValidate>
                     
                     <fieldset class="fieldset">
-                    <mat-form-field appearance="fill">
+                    <mat-form-field color="warn" appearance="fill">
                         <mat-label>Subcategoria</mat-label>
                         <mat-select name="tipo" formControlName="subcategoria" required>
                             <mat-option *ngFor="let perfume of perfumes" [value]="perfume">
@@ -149,20 +149,20 @@
                     </mat-form-field>
 
                         <p></p>
-                        <mat-form-field appearance="fill">                            
+                        <mat-form-field color="warn" appearance="fill">                            
                             <mat-label>Volumen</mat-label>
                             <input matInput type="number" placeholder="Ej. 125" name="volumen" formControlName="volumen" maxlength="4" min="0" required>
                         </mat-form-field>ml
 
                         <p></p>
-                        <mat-form-field style="width: 300px;" appearance="fill">
+                        <mat-form-field color="warn" style="width: 300px;" appearance="fill">
                             <mat-label>Aroma</mat-label>
                             <input matInput name="aroma" #message maxlength="50" placeholder="Ej. Este perfume huele a rosas..." formControlName="aroma" required>
                             <mat-hint align="end">{{message.value.length}} / 50</mat-hint>
                         </mat-form-field>
 
                         <p></p>
-                        <mat-form-field appearance="fill">
+                        <mat-form-field color="warn" appearance="fill">
                             <mat-label>Pais de origen</mat-label>
                             <input matInput placeholder="Ej. Argentina" name="pais" formControlName="pais" maxlength="30" required>
                         </mat-form-field>
@@ -176,21 +176,21 @@
                         </div>
 
                         <p></p>
-                        <mat-form-field appearance="fill">
+                        <mat-form-field color="warn" appearance="fill">
                             <mat-label>Marca</mat-label>
                             <input matInput placeholder="Ej. Kevin" name="marca" formControlName="marca" maxlength="20" required>
                         </mat-form-field>
 
                         <p></p>
-                        <mat-form-field appearance="fill">
+                        <mat-form-field color="warn" appearance="fill">
                             <mat-label>Modelo</mat-label>
                             <input matInput placeholder="Ej. Black" name="modelo" formControlName="modelo" maxlength="20" required>
                         </mat-form-field>
 
                         <p></p>
-                        <mat-form-field appearance="fill">
+                        <mat-form-field color="warn" appearance="fill">
                             <mat-label>Codigo</mat-label>
-                            <input matInput placeholder="Ej. F123" name="codigo" formControlName="codigo" maxlength="4" required>
+                            <input matInput placeholder="Ej. F123" name="codigo" formControlName="codigo" maxlength="10" required>
                         </mat-form-field>
 
                         <div class="space-mats">
@@ -202,14 +202,14 @@
                         </div>
 
                         <p></p>
-                        <mat-form-field appearance="fill">                            
+                        <mat-form-field color="warn" appearance="fill">                            
                             <mat-label>Precio</mat-label>
                             <input matInput type="number" placeholder="Ej. 1000" name="precio" formControlName="precio" min="0" required>
                         </mat-form-field>
                         
                         <div class="space-mats">
                             <label> Imagen: </label> 
-                            <input type="file" name="imagen" (change)="encodeAsBase64($event)" required>
+                            <input type="file" name="imagen" (change)="encodeAsBase64($event,'fragrance')" required>
                         </div>
 
                         <p></p>
@@ -340,7 +340,7 @@
 
                         <form [formGroup]="dform" class="form" ngNativeValidate>  <!--method="GET">     get envia la info en la URL y post en el body del http (revisar cual usar) -->
                             
-                            <mat-form-field appearance="fill">
+                            <mat-form-field color="warn" appearance="fill">
                                 <mat-label>Subcategoria</mat-label>
                                 <mat-select name="prenda" #p (valueChange)="size(p.value)" formControlName="subcategoria" required>
                                     <mat-option *ngFor="let prenda of prendas" [value]="prenda">
@@ -354,14 +354,14 @@
                             <ng-container *ngIf="bit_size==false; then letra else nro"></ng-container>
         
                                 <ng-template #nro>
-                                    <mat-form-field appearance="fill">
+                                    <mat-form-field color="warn" appearance="fill">
                                         <mat-label>Talle</mat-label>
                                         <input name="tamaño" matInput type="number" formControlName="talle" min="10" max="50" placeholder="Ej. 40" required>
                                     </mat-form-field>
                                 </ng-template>
         
                                 <ng-template #letra>
-                                <mat-form-field appearance="fill">
+                                <mat-form-field color="warn" appearance="fill">
                                     <mat-label>Talle</mat-label>
                                     <mat-select name="tamaño" matNativeControl formControlName="talle" required>
                                         <mat-option *ngFor="let talla of talles" [value]="talla">
@@ -380,7 +380,7 @@
                                 </div>
                                 
                                 <p></p>
-                                <mat-form-field appearance="fill">
+                                <mat-form-field color="warn" appearance="fill">
                                     <mat-label>Edad</mat-label>
                                     <mat-select name="edad" formControlName="edad" required>
                                         <mat-option *ngFor="let edad of edades" [value]="edad">
@@ -390,25 +390,25 @@
                                 </mat-form-field>
                                 
                                 <p></p>
-                                <mat-form-field appearance="fill">
+                                <mat-form-field color="warn" appearance="fill">
                                     <mat-label>Marca</mat-label>
                                     <input matInput placeholder="Ej. Adidas" name="marca" formControlName="marca" maxlength="20" required>
                                 </mat-form-field>
         
                                 <p></p>
-                                <mat-form-field appearance="fill">
+                                <mat-form-field color="warn" appearance="fill">
                                     <mat-label>Modelo</mat-label>
                                     <input matInput placeholder="Ej. Terrex" name="modelo" formControlName="modelo" maxlength="20" required>
                                 </mat-form-field>
         
                                 <p></p>
-                                <mat-form-field appearance="fill">
+                                <mat-form-field color="warn" appearance="fill">
                                     <mat-label>Codigo</mat-label>
-                                    <input matInput [readonly]="true" placeholder="Ej. D123456" name="codigo" formControlName="codigo" maxlength="7" required>
+                                    <input matInput [readonly]="true" placeholder="Ej. D123456" name="codigo" formControlName="codigo" maxlength="10" required>
                                 </mat-form-field>
         
                                 <p></p>
-                                <mat-form-field appearance="fill">
+                                <mat-form-field color="warn" appearance="fill">
                                     <mat-label>Color</mat-label>
                                     <input matInput placeholder="Ej. Rojo" name="color" formControlName="color" pattern="[A-Za-z]+" maxlength="20" required>
                                 </mat-form-field>
@@ -423,14 +423,15 @@
                                 </div>
                                 
                                 <p></p>
-                                <mat-form-field appearance="fill">                            
+                                <mat-form-field color="warn" appearance="fill">                            
                                     <mat-label>Precio</mat-label>
                                     <input matInput type="number" placeholder="Ej. 1000" name="precio" formControlName="precio" min="0" required>
                                 </mat-form-field>
         
                                 <div class="space-mats">
-                                <label> Imagen: </label> 
-                                <input type="file" name="imagen" (change)="encodeAsBase64($event)" required>
+                                    <label> Imagen: </label> 
+                                    <input type="file" name="imagen" (change)="encodeAsBase64($event,'dress')" required>
+                                    <h4><i>Si no selecciona una imagen nueva, por defecto quedará la imagen ya perteneciente al producto.</i></h4>
                                 </div>
                                 
                                 <p></p>
@@ -563,7 +564,7 @@
 
                         <form [formGroup]="fform" class="form" ngNativeValidate>
                             
-                            <mat-form-field appearance="fill">
+                            <mat-form-field color="warn" appearance="fill">
                                 <mat-label>Subcategoria</mat-label>
                                 <mat-select name="tipo" formControlName="subcategoria" required>
                                     <mat-option *ngFor="let perfume of perfumes" [value]="perfume">
@@ -573,20 +574,20 @@
                             </mat-form-field>
         
                                 <p></p>
-                                <mat-form-field appearance="fill">                            
+                                <mat-form-field color="warn" appearance="fill">                            
                                     <mat-label>Volumen</mat-label>
                                     <input matInput type="number" placeholder="Ej. 125" name="volumen" formControlName="volumen" maxlength="4" min="0" required>
                                 </mat-form-field>ml
         
                                 <p></p>
-                                <mat-form-field style="width: 300px;" appearance="fill">
+                                <mat-form-field color="warn" style="width: 300px;" appearance="fill">
                                     <mat-label>Aroma</mat-label>
                                     <input matInput name="aroma" #message maxlength="50" placeholder="Ej. Este perfume huele a rosas..." formControlName="aroma" required>
                                     <mat-hint align="end">{{message.value.length}} / 50</mat-hint>
                                 </mat-form-field>
         
                                 <p></p>
-                                <mat-form-field appearance="fill">
+                                <mat-form-field color="warn" appearance="fill">
                                     <mat-label>Pais de origen</mat-label>
                                     <input matInput placeholder="Ej. Argentina" name="pais" formControlName="pais" maxlength="30" required>
                                 </mat-form-field>
@@ -600,21 +601,21 @@
                                 </div>
         
                                 <p></p>
-                                <mat-form-field appearance="fill">
+                                <mat-form-field color="warn" appearance="fill">
                                     <mat-label>Marca</mat-label>
                                     <input matInput placeholder="Ej. Kevin" name="marca" formControlName="marca" maxlength="20" required>
                                 </mat-form-field>
         
                                 <p></p>
-                                <mat-form-field appearance="fill">
+                                <mat-form-field color="warn" appearance="fill">
                                     <mat-label>Modelo</mat-label>
                                     <input matInput placeholder="Ej. Black" name="modelo" formControlName="modelo" maxlength="20" required>
                                 </mat-form-field>
         
                                 <p></p>
-                                <mat-form-field appearance="fill">
+                                <mat-form-field color="warn" appearance="fill">
                                     <mat-label>Codigo</mat-label>
-                                    <input matInput [readonly]="true" placeholder="Ej. F123" name="codigo" formControlName="codigo" maxlength="4" required>
+                                    <input matInput [readonly]="true" placeholder="Ej. F123" name="codigo" formControlName="codigo" maxlength="10" required>
                                 </mat-form-field>
         
                                 <div class="space-mats">
@@ -626,14 +627,15 @@
                                 </div>
         
                                 <p></p>
-                                <mat-form-field appearance="fill">                            
+                                <mat-form-field color="warn" appearance="fill">                            
                                     <mat-label>Precio</mat-label>
                                     <input matInput type="number" placeholder="Ej. 1000" name="precio" formControlName="precio" min="0" required>
                                 </mat-form-field>
                                 
                                 <div class="space-mats">
                                     <label> Imagen: </label> 
-                                    <input type="file" name="imagen" (change)="encodeAsBase64($event)" required>
+                                    <input type="file" name="imagen" (change)="encodeAsBase64($event,'fragrance')" required>
+                                    <h4><i>Si no selecciona una imagen nueva, por defecto quedará la imagen ya perteneciente al producto.</i></h4>
                                 </div>
         
                                 <p></p>
@@ -649,48 +651,3 @@
     </mat-tab>
 
 </mat-tab-group>
-
-
-
-
-<!--
-
-    <ng-template #modify>
-        <ng-container *ngIf="modifyingCategory == 'dress';then modify_dress else modify_fragrance"></ng-container>
-    
-        <ng-template #modify_dress>
-            
-        </ng-template>
-        
-        <ng-template #modify_fragrance>
-            
-        </ng-template>
-
-    </ng-template>
-
-    <ng-template #seeDetails>
-        <div class="details">
-            <h2> Detalles de los productos </h2>
-        </div>
-        <div style="text-align: center;">
-            <p> Seleccione la categoria para visualizar sus productos </p>
-            <button (click)="callDress()" [disabled]="callbit==false" style="margin-right: 10px;"> Indumentaria </button>
-            <button (click)="callFragrance()" [disabled]="callbit==true"> Fragrancia </button>
-        </div>
-
-        <ng-container *ngIf="callbit==null then nothing3"></ng-container>
-        <ng-container *ngIf="callbit==false then call_dress"></ng-container>
-        <ng-container *ngIf="callbit==true then call_frag"></ng-container>
-
-        <ng-template #nothing3></ng-template>
-
-        <ng-template #call_dress>
-            
-        </ng-template>
-
-        <ng-template #call_frag>
-            
-        </ng-template>
-
-    </ng-template>
--->

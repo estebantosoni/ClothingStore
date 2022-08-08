@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Dress } from '../models/dress';
 import { Favorito } from '../models/favorito';
+import { Fragrance } from '../models/fragrance';
 import { Product } from '../models/product';
 
 @Injectable({
@@ -13,8 +15,8 @@ export class FavoritoService {
 
   constructor(private backend:HttpClient) {}
 
-  getByUserID(id:number):Observable<Product[]>{
-    return this.backend.get<Product[]>(`${this.url}/byUserId/${id}`);
+  getByUserID(id:number,category:string):Observable<Dress[]|Fragrance[]>{
+    return this.backend.get<Dress[]|Fragrance[]>(`${this.url}/byUserId/${category}/${id}`);
   }
 
   save(what:Favorito):Observable<void>{

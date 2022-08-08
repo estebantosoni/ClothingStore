@@ -178,15 +178,12 @@ public class EntitiesController {
 			}
 		}
 	}
-	@GetMapping("/favoritos/byUserId/{user}")
-	public List<Product> getByUserId(@PathVariable long user){
-		List<Product> ret = new ArrayList<Product>();
-		List<Favorito> 	dressesFavs = favservice.getDressesByUserId(user),
-						fragrancesFavs = favservice.getFragrancesByUserId(user);
+	@GetMapping("/favoritos/byUserId/dress/{user}")
+	public List<Dress> getDressesByUserId(@PathVariable long user){
+		List<Dress> ret = new ArrayList<Dress>();
+		List<Favorito> 	dressesFavs = favservice.getDressesByUserId(user);
 		Optional<Dress> drRet = Optional.empty();
-		Optional<Fragrance> frRet = Optional.empty();
 		Dress dr = new Dress();
-		Fragrance fr = new Fragrance();
 		for(Favorito fav:dressesFavs) {
 			drRet = dservice.getFromId(fav.getIdProduct());
 			if(drRet.isPresent()) {
@@ -194,6 +191,14 @@ public class EntitiesController {
 				ret.add(dr);
 			}
 		}
+		return ret;
+	}
+	@GetMapping("/favoritos/byUserId/fragrance/{user}")
+	public List<Fragrance> getFragrancesByUserId(@PathVariable long user){
+		List<Fragrance> ret = new ArrayList<Fragrance>();
+		List<Favorito> 	fragrancesFavs = favservice.getFragrancesByUserId(user);
+		Optional<Fragrance> frRet = Optional.empty();
+		Fragrance fr = new Fragrance();
 		for(Favorito fav:fragrancesFavs){
 			frRet = fservice.getFromId(fav.getIdProduct());
 			if(frRet.isPresent()){

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { Dress } from '../models/dress';
+import { Fragrance } from '../models/fragrance';
 import { Product } from '../models/product';
 import { User } from '../models/user';
 import { AuthenticationService } from '../services/authentication.service';
@@ -14,7 +16,8 @@ import { FavoritoService } from '../services/favorito.service';
 export class InterfaceComponent implements OnInit {
   
   public logged:boolean;
-  public prodsFavs$:Observable<Product[]> = of([]);
+  public dressesFavs$:Observable<Dress[]> = of([]);
+  public fragrancesFavs$:Observable<Fragrance[]> = of([]);
   
   constructor(
     private router: Router,
@@ -32,8 +35,8 @@ export class InterfaceComponent implements OnInit {
   ngOnInit():void{}
 
   goTo(where:string){
-    var array = where.split('/');
-    if(array[0]=='user')
+    const array:string[] = where.split('/');
+    if(array[0] == 'user')
       return this.router.navigate([`/${array[0]}/${array[1]}`]);
     else
       return this.router.navigate([`/${where}`]);
@@ -47,7 +50,8 @@ export class InterfaceComponent implements OnInit {
   }
 
   viewFavs():void{
-    this.prodsFavs$ = this.favservice.getByUserID(this.uservice.getUsrLogged()!.id!);
+    this.dressesFavs$ = this.favservice.getByUserID(this.uservice.getUsrLogged()!.id!,"dress") as Observable<Dress[]>;
+    this.fragrancesFavs$ = this.favservice.getByUserID(this.uservice.getUsrLogged()!.id!,"fragrance") as Observable<Fragrance[]>;
   }
 
   get usrLogged():User|null{

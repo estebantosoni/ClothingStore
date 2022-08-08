@@ -31,21 +31,22 @@ export class DetailsComponent implements OnInit {
     private servFav:FavoritoService,
     private route: ActivatedRoute
     ) {
-    const id = this.route.snapshot.paramMap.get('id');
+    const category:string|null = this.route.snapshot.paramMap.get('category');
+    const code:string|null = this.route.snapshot.paramMap.get('code');
 
-    if(id?.length == 4){                      //fragrance
-      this.itemF$ = this.servF.getObj(id);
+    if(category == "fragrance"){
+      this.itemF$ = this.servF.getObj(code!);
       this.itemF$.subscribe(item => {
         this.item = item;
       });
       this.checkId = true;
     }
-    else if(id?.length == 7){                 //dress
-      this.itemD$ = this.servD.getObj(id);
+    else if(category == "dress"){
+      this.itemD$ = this.servD.getObj(code!);
       this.itemD$.subscribe(item => {
         this.item = item;
       });
-      this.talle$ = this.servD.getFromSize(id);
+      this.talle$ = this.servD.getSizeFromCode(code!);
       this.checkId = false;
     }
   }

@@ -33,10 +33,7 @@ public class DressServiceImpl implements DressService {
 	public List<Dress> getSizeD(String what) {
 		Dress prod = new Dress();
 		prod = drepo.findByCode(what);
-		String brand; String model;
-		brand = prod.getBrand();
-		model = prod.getModel();
-		return drepo.findByBrandAndModel(brand,model);
+		return drepo.findByBrandAndModelAndColor(prod.getBrand(),prod.getModel(),prod.getColor());
 	}
 
 	@Override

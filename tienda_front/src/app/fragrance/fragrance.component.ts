@@ -42,7 +42,6 @@ export class FragranceComponent implements OnInit {
   }
 
   goTo(where: string,code:string){
-    return this.router.navigate([`/${where}/${code}`]);
+    return this.router.navigate([`/${where}/fragrance/${code}`]);
   }
-
 }

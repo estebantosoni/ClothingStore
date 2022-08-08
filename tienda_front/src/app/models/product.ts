@@ -8,5 +8,6 @@ export interface Product{
     stock:boolean,
     price:number,
     image:string,
-    isOnFavs:boolean;
+    isOnFavs:boolean,
+    category?:string;
 }
