@@ -21,9 +21,9 @@ import java.util.Optional;
 
 	// SE PUEDE USAR UN SOLO CONTROLADOR PARA LAS 3 ENTIDADES, PERO TAL VEZ POR MOTIVOS DE ORDEN SE PUEDE HACER UNA MAS PARA LAS DOS CATEGORIAS
 
-
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@CrossOrigin
+//@CrossOrigin
 @RequestMapping("/interface")
 public class EntitiesController {
 	@Autowired

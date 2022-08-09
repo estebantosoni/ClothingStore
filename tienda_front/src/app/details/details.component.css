@@ -144,12 +144,12 @@ input:checked + label .action span.option-2{
 
 .stock{
     width: 50%;
-    float: inline-start;
+    float: left;
 }
 
 .favs{
     width: 50%;
-    float: inline-end;
+    float: right;
 }
 
 .favs-btn{
